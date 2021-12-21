@@ -1,0 +1,33 @@
+name: connect
+description: A flutter project to connect university students with one another.
+
+#Prevents the package from being published to pub.dev.
+publish_to: 'none' 
+
+version: 1.0.0
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  
+  flutter:
+    sdk: flutter
+    
+  #Firebase
+  cloud_firestore: ^3.1.5
+  firebase_auth: ^3.3.4
+  firebase_core: ^1.10.6
+
+dev_dependencies:
+  flutter_lints: ^1.0.0
+
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+   - assets/images/
