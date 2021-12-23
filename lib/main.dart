@@ -1,5 +1,6 @@
 import 'package:connect/screens/home.dart';
 import 'package:connect/screens/login.dart';
+import 'package:connect/screens/navbar.dart';
 import 'package:connect/screens/registration.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +19,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Connect',
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
-        '/': (context) => const Login(),
+        '/login': (context) => const Login(),
         '/registration': (context) => const Registration(),
-        '/home': (context) => const Home(),
+        '/': (context) => const NavBar(),
       },
     );
   }
