@@ -24,3 +24,13 @@ const wrongPassword = 'Wrong password provided';
 const defaultError = 'Something went wrong';
 const passwordStrengthError = 'Password entered is too weak';
 const emailInUseError = 'An account with that email already exists';
+
+// Interests Set
+const interestSet = {'Anime', 'Astrology', 'Beauty', 'Board Games', 'Books',
+  'Card Games', 'Cars & Motorcycle', 'Concerts', 'Cooking', 'Dance', 'DIY Crafts',
+  'Fashion', 'Finance', 'Fine Arts', 'Fitness', 'Food', 'Instruments', 'Languages',
+  'Movies', 'Nature', 'Nightlife', 'Pets', 'Sports', 'Tabletop Games', 'Theatre',
+  'TV Series', 'Vegan', 'Video Games', 'Volunteering'};
+
+// Activity Set
+const activitySet = {'Any', 'Eat', 'Study', 'Workout', 'In-Person Chat/ Outing', 'Online Chat'};
