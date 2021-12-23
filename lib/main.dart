@@ -1,4 +1,3 @@
-import 'package:connect/constants.dart';
 import 'package:connect/screens/home.dart';
 import 'package:connect/screens/login.dart';
 import 'package:connect/screens/registration.dart';
