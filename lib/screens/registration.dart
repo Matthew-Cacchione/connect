@@ -1,5 +1,5 @@
 import 'package:connect/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:connect/functions/authentication.dart';
 import 'package:flutter/material.dart';
 
 class Registration extends StatefulWidget {
@@ -12,16 +12,14 @@ class Registration extends StatefulWidget {
 class _RegistrationState extends State<Registration> {
   final registrationKey = GlobalKey<FormState>();
 
-  final firstNameController = TextEditingController();
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  final auth = FirebaseAuth.instance;
-
-  Widget drawFirstName() {
+  Widget drawName() {
     return TextFormField(
-      controller: firstNameController,
+      controller: nameController,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
@@ -29,15 +27,15 @@ class _RegistrationState extends State<Registration> {
           borderRadius: BorderRadius.circular(5),
         ),
         contentPadding: const EdgeInsets.all(20),
-        hintText: firstNameHint,
+        hintText: nameHint,
         prefixIcon: const Icon(Icons.person),
       ),
-      validator: (firstName) {
-        if (firstName!.isEmpty) {
+      validator: (name) {
+        if (name!.isEmpty) {
           return emptyError;
         }
 
-        if (firstName.length < 3) {
+        if (name.length < 3) {
           return nameNotValid;
         }
 
@@ -114,6 +112,10 @@ class _RegistrationState extends State<Registration> {
         prefixIcon: const Icon(Icons.vpn_key),
       ),
       validator: (password) {
+        if (password!.isEmpty) {
+          return emptyError;
+        }
+
         if (password != passwordController.text.trim()) {
           return passwordMatchError;
         }
@@ -129,7 +131,8 @@ class _RegistrationState extends State<Registration> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          signUp(emailController.text.trim(), passwordController.text.trim());
+          signUp(emailController.text.trim(), passwordController.text.trim(), nameController.text.trim(),
+              registrationKey, context);
         },
         child: Text(
           signUpPrompt.toUpperCase(),
@@ -172,7 +175,7 @@ class _RegistrationState extends State<Registration> {
                       height: 150,
                     ),
                     const SizedBox(height: 50),
-                    drawFirstName(),
+                    drawName(),
                     const SizedBox(height: 20),
                     drawEmail(),
                     const SizedBox(height: 20),
@@ -189,36 +192,5 @@ class _RegistrationState extends State<Registration> {
         ),
       ),
     );
-  }
-
-  void signUp(String email, String password) async {
-    if (registrationKey.currentState!.validate()) {
-      try {
-        await auth
-            .createUserWithEmailAndPassword(email: email, password: password)
-            .then(
-              (uid) => {
-                Navigator.of(context).pushReplacementNamed('/home'),
-              },
-            );
-      } on FirebaseAuthException catch (e) {
-        var errorMessage = defaultError;
-
-        if (e.code == 'weak-password') {
-          errorMessage = passwordStrengthError;
-        } else if (e.code == 'email-already-in-use') {
-          errorMessage = emailInUseError;
-        }
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        );
-      }
-    }
   }
 }
