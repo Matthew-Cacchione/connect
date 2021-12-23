@@ -7,11 +7,8 @@ import 'package:flutter/material.dart';
 Future<void> signIn(String email, String password, GlobalKey<FormState> formKey, context) async {
   if (formKey.currentState!.validate()) {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then(
-            (uid) => {
-              Navigator.of(context).pushReplacementNamed('/home'),
-            },
-          );
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      Navigator.pushReplacementNamed(context, '/home');
     } on FirebaseAuthException catch (e) {
       var errorMessage = defaultError;
 
@@ -39,9 +36,8 @@ Future<void> signIn(String email, String password, GlobalKey<FormState> formKey,
 Future<void> signUp(String email, String password, String name, GlobalKey<FormState> formKey, context) async {
   if (formKey.currentState!.validate()) {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password).then(
-            (uid) => {pushSignUpData(name, context)},
-          );
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      pushSignUpData(context);
     } on FirebaseAuthException catch (e) {
       var errorMessage = defaultError;
 
@@ -66,17 +62,15 @@ Future<void> signUp(String email, String password, String name, GlobalKey<FormSt
   }
 }
 
-Future<void> pushSignUpData(String name, context) async {
-  User? currentUser = FirebaseAuth.instance.currentUser;
-
+Future<void> pushSignUpData(context) async {
   UserTemplate userTemplate = UserTemplate.signUp();
 
-  userTemplate.email = currentUser!.email;
-  userTemplate.uid = currentUser.uid;
-  userTemplate.name = name;
+  userTemplate.email = userTemplate.email;
+  userTemplate.uid = userTemplate.uid;
+  userTemplate.name = userTemplate.name;
 
   try {
-    await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).set(userTemplate.toSignUpMap());
+    await FirebaseFirestore.instance.collection('users').doc(userTemplate.uid).set(userTemplate.toSignUpMap());
     Navigator.of(context).pushReplacementNamed('/home');
   } on Error {
     ScaffoldMessenger.of(context).showSnackBar(
