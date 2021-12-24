@@ -1,6 +1,8 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connect/constants.dart';
-import 'package:connect/functions/user_template.dart';
+import 'package:connect/models/user_template.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +31,7 @@ Future<void> signUp(String email, String password, String name, GlobalKey<FormSt
   if (formKey.currentState!.validate()) {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instance.currentUser?.sendEmailVerification();
       pushSignUpData(name, context);
     } on FirebaseAuthException catch (e) {
       var errorMessage = defaultError;
@@ -51,6 +54,16 @@ Future<void> signOut(BuildContext context) async {
   Navigator.pushReplacementNamed(context, '/login');
 }
 
+Future<void> checkIsEmailVerified(Timer timer, BuildContext context) async {
+  await FirebaseAuth.instance.currentUser?.reload();
+  final signedInUser = FirebaseAuth.instance.currentUser;
+
+  if (signedInUser != null && signedInUser.emailVerified) {
+    timer.cancel();
+    Navigator.of(context).pushReplacementNamed('/');
+  }
+}
+
 void showErrorSnackBar(String errorMessage, BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
@@ -68,15 +81,11 @@ void showErrorSnackBar(String errorMessage, BuildContext context) {
 Future<void> pushSignUpData(String name, BuildContext context) async {
   User? firebaseUser = FirebaseAuth.instance.currentUser;
 
-  UserTemplate userTemplate = UserTemplate.signUp();
-
-  userTemplate.email = firebaseUser!.email;
-  userTemplate.uid = firebaseUser.uid;
-  userTemplate.name = name;
+  UserTemplate userTemplate = UserTemplate(uid: firebaseUser!.uid, email: firebaseUser.email, name: name);
 
   try {
     await FirebaseFirestore.instance.collection('users').doc(userTemplate.uid).set(userTemplate.toSignUpMap());
-    Navigator.of(context).pushReplacementNamed('/');
+    Navigator.of(context).pushNamed('/verification');
   } on Error {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(

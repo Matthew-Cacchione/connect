@@ -33,8 +33,9 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: colorPrimary,
-        title: const Text(profileTitle),
+        title: const Text(homeTitle),
       ),
       backgroundColor: colorSecondary,
       body: Center(

@@ -3,7 +3,7 @@ class UserTemplate {
   String? email;
   String? name;
 
-  UserTemplate.signUp({this.uid, this.email, this.name});
+  UserTemplate({required this.uid, this.email, this.name});
 
   Map<String, dynamic> toSignUpMap() {
     return {

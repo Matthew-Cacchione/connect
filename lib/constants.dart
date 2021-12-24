@@ -27,3 +27,5 @@ const emailInUseError = 'An account with that email already exists.';
 const profileTitle = 'Profile';
 const homeTitle = 'Home';
 const chatTitle = 'Chat';
+const verificationTitle = 'A verification email has been sent. Click on the link provided to complete your registration.';
+const verificationNotSent = 'Didn\'t get an email?';

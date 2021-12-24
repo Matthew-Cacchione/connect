@@ -1,6 +1,7 @@
+import 'package:connect/screens/account_creation/verification.dart';
 import 'package:connect/screens/login.dart';
 import 'package:connect/screens/navbar.dart';
-import 'package:connect/screens/registration.dart';
+import 'package:connect/screens/account_creation/registration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +22,10 @@ class MyApp extends StatelessWidget {
       title: 'Connect',
       initialRoute: getLandingPage(),
       routes: {
+        '/': (context) => const NavBar(),
         '/login': (context) => const Login(),
         '/registration': (context) => const Registration(),
-        '/': (context) => const NavBar(),
+        '/verification': (context) => const Verification(),
       },
     );
   }
