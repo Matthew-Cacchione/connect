@@ -1,4 +1,5 @@
 import 'package:connect/constants.dart';
+import 'package:connect/functions/authentication.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -9,7 +10,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: colorPrimary,
-        title: const Text('Home'),
+        title: const Text(homeTitle),
       ),
       backgroundColor: colorSecondary,
       body: Center(
@@ -29,7 +30,7 @@ class Home extends StatelessWidget {
                   const SizedBox(height: 50),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/');
+                      signOut(context);
                     },
                     child: Text(
                       signOutBtn.toUpperCase(),

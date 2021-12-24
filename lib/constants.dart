@@ -24,3 +24,6 @@ const wrongPassword = 'Wrong password provided.';
 const defaultError = 'Something went wrong.';
 const passwordStrengthError = 'Password entered is too weak.';
 const emailInUseError = 'An account with that email already exists.';
+const profileTitle = 'Profile';
+const homeTitle = 'Home';
+const chatTitle = 'Chat';
