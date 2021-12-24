@@ -5,10 +5,6 @@ class UserTemplate {
 
   UserTemplate.signUp({this.uid, this.email, this.name});
 
-  factory UserTemplate.fromSignUpMap(userMap) {
-    return UserTemplate.signUp();
-  }
-
   Map<String, dynamic> toSignUpMap() {
     return {
       'uid': uid,

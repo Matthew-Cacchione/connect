@@ -1,5 +1,5 @@
 import 'package:connect/constants.dart';
-import 'package:connect/functions/authentication.dart';
+import 'package:connect/functions/firebase_util.dart';
 import 'package:flutter/material.dart';
 
 class Registration extends StatefulWidget {
@@ -131,8 +131,7 @@ class _RegistrationState extends State<Registration> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          signUp(emailController.text.trim(), passwordController.text.trim(), nameController.text.trim(),
-              registrationKey, context);
+          signUp(emailController.text.trim(), passwordController.text.trim(), nameController.text.trim(), registrationKey, context);
         },
         child: Text(
           signUpPrompt.toUpperCase(),

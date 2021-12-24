@@ -1,5 +1,5 @@
 import 'package:connect/constants.dart';
-import 'package:connect/functions/authentication.dart';
+import 'package:connect/functions/firebase_util.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {

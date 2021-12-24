@@ -1,9 +1,33 @@
 import 'package:connect/constants.dart';
-import 'package:connect/functions/authentication.dart';
+import 'package:connect/functions/firebase_util.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
+
+  Widget drawSignOutBtn(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        signOut(context);
+      },
+      child: Text(
+        signOutBtn.toUpperCase(),
+        style: const TextStyle(
+          color: colorSecondary,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        primary: colorPrimary,
+        elevation: 5,
+        padding: const EdgeInsets.all(20),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,27 +52,7 @@ class Profile extends StatelessWidget {
                     height: 200,
                   ),
                   const SizedBox(height: 50),
-                  ElevatedButton(
-                    onPressed: () {
-                      signOut(context);
-                    },
-                    child: Text(
-                      signOutBtn.toUpperCase(),
-                      style: const TextStyle(
-                        color: colorSecondary,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: colorPrimary,
-                      elevation: 5,
-                      padding: const EdgeInsets.all(15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                  ),
+                  drawSignOutBtn(context),
                 ],
               ),
             ),
