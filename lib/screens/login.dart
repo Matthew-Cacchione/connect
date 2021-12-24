@@ -1,5 +1,5 @@
 import 'package:connect/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:connect/functions/authentication.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -10,12 +10,18 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final loginKey = GlobalKey<FormState>();
+  final _loginKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final auth = FirebaseAuth.instance;
+  late bool _passwordVisible;
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordVisible = false;
+  }
 
   Widget drawEmail() {
     return TextFormField(
@@ -23,12 +29,12 @@ class _LoginState extends State<Login> {
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-        ),
         contentPadding: const EdgeInsets.all(20),
         hintText: emailHint,
         prefixIcon: const Icon(Icons.mail),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
       ),
       validator: (email) {
         if (email!.isEmpty) {
@@ -47,7 +53,7 @@ class _LoginState extends State<Login> {
   Widget drawPassword() {
     return TextFormField(
       controller: passwordController,
-      obscureText: true,
+      obscureText: !_passwordVisible,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         border: OutlineInputBorder(
@@ -56,14 +62,20 @@ class _LoginState extends State<Login> {
         contentPadding: const EdgeInsets.all(20),
         hintText: passwordHint,
         prefixIcon: const Icon(Icons.vpn_key),
+        suffixIcon: IconButton(
+          onPressed: () {
+            setState(() {
+              _passwordVisible = !_passwordVisible;
+            });
+          },
+          icon: Icon(
+            _passwordVisible ? Icons.visibility : Icons.visibility_off,
+          ),
+        ),
       ),
       validator: (password) {
         if (password!.isEmpty) {
           return emptyError;
-        }
-
-        if (password.length < 8) {
-          return passwordNotValid;
         }
 
         return null;
@@ -95,7 +107,7 @@ class _LoginState extends State<Login> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          signIn(emailController.text.trim(), passwordController.text.trim());
+          signIn(emailController.text.trim(), passwordController.text.trim(), _loginKey, context);
         },
         child: Text(
           loginBtn.toUpperCase(),
@@ -149,7 +161,7 @@ class _LoginState extends State<Login> {
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Form(
-                key: loginKey,
+                key: _loginKey,
                 child: Column(
                   children: <Widget>[
                     SizedBox(
@@ -175,36 +187,5 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  }
-
-  void signIn(String email, String password) async {
-    if (loginKey.currentState!.validate()) {
-      try {
-        await auth
-            .signInWithEmailAndPassword(email: email, password: password)
-            .then(
-              (uid) => {
-                Navigator.of(context).pushReplacementNamed('/home'),
-              },
-            );
-      } on FirebaseAuthException catch (e) {
-        var errorMessage = defaultError;
-
-        if (e.code == 'user-not-found') {
-          errorMessage = userNotFound;
-        } else if (e.code == 'wrong-password') {
-          errorMessage = wrongPassword;
-        }
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        );
-      }
-    }
   }
 }
