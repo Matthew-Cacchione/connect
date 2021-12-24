@@ -1,7 +1,7 @@
-import 'package:connect/screens/home.dart';
 import 'package:connect/screens/login.dart';
 import 'package:connect/screens/navbar.dart';
 import 'package:connect/screens/registration.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Connect',
-      initialRoute: '/login',
+      initialRoute: getLandingPage(),
       routes: {
         '/login': (context) => const Login(),
         '/registration': (context) => const Registration(),
@@ -27,4 +27,12 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+}
+
+String getLandingPage() {
+  var route = '/login';
+  if (FirebaseAuth.instance.currentUser != null) {
+    route = '/';
+  }
+  return route;
 }

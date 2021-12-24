@@ -62,7 +62,7 @@ class _RegistrationState extends State<Registration> {
           return emptyError;
         }
 
-        if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]').hasMatch(email)) {
+        if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]+\$').hasMatch(email)) {
           return emailNotValid;
         }
 
