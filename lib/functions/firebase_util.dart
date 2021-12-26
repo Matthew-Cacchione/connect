@@ -12,9 +12,13 @@ Future<void> signIn(String email, String password, GlobalKey<FormState> formKey,
   if (formKey.currentState!.validate()) {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-      Navigator.pushReplacementNamed(context, '/');
+      if (checkIsEmailVerified()) {
+        Navigator.pushReplacementNamed(context, '/');
+      } else {
+        Navigator.pushNamed(context, '/verification');
+      }
     } on FirebaseAuthException catch (e) {
-      var errorMessage = defaultError;
+      String errorMessage = defaultError;
 
       if (e.code == 'user-not-found') {
         errorMessage = userNotFound;
@@ -22,7 +26,7 @@ Future<void> signIn(String email, String password, GlobalKey<FormState> formKey,
         errorMessage = wrongPassword;
       }
 
-      showErrorSnackBar(errorMessage, context);
+      showSnackBar(errorMessage, context);
     }
   }
 }
@@ -31,7 +35,7 @@ Future<void> signUp(String email, String password, String name, GlobalKey<FormSt
   if (formKey.currentState!.validate()) {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-      await FirebaseAuth.instance.currentUser?.sendEmailVerification();
+      await FirebaseAuth.instance.currentUser!.sendEmailVerification();
       pushSignUpData(name, context);
     } on FirebaseAuthException catch (e) {
       var errorMessage = defaultError;
@@ -42,9 +46,9 @@ Future<void> signUp(String email, String password, String name, GlobalKey<FormSt
         errorMessage = emailInUseError;
       }
 
-      showErrorSnackBar(errorMessage, context);
+      showSnackBar(errorMessage, context);
     } catch (e) {
-      showErrorSnackBar(defaultError, context);
+      showSnackBar(defaultError, context);
     }
   }
 }
@@ -54,21 +58,22 @@ Future<void> signOut(BuildContext context) async {
   Navigator.pushReplacementNamed(context, '/login');
 }
 
-Future<void> checkIsEmailVerified(Timer timer, BuildContext context) async {
-  await FirebaseAuth.instance.currentUser?.reload();
-  final signedInUser = FirebaseAuth.instance.currentUser;
+bool checkIsEmailVerified() {
+  FirebaseAuth.instance.currentUser?.reload();
+  final currentUser = FirebaseAuth.instance.currentUser;
 
-  if (signedInUser != null && signedInUser.emailVerified) {
-    timer.cancel();
-    Navigator.of(context).pushReplacementNamed('/');
+  if (currentUser != null && currentUser.emailVerified) {
+    return true;
+  } else {
+    return false;
   }
 }
 
-void showErrorSnackBar(String errorMessage, BuildContext context) {
+void showSnackBar(String message, BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(
-        errorMessage,
+        message,
         textAlign: TextAlign.center,
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),

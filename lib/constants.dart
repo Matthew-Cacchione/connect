@@ -5,6 +5,7 @@ const colorPrimary = Color(0xff0079d6);
 const colorSecondary = Color(0xffffffff);
 
 // Strings
+const appName = 'Connect';
 const emailHint = 'University Email';
 const emptyError = 'Required';
 const emailNotValid = 'Please enter a valid email';
@@ -27,5 +28,8 @@ const emailInUseError = 'An account with that email already exists.';
 const profileTitle = 'Profile';
 const homeTitle = 'Home';
 const chatTitle = 'Chat';
-const verificationTitle = 'A verification email has been sent. Click on the link provided to complete your registration.';
-const verificationNotSent = 'Didn\'t get an email?';
+const verificationTitle = 'Verification';
+const verificationMessage = 'A verification email has been sent. Click on the link provided to complete your registration.';
+const verificationNotSent = 'Didn\'t receive an email?';
+const frequentRequestError = 'You are doing that too much.';
+const resendVerification = 'Another email has been sent, please check your spam folder.';

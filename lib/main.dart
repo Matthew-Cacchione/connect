@@ -1,3 +1,4 @@
+import 'package:connect/constants.dart';
 import 'package:connect/screens/account_creation/verification.dart';
 import 'package:connect/screens/login.dart';
 import 'package:connect/screens/navbar.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Connect',
+      title: appName,
       initialRoute: getLandingPage(),
       routes: {
         '/': (context) => const NavBar(),
@@ -32,9 +33,15 @@ class MyApp extends StatelessWidget {
 }
 
 String getLandingPage() {
-  var route = '/login';
-  if (FirebaseAuth.instance.currentUser != null) {
+  String route = '/login';
+  User? currentUser = FirebaseAuth.instance.currentUser;
+
+  if (currentUser == null) {
+    route = '/login';
+  } else if (currentUser.emailVerified) {
     route = '/';
+  } else if (!currentUser.emailVerified) {
+    route = 'verification';
   }
   return route;
 }

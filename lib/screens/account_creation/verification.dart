@@ -13,20 +13,20 @@ class Verification extends StatefulWidget {
 }
 
 class _VerificationState extends State<Verification> {
-  bool isEmailVerified = false;
   Timer? timer;
-  User? currentUser;
 
   @override
   void initState() {
     super.initState();
-    currentUser = FirebaseAuth.instance.currentUser;
     timer = Timer.periodic(
       const Duration(
         seconds: 3,
       ),
       (timer) {
-        checkIsEmailVerified(timer, context);
+        if (checkIsEmailVerified()) {
+          timer.cancel();
+          Navigator.pushReplacementNamed(context, '/');
+        }
       },
     );
   }
@@ -42,11 +42,24 @@ class _VerificationState extends State<Verification> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         GestureDetector(
-          onTap: () {},
+          onTap: () async {
+            try {
+              await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+              showSnackBar(resendVerification, context);
+            } on FirebaseAuthException catch (e) {
+              String errorMessage = defaultError;
+
+              if (e.code == 'too-many-requests') {
+                errorMessage = frequentRequestError;
+              }
+              showSnackBar(errorMessage, context);
+            }
+          },
           child: const Text(
             verificationNotSent,
             style: TextStyle(
               color: colorPrimary,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -58,6 +71,11 @@ class _VerificationState extends State<Verification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: colorPrimary,
+        title: const Text(verificationTitle),
+      ),
       backgroundColor: colorSecondary,
       body: Center(
         child: SingleChildScrollView(
@@ -68,12 +86,13 @@ class _VerificationState extends State<Verification> {
               child: Column(
                 children: <Widget>[
                   const Text(
-                    verificationTitle,
+                    verificationMessage,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 24,
                     ),
                   ),
+                  const SizedBox(height: 25),
                   drawVerificationNotSent(),
                 ],
               ),
