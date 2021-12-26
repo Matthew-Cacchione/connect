@@ -44,6 +44,7 @@ Future<void> signUp(String email, String password, String name, GlobalKey<FormSt
         errorMessage = passwordStrengthError;
       } else if (e.code == 'email-already-in-use') {
         errorMessage = emailInUseError;
+        Navigator.pushReplacementNamed(context, '/login');
       }
 
       showSnackBar(errorMessage, context);
@@ -56,6 +57,21 @@ Future<void> signUp(String email, String password, String name, GlobalKey<FormSt
 Future<void> signOut(BuildContext context) async {
   await FirebaseAuth.instance.signOut();
   Navigator.pushReplacementNamed(context, '/login');
+}
+
+Future<void> resetUserPassword(String email, BuildContext context) async {
+  try {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  } on FirebaseAuthException catch (e) {
+    String errorMessage = defaultError;
+
+    if (e.code == 'invalid-email') {
+      errorMessage = emailNotValid;
+    } else if (e.code == 'user-not-found') {
+      errorMessage = userNotFound;
+    }
+    showSnackBar(errorMessage, context);
+  }
 }
 
 bool checkIsEmailVerified() {

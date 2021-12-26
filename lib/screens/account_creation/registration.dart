@@ -156,6 +156,10 @@ class _RegistrationState extends State<Registration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: colorPrimary,
+        title: const Text('Create Account'),
+      ),
       backgroundColor: colorSecondary,
       body: Center(
         child: SingleChildScrollView(
@@ -183,6 +187,11 @@ class _RegistrationState extends State<Registration> {
                     drawConfirmPassword(),
                     const SizedBox(height: 20),
                     drawSignUpBtn(),
+                    const SizedBox(height: 0),
+                    const Text(
+                      signUpAgreement,
+                      textAlign: TextAlign.center,
+                    ),
                   ],
                 ),
               ),

@@ -88,7 +88,14 @@ class _LoginState extends State<Login> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            if (emailController.text.isNotEmpty) {
+              resetUserPassword(emailController.text.trim(), context);
+              showSnackBar(passwordResetSent, context);
+            } else {
+              showSnackBar(noEmailEntered, context);
+            }
+          },
           child: const Text(
             forgotPassword,
             style: TextStyle(
