@@ -35,5 +35,17 @@ const interestSet = {'Anime', 'Astrology', 'Beauty', 'Board Games', 'Books',
   'Movies', 'Nature', 'Nightlife', 'Pets', 'Sports', 'Tabletop Games', 'Theatre',
   'TV Series', 'Vegan', 'Video Games', 'Volunteering'};
 
+const interestMap = {
+  'Entertainment': ['Anime', 'Books', 'Movies', 'Theatre' 'TV Series'],
+  'Games': ['Board Games', 'Card Games', 'Tabletop Games', 'Video Games'],
+  'Events': ['Concerts', 'Dance', 'Nightlife', 'Volunteering'],
+  'Leisure': ['Cars & Motorcycle', 'Instruments', 'DIY Crafts', 'Food', 'Pets'],
+  'Lifestyle': ['Astrology', 'Beauty', 'Fashion', 'Vegan'],
+  'Wellness': ['Cooking', 'Fitness', 'Food', 'Nature', 'Sports'],
+  'Education': ['Finance', 'Fine Arts', 'Languages']
+};
+
+final interestCategories = interestMap.keys.toList();
+
 // Activity Set
 const activitySet = {'Any', 'Eat', 'Study', 'Workout', 'In-Person Chat/ Outing', 'Online Chat'};
