@@ -40,7 +40,7 @@ String getLandingPage() {
     route = '/login';
   } else if (currentUser.emailVerified) {
     route = '/';
-  } else if (!currentUser.emailVerified) {
+  } else {
     route = 'verification';
   }
   return route;

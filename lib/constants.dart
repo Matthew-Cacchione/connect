@@ -36,3 +36,4 @@ const resendVerification = 'Another email has been sent, please check your spam 
 const signUpAgreement = 'By signing up, you agree to the Terms of Service and Privacy Policy, including cookie use.';
 const noEmailEntered = 'Please enter an email.';
 const passwordResetSent = 'Password reset email has been sent.';
+const registrationTitle = 'Create Account';

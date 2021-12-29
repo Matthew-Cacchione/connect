@@ -158,42 +158,39 @@ class _RegistrationState extends State<Registration> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: colorPrimary,
-        title: const Text('Create Account'),
+        title: const Text(registrationTitle),
       ),
       backgroundColor: colorSecondary,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
             color: colorSecondary,
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Form(
-                key: registrationKey,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      child: Image.asset(
-                        'assets/images/logo.png',
-                      ),
-                      height: 150,
+            padding: const EdgeInsets.all(15),
+            child: Form(
+              key: registrationKey,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    child: Image.asset(
+                      'assets/images/logo.png',
                     ),
-                    const SizedBox(height: 50),
-                    drawName(),
-                    const SizedBox(height: 20),
-                    drawEmail(),
-                    const SizedBox(height: 20),
-                    drawPassword(),
-                    const SizedBox(height: 20),
-                    drawConfirmPassword(),
-                    const SizedBox(height: 20),
-                    drawSignUpBtn(),
-                    const SizedBox(height: 0),
-                    const Text(
-                      signUpAgreement,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+                    height: 150,
+                  ),
+                  const SizedBox(height: 50),
+                  drawName(),
+                  const SizedBox(height: 20),
+                  drawEmail(),
+                  const SizedBox(height: 20),
+                  drawPassword(),
+                  const SizedBox(height: 20),
+                  drawConfirmPassword(),
+                  const SizedBox(height: 20),
+                  drawSignUpBtn(),
+                  const Text(
+                    signUpAgreement,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
           ),

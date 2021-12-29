@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connect/components/appbar.dart';
 import 'package:connect/constants.dart';
 import 'package:connect/functions/firebase_util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -71,31 +72,25 @@ class _VerificationState extends State<Verification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: colorPrimary,
-        title: const Text(verificationTitle),
-      ),
+      appBar: drawAppBar(verificationTitle),
       backgroundColor: colorSecondary,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
             color: colorSecondary,
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                children: <Widget>[
-                  const Text(
-                    verificationMessage,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: <Widget>[
+                const Text(
+                  verificationMessage,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24,
                   ),
-                  const SizedBox(height: 25),
-                  drawVerificationNotSent(),
-                ],
-              ),
+                ),
+                const SizedBox(height: 25),
+                drawVerificationNotSent(),
+              ],
             ),
           ),
         ),

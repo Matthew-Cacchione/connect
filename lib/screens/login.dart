@@ -165,29 +165,27 @@ class _LoginState extends State<Login> {
         child: SingleChildScrollView(
           child: Container(
             color: colorSecondary,
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Form(
-                key: _loginKey,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      child: Image.asset(
-                        'assets/images/logo.png',
-                      ),
-                      height: 200,
+            padding: const EdgeInsets.all(15),
+            child: Form(
+              key: _loginKey,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    child: Image.asset(
+                      'assets/images/logo.png',
                     ),
-                    const SizedBox(height: 50),
-                    drawEmail(),
-                    const SizedBox(height: 20),
-                    drawPassword(),
-                    const SizedBox(height: 5),
-                    drawForgotPassword(),
-                    const SizedBox(height: 20),
-                    drawLoginBtn(),
-                    drawSignUp(),
-                  ],
-                ),
+                    height: 200,
+                  ),
+                  const SizedBox(height: 50),
+                  drawEmail(),
+                  const SizedBox(height: 20),
+                  drawPassword(),
+                  const SizedBox(height: 5),
+                  drawForgotPassword(),
+                  const SizedBox(height: 20),
+                  drawLoginBtn(),
+                  drawSignUp(),
+                ],
               ),
             ),
           ),
