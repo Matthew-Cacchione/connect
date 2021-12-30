@@ -1,5 +1,5 @@
 import 'package:connect/constants.dart';
-import 'package:connect/functions/authentication.dart';
+import 'package:connect/functions/firebase_util.dart';
 import 'package:flutter/material.dart';
 
 class Registration extends StatefulWidget {
@@ -131,8 +131,7 @@ class _RegistrationState extends State<Registration> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          signUp(emailController.text.trim(), passwordController.text.trim(), nameController.text.trim(),
-              registrationKey, context);
+          signUp(emailController.text.trim(), passwordController.text.trim(), nameController.text.trim(), registrationKey, context);
         },
         child: Text(
           signUpPrompt.toUpperCase(),
@@ -157,35 +156,41 @@ class _RegistrationState extends State<Registration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: colorPrimary,
+        title: const Text(registrationTitle),
+      ),
       backgroundColor: colorSecondary,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
             color: colorSecondary,
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Form(
-                key: registrationKey,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      child: Image.asset(
-                        'assets/images/logo.png',
-                      ),
-                      height: 150,
+            padding: const EdgeInsets.all(15),
+            child: Form(
+              key: registrationKey,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    child: Image.asset(
+                      'assets/images/logo.png',
                     ),
-                    const SizedBox(height: 50),
-                    drawName(),
-                    const SizedBox(height: 20),
-                    drawEmail(),
-                    const SizedBox(height: 20),
-                    drawPassword(),
-                    const SizedBox(height: 20),
-                    drawConfirmPassword(),
-                    const SizedBox(height: 20),
-                    drawSignUpBtn(),
-                  ],
-                ),
+                    height: 150,
+                  ),
+                  const SizedBox(height: 50),
+                  drawName(),
+                  const SizedBox(height: 20),
+                  drawEmail(),
+                  const SizedBox(height: 20),
+                  drawPassword(),
+                  const SizedBox(height: 20),
+                  drawConfirmPassword(),
+                  const SizedBox(height: 20),
+                  drawSignUpBtn(),
+                  const Text(
+                    signUpAgreement,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
           ),

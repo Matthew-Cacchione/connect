@@ -1,5 +1,6 @@
+import 'package:connect/components/appbar.dart';
+import 'package:connect/components/sign_out_btn.dart';
 import 'package:connect/constants.dart';
-import 'package:connect/functions/authentication.dart';
 import 'package:flutter/material.dart';
 
 class Chat extends StatelessWidget {
@@ -8,49 +9,24 @@ class Chat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: colorPrimary,
-        title: const Text(chatTitle),
-      ),
+      appBar: drawAppBar(chatTitle),
       backgroundColor: colorSecondary,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
             color: colorSecondary,
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                    ),
-                    height: 200,
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  child: Image.asset(
+                    'assets/images/logo.png',
                   ),
-                  const SizedBox(height: 50),
-                  ElevatedButton(
-                    onPressed: () {
-                      signOut(context);
-                    },
-                    child: Text(
-                      signOutBtn.toUpperCase(),
-                      style: const TextStyle(
-                        color: colorSecondary,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: colorPrimary,
-                      elevation: 5,
-                      padding: const EdgeInsets.all(15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                  height: 200,
+                ),
+                const SizedBox(height: 50),
+                drawSignOutBtn(context),
+              ],
             ),
           ),
         ),

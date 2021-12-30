@@ -1,5 +1,5 @@
 import 'package:connect/constants.dart';
-import 'package:connect/functions/authentication.dart';
+import 'package:connect/functions/firebase_util.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -88,7 +88,14 @@ class _LoginState extends State<Login> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            if (emailController.text.isNotEmpty) {
+              resetUserPassword(emailController.text.trim(), context);
+              showSnackBar(passwordResetSent, context);
+            } else {
+              showSnackBar(noEmailEntered, context);
+            }
+          },
           child: const Text(
             forgotPassword,
             style: TextStyle(
@@ -158,29 +165,27 @@ class _LoginState extends State<Login> {
         child: SingleChildScrollView(
           child: Container(
             color: colorSecondary,
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Form(
-                key: _loginKey,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      child: Image.asset(
-                        'assets/images/logo.png',
-                      ),
-                      height: 200,
+            padding: const EdgeInsets.all(15),
+            child: Form(
+              key: _loginKey,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    child: Image.asset(
+                      'assets/images/logo.png',
                     ),
-                    const SizedBox(height: 50),
-                    drawEmail(),
-                    const SizedBox(height: 20),
-                    drawPassword(),
-                    const SizedBox(height: 5),
-                    drawForgotPassword(),
-                    const SizedBox(height: 20),
-                    drawLoginBtn(),
-                    drawSignUp(),
-                  ],
-                ),
+                    height: 200,
+                  ),
+                  const SizedBox(height: 50),
+                  drawEmail(),
+                  const SizedBox(height: 20),
+                  drawPassword(),
+                  const SizedBox(height: 5),
+                  drawForgotPassword(),
+                  const SizedBox(height: 20),
+                  drawLoginBtn(),
+                  drawSignUp(),
+                ],
               ),
             ),
           ),
