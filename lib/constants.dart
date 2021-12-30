@@ -37,3 +37,58 @@ const signUpAgreement = 'By signing up, you agree to the Terms of Service and Pr
 const noEmailEntered = 'Please enter an email.';
 const passwordResetSent = 'Password reset email has been sent.';
 const registrationTitle = 'Create Account';
+
+// Interests Set
+const interestSet = {
+  'Anime',
+  'Astrology',
+  'Beauty',
+  'Board Games',
+  'Books',
+  'Card Games',
+  'Cars & Motorcycle',
+  'Concerts',
+  'Cooking',
+  'Dance',
+  'DIY Crafts',
+  'Fashion',
+  'Finance',
+  'Fine Arts',
+  'Fitness',
+  'Food',
+  'Instruments',
+  'Languages',
+  'Movies',
+  'Nature',
+  'Nightlife',
+  'Pets',
+  'Sports',
+  'Tabletop Games',
+  'Theatre',
+  'TV Series',
+  'Vegan',
+  'Video Games',
+  'Volunteering',
+};
+
+const interestMap = {
+  'Entertainment': ['Anime', 'Books', 'Movies', 'Theatre', 'TV Series'],
+  'Games': ['Board Games', 'Card Games', 'Tabletop Games', 'Video Games'],
+  'Events': ['Concerts', 'Dance', 'Nightlife', 'Volunteering'],
+  'Leisure': ['Cars & Motorcycle', 'Instruments', 'DIY Crafts', 'Food', 'Pets'],
+  'Lifestyle': ['Astrology', 'Beauty', 'Fashion', 'Vegan'],
+  'Wellness': ['Cooking', 'Fitness', 'Nature', 'Sports'],
+  'Education': ['Finance', 'Fine Arts', 'Languages'],
+};
+
+final interestCategories = interestMap.keys.toList();
+
+// Activity Set
+const activitySet = {
+  'Any',
+  'Eat',
+  'Study',
+  'Workout',
+  'In-Person Chat/ Outing',
+  'Online Chat',
+};
