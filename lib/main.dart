@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'screens/account_creation/registration.dart';
 import 'screens/account_creation/verification.dart';
-import 'screens/interest.dart';
+import 'screens/interests.dart';
 import 'screens/login.dart';
 import 'screens/navbar.dart';
 
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const Login(),
         '/registration': (context) => const Registration(),
         '/verification': (context) => const Verification(),
-        '/setup': (context) => const Interest()
+        '/interests': (context) => const Interests()
       },
     );
   }
@@ -44,7 +44,7 @@ String getLandingPage() {
   } else if (currentUser.emailVerified) {
     route = '/';
   } else {
-    route = 'verification';
+    route = '/verification';
   }
   return route;
 }

@@ -14,7 +14,7 @@ Future<void> signIn(String email, String password, GlobalKey<FormState> formKey,
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
       if (checkIsEmailVerified()) {
-        Navigator.pushReplacementNamed(context, '/');
+        Navigator.pushReplacementNamed(context, '/interests');
       } else {
         Navigator.pushNamed(context, '/verification');
       }

@@ -37,6 +37,10 @@ const signUpAgreement = 'By signing up, you agree to the Terms of Service and Pr
 const noEmailEntered = 'Please enter an email.';
 const passwordResetSent = 'Password reset email has been sent.';
 const registrationTitle = 'Create Account';
+const tooManyInterests = 'Please select a maximum of 5 items.';
+const interestsPrompt = 'What are your interests?';
+const interestsLimitMessage = 'Please select up to 5 interests';
+const submitBtn = 'Submit';
 
 // Interests Set
 const interestSet = {
