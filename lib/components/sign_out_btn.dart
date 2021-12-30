@@ -1,6 +1,7 @@
-import 'package:connect/constants.dart';
-import 'package:connect/functions/firebase_util.dart';
 import 'package:flutter/material.dart';
+
+import '../constants.dart';
+import '../functions/firebase_util.dart';
 
 Widget drawSignOutBtn(BuildContext context) {
   return ElevatedButton(

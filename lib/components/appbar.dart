@@ -1,5 +1,6 @@
-import 'package:connect/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../constants.dart';
 
 PreferredSizeWidget drawAppBar(String title) {
   return PreferredSize(

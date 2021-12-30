@@ -91,9 +91,9 @@ class _LoginState extends State<Login> {
           onTap: () {
             if (emailController.text.isNotEmpty) {
               resetUserPassword(emailController.text.trim(), context);
-              showSnackBar(passwordResetSent, context);
+              showErrorSnackBar(passwordResetSent, context);
             } else {
-              showSnackBar(noEmailEntered, context);
+              showErrorSnackBar(noEmailEntered, context);
             }
           },
           child: const Text(

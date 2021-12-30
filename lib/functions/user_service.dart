@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../constants.dart';
-import 'authentication.dart';
+import 'firebase_util.dart';
 
 Future<void> setInterestCurrentUser(List<String> interest, BuildContext context) async {
   try {
@@ -22,7 +22,7 @@ Future<void> setInterestCurrentUser(List<String> interest, BuildContext context)
       errorMessage = wrongPassword;
     }
     showErrorSnackBar(errorMessage, context);
-  } on Exception catch(e) {
+  } on Exception catch (e) {
     showErrorSnackBar(e.toString(), context);
   }
 }

@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connect/constants.dart';
-import 'package:connect/models/user_template.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../constants.dart';
+import '../models/user_template.dart';
 
 // Authentication
 
@@ -26,7 +27,7 @@ Future<void> signIn(String email, String password, GlobalKey<FormState> formKey,
         errorMessage = wrongPassword;
       }
 
-      showSnackBar(errorMessage, context);
+      showErrorSnackBar(errorMessage, context);
     }
   }
 }
@@ -47,9 +48,9 @@ Future<void> signUp(String email, String password, String name, GlobalKey<FormSt
         Navigator.pushReplacementNamed(context, '/login');
       }
 
-      showSnackBar(errorMessage, context);
+      showErrorSnackBar(errorMessage, context);
     } catch (e) {
-      showSnackBar(defaultError, context);
+      showErrorSnackBar(defaultError, context);
     }
   }
 }
@@ -70,7 +71,7 @@ Future<void> resetUserPassword(String email, BuildContext context) async {
     } else if (e.code == 'user-not-found') {
       errorMessage = userNotFound;
     }
-    showSnackBar(errorMessage, context);
+    showErrorSnackBar(errorMessage, context);
   }
 }
 
@@ -83,18 +84,6 @@ bool checkIsEmailVerified() {
   } else {
     return false;
   }
-}
-
-void showSnackBar(String message, BuildContext context) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(
-        message,
-        textAlign: TextAlign.center,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
-    ),
-  );
 }
 
 // Firestore database
@@ -120,4 +109,18 @@ Future<void> pushSignUpData(String name, BuildContext context) async {
       ),
     );
   }
+}
+
+// Other
+
+void showErrorSnackBar(String message, BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        message,
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
+    ),
+  );
 }

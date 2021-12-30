@@ -1,10 +1,11 @@
 import 'dart:async';
 
-import 'package:connect/components/appbar.dart';
-import 'package:connect/constants.dart';
-import 'package:connect/functions/firebase_util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../../components/appbar.dart';
+import '../../constants.dart';
+import '../../functions/firebase_util.dart';
 
 class Verification extends StatefulWidget {
   const Verification({Key? key}) : super(key: key);
@@ -46,14 +47,14 @@ class _VerificationState extends State<Verification> {
           onTap: () async {
             try {
               await FirebaseAuth.instance.currentUser!.sendEmailVerification();
-              showSnackBar(resendVerification, context);
+              showErrorSnackBar(resendVerification, context);
             } on FirebaseAuthException catch (e) {
               String errorMessage = defaultError;
 
               if (e.code == 'too-many-requests') {
                 errorMessage = frequentRequestError;
               }
-              showSnackBar(errorMessage, context);
+              showErrorSnackBar(errorMessage, context);
             }
           },
           child: const Text(

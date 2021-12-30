@@ -1,7 +1,8 @@
-import 'package:connect/constants.dart';
-import 'package:connect/functions/authentication.dart';
-import 'package:connect/functions/user_service.dart';
 import 'package:flutter/material.dart';
+
+import '../constants.dart';
+import '../functions/firebase_util.dart';
+import '../functions/user_service.dart';
 
 class Interest extends StatefulWidget {
   const Interest({Key? key}) : super(key: key);
@@ -17,9 +18,8 @@ class _InterestState extends State<Interest> {
     return ChoiceChip(
         selectedColor: Colors.purple,
         labelStyle: TextStyle(
-            color: _selectedItems.contains(choiceLabel)
-                ? Colors.white
-                : Colors.black),
+          color: _selectedItems.contains(choiceLabel) ? Colors.white : Colors.black,
+        ),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         label: Text(choiceLabel),
         selected: _selectedItems.contains(choiceLabel),
@@ -51,23 +51,20 @@ class _InterestState extends State<Interest> {
               expandedHeight: 180,
               elevation: 0,
               flexibleSpace: FlexibleSpaceBar(
-                  title: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                            margin: const EdgeInsets.only(bottom: 5),
-                            child: const Text(
-                              'What are your Interests?',
-                              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-                            )),
-                        Container(
-                            margin: const EdgeInsets.only(bottom: 10),
-                            child: const Text(
-                              'Please Select Up to 5 Interests.',
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300, color: Colors.white),
-                            ))
-                      ]),
+                  title: Column(mainAxisAlignment: MainAxisAlignment.end, crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+                    Container(
+                        margin: const EdgeInsets.only(bottom: 5),
+                        child: const Text(
+                          'What are your Interests?',
+                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                        )),
+                    Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        child: const Text(
+                          'Please Select Up to 5 Interests.',
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300, color: Colors.white),
+                        ))
+                  ]),
                   titlePadding: const EdgeInsetsDirectional.only(
                     start: 20,
                     bottom: 5,
@@ -96,10 +93,8 @@ class _InterestState extends State<Interest> {
                                 Wrap(
                                   spacing: 8,
                                   runSpacing: 8,
-                                  children: interestMap[interestCategories
-                                          .elementAt(categoryIndex)]!
-                                      .map((category) => createChoiceChip(
-                                          category, categoryIndex))
+                                  children: interestMap[interestCategories.elementAt(categoryIndex)]!
+                                      .map((category) => createChoiceChip(category, categoryIndex))
                                       .toList(),
                                 )
                               ],
@@ -114,7 +109,10 @@ class _InterestState extends State<Interest> {
                   setInterestCurrentUser(_selectedItems, context);
                   Navigator.of(context).pushReplacementNamed('/');
                 },
-                child: const Text('Submit', style: TextStyle(fontWeight: FontWeight.bold),),
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 style: ElevatedButton.styleFrom(
                     primary: Colors.indigo.shade700,
                     padding: const EdgeInsets.all(20),
