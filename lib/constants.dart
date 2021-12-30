@@ -36,12 +36,12 @@ const interestSet = {'Anime', 'Astrology', 'Beauty', 'Board Games', 'Books',
   'TV Series', 'Vegan', 'Video Games', 'Volunteering'};
 
 const interestMap = {
-  'Entertainment': ['Anime', 'Books', 'Movies', 'Theatre' 'TV Series'],
+  'Entertainment': ['Anime', 'Books', 'Movies', 'Theatre', 'TV Series'],
   'Games': ['Board Games', 'Card Games', 'Tabletop Games', 'Video Games'],
   'Events': ['Concerts', 'Dance', 'Nightlife', 'Volunteering'],
   'Leisure': ['Cars & Motorcycle', 'Instruments', 'DIY Crafts', 'Food', 'Pets'],
   'Lifestyle': ['Astrology', 'Beauty', 'Fashion', 'Vegan'],
-  'Wellness': ['Cooking', 'Fitness', 'Food', 'Nature', 'Sports'],
+  'Wellness': ['Cooking', 'Fitness', 'Nature', 'Sports'],
   'Education': ['Finance', 'Fine Arts', 'Languages']
 };
 

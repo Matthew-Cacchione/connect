@@ -1,3 +1,4 @@
+import 'package:connect/screens/interest.dart';
 import 'package:connect/screens/login.dart';
 import 'package:connect/screens/navbar.dart';
 import 'package:connect/screens/registration.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => const Login(),
         '/registration': (context) => const Registration(),
-        '/': (context) => const NavBar(),
+        '/': (context) => const Interest(),
+        '/setup': (context) => const Interest()
       },
     );
   }
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
 String getLandingPage() {
   var route = '/login';
   if (FirebaseAuth.instance.currentUser != null) {
-    route = '/';
+    route = '/login';
   }
   return route;
 }
