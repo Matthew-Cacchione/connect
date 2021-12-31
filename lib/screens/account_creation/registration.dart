@@ -137,13 +137,11 @@ class _RegistrationState extends State<Registration> {
         child: Text(
           signUpPrompt.toUpperCase(),
           style: const TextStyle(
-            color: colorSecondary,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
         style: ElevatedButton.styleFrom(
-          primary: colorPrimary,
           elevation: 5,
           padding: const EdgeInsets.all(20),
           shape: RoundedRectangleBorder(
@@ -160,11 +158,9 @@ class _RegistrationState extends State<Registration> {
       appBar: AppBar(
         title: const Text(registrationTitle),
       ),
-      backgroundColor: colorSecondary,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: colorSecondary,
             padding: const EdgeInsets.all(15),
             child: Form(
               key: registrationKey,
