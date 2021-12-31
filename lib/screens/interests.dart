@@ -18,12 +18,10 @@ class _InterestsState extends State<Interests> {
       selectedColor: colorSecondary,
       labelStyle: const TextStyle(
         color: Colors.black,
+        fontSize: 16,
       ),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      label: Text(
-        choiceLabel,
-        style: const TextStyle(fontSize: 16),
-      ),
+      label: Text(choiceLabel),
       selected: _selectedItems.contains(choiceLabel),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),

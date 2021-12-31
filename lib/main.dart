@@ -1,3 +1,4 @@
+import 'package:connect/themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -24,23 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: appName,
       initialRoute: getLandingPage(),
-      theme: ThemeData(
-        colorScheme: const ColorScheme(
-          primary: colorPrimary,
-          primaryVariant: colorPrimary,
-          secondary: colorSecondary,
-          secondaryVariant: colorSecondary,
-          surface: Colors.white,
-          background: Colors.white,
-          error: colorError,
-          onPrimary: Colors.white,
-          onSecondary: Colors.white,
-          onSurface: Colors.black,
-          onBackground: Colors.black,
-          onError: Colors.black,
-          brightness: Brightness.light,
-        ),
-      ),
+      theme: lightTheme,
       routes: {
         '/': (context) => const NavBar(),
         '/login': (context) => const Login(),
