@@ -34,7 +34,6 @@ class _NavBarState extends State<NavBar> {
           BottomNavigationBarItem(icon: Icon(Icons.message), label: chatTitle),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: colorPrimary,
         onTap: _onItemTapped,
       ),
     );

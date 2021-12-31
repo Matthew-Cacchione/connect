@@ -158,7 +158,6 @@ class _RegistrationState extends State<Registration> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorPrimary,
         title: const Text(registrationTitle),
       ),
       backgroundColor: colorSecondary,

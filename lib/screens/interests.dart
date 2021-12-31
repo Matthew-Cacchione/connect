@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
-import '../functions/firebase_util.dart';
 import '../functions/user_service.dart';
 
 class Interests extends StatefulWidget {
@@ -16,28 +15,26 @@ class _InterestsState extends State<Interests> {
 
   ChoiceChip createChoiceChip(String choiceLabel, int categoryIndex) {
     return ChoiceChip(
-      selectedColor: Colors.purple,
-      labelStyle: TextStyle(
-        color: _selectedItems.contains(choiceLabel) ? Colors.white : Colors.black,
+      selectedColor: colorSecondary,
+      labelStyle: const TextStyle(
+        color: Colors.black,
       ),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      label: Text(choiceLabel),
+      label: Text(
+        choiceLabel,
+        style: const TextStyle(fontSize: 16),
+      ),
       selected: _selectedItems.contains(choiceLabel),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
+      ),
       onSelected: (selected) {
         setState(
           () {
-            if (_selectedItems.length < 5) {
-              if (_selectedItems.contains(choiceLabel)) {
-                _selectedItems.remove(choiceLabel);
-              } else {
-                _selectedItems.add(choiceLabel);
-              }
+            if (_selectedItems.contains(choiceLabel)) {
+              _selectedItems.remove(choiceLabel);
             } else {
-              if (_selectedItems.contains(choiceLabel)) {
-                _selectedItems.remove(choiceLabel);
-              } else {
-                showErrorSnackBar(tooManyInterests, context);
-              }
+              _selectedItems.add(choiceLabel);
             }
           },
         );
@@ -47,11 +44,10 @@ class _InterestsState extends State<Interests> {
 
   Widget drawInterestsAppBar() {
     return SliverAppBar(
-      backgroundColor: Colors.black,
       automaticallyImplyLeading: false,
       pinned: true,
       floating: true,
-      expandedHeight: 180,
+      expandedHeight: 120,
       elevation: 0,
       flexibleSpace: FlexibleSpaceBar(
         title: Column(
@@ -61,22 +57,20 @@ class _InterestsState extends State<Interests> {
             Container(
               margin: const EdgeInsets.only(bottom: 5),
               child: const Text(
-                interestsPrompt,
+                interestsTitle,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
                 ),
               ),
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 10),
               child: const Text(
-                interestsLimitMessage,
+                interestsSubtitle,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w300,
-                  color: Colors.white,
                 ),
               ),
             ),
@@ -86,8 +80,8 @@ class _InterestsState extends State<Interests> {
           start: 20,
           bottom: 5,
         ),
-        background: Image.network(
-          "https://images.unsplash.com/photo-1614851099507-f1a93001d984?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        background: Image.asset(
+          'assets/images/interests_background.jpg',
           fit: BoxFit.fill,
         ),
       ),
@@ -105,15 +99,15 @@ class _InterestsState extends State<Interests> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        child: Text(
-                          interestCategories.elementAt(categoryIndex),
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      Text(
+                        interestCategories.elementAt(categoryIndex).toUpperCase(),
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      const Divider(
+                        thickness: 3,
                       ),
                       Wrap(
                         spacing: 8,
@@ -130,24 +124,64 @@ class _InterestsState extends State<Interests> {
     );
   }
 
-  Widget drawSubmitBtn() {
+  Widget drawNextBtn() {
     return SliverToBoxAdapter(
       child: Container(
         margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
         child: ElevatedButton(
           onPressed: () {
-            setInterestCurrentUser(_selectedItems, context);
-            Navigator.of(context).pushReplacementNamed('/');
+            if (_selectedItems.isEmpty) {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) => AlertDialog(
+                  title: Text(
+                    noInterests.toUpperCase(),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  content: const Text(
+                    noInterestsPrompt,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  actions: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        noTxt.toUpperCase(),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setInterestCurrentUser(_selectedItems, context);
+                        Navigator.of(context).pushReplacementNamed('/');
+                      },
+                      child: Text(
+                        yesTxt.toUpperCase(),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              setInterestCurrentUser(_selectedItems, context);
+              Navigator.of(context).pushReplacementNamed('/');
+            }
           },
-          child: const Text(
-            submitBtn,
-            style: TextStyle(fontWeight: FontWeight.bold),
+          child: Text(
+            nextBtn.toUpperCase(),
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           style: ElevatedButton.styleFrom(
-            primary: Colors.indigo.shade700,
             padding: const EdgeInsets.all(20),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40),
+              borderRadius: BorderRadius.circular(5),
             ),
           ),
         ),
@@ -158,12 +192,11 @@ class _InterestsState extends State<Interests> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
       body: CustomScrollView(
         slivers: [
           drawInterestsAppBar(),
           drawInterestChips(),
-          drawSubmitBtn(),
+          drawNextBtn(),
         ],
       ),
     );
