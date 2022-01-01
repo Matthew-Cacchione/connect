@@ -60,7 +60,6 @@ class _VerificationState extends State<Verification> {
           child: const Text(
             verificationNotSent,
             style: TextStyle(
-              color: colorPrimary,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -74,11 +73,9 @@ class _VerificationState extends State<Verification> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: drawAppBar(verificationTitle),
-      backgroundColor: colorSecondary,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: colorSecondary,
             padding: const EdgeInsets.all(15),
             child: Column(
               children: <Widget>[

@@ -11,13 +11,11 @@ Widget drawSignOutBtn(BuildContext context) {
     child: Text(
       signOutBtn.toUpperCase(),
       style: const TextStyle(
-        color: colorSecondary,
         fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
     ),
     style: ElevatedButton.styleFrom(
-      primary: colorPrimary,
       elevation: 5,
       padding: const EdgeInsets.all(20),
       shape: RoundedRectangleBorder(

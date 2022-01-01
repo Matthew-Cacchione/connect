@@ -1,6 +1,6 @@
+import 'package:connect/components/appbar.dart';
 import 'package:flutter/material.dart';
 
-import '../components/appbar.dart';
 import '../components/sign_out_btn.dart';
 import '../constants.dart';
 
@@ -11,11 +11,9 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: drawAppBar(homeTitle),
-      backgroundColor: colorSecondary,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: colorSecondary,
             padding: const EdgeInsets.all(15),
             child: Column(
               children: <Widget>[

@@ -10,11 +10,9 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: drawAppBar(profileTitle),
-      backgroundColor: colorSecondary,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: colorSecondary,
             padding: const EdgeInsets.all(15),
             child: Column(
               children: <Widget>[

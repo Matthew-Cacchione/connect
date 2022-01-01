@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 // Colors
-const colorPrimary = Color(0xff0079d6);
-const colorSecondary = Color(0xffffffff);
+const colorPrimary = Color(0xff493843);
+const colorSecondary = Color(0xff61988e);
+const colorError = Color(0xffcc0000);
 
 // Strings
 const appName = 'Connect';
@@ -37,13 +38,16 @@ const signUpAgreement = 'By signing up, you agree to the Terms of Service and Pr
 const noEmailEntered = 'Please enter an email.';
 const passwordResetSent = 'Password reset email has been sent.';
 const registrationTitle = 'Create Account';
-const tooManyInterests = 'Please select a maximum of 5 items.';
-const interestsPrompt = 'What are your interests?';
-const interestsLimitMessage = 'Please select up to 5 interests';
-const submitBtn = 'Submit';
+const interestsTitle = 'Interests';
+const interestsSubtitle = 'Select your interests from the list below.';
+const nextBtn = 'Next';
+const noInterests = 'No interests selected';
+const noInterestsPrompt = 'Are you sure you want to continue without picking any interests?';
+const noTxt = 'No';
+const yesTxt = 'Yes';
 
-// Interests Set
-const interestSet = {
+// Interests
+final interestSet = {
   'Anime',
   'Astrology',
   'Beauty',
@@ -75,7 +79,7 @@ const interestSet = {
   'Volunteering',
 };
 
-const interestMap = {
+final interestMap = {
   'Entertainment': ['Anime', 'Books', 'Movies', 'Theatre', 'TV Series'],
   'Games': ['Board Games', 'Card Games', 'Tabletop Games', 'Video Games'],
   'Events': ['Concerts', 'Dance', 'Nightlife', 'Volunteering'],
@@ -87,8 +91,8 @@ const interestMap = {
 
 final interestCategories = interestMap.keys.toList();
 
-// Activity Set
-const activitySet = {
+// Activities
+final activitySet = {
   'Any',
   'Eat',
   'Study',

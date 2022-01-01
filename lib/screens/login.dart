@@ -99,7 +99,6 @@ class _LoginState extends State<Login> {
           child: const Text(
             forgotPassword,
             style: TextStyle(
-              color: colorPrimary,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -119,13 +118,11 @@ class _LoginState extends State<Login> {
         child: Text(
           loginBtn.toUpperCase(),
           style: const TextStyle(
-            color: colorSecondary,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
         style: ElevatedButton.styleFrom(
-          primary: colorPrimary,
           elevation: 5,
           padding: const EdgeInsets.all(20),
           shape: RoundedRectangleBorder(
@@ -148,7 +145,6 @@ class _LoginState extends State<Login> {
           child: const Text(
             signUpPrompt,
             style: TextStyle(
-              color: colorPrimary,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -160,11 +156,9 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorSecondary,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: colorSecondary,
             padding: const EdgeInsets.all(15),
             child: Form(
               key: _loginKey,
