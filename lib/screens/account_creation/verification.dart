@@ -27,7 +27,7 @@ class _VerificationState extends State<Verification> {
       (timer) {
         if (checkIsEmailVerified()) {
           timer.cancel();
-          Navigator.pushReplacementNamed(context, '/');
+          Navigator.pushReplacementNamed(context, '/birthdate');
         }
       },
     );

@@ -1,3 +1,4 @@
+import 'package:connect/components/buttons.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -136,18 +137,9 @@ class _RegistrationState extends State<Registration> {
         },
         child: Text(
           signUpPrompt.toUpperCase(),
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: btnTextStyle,
         ),
-        style: ElevatedButton.styleFrom(
-          elevation: 5,
-          padding: const EdgeInsets.all(20),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
+        style: btnStyle,
       ),
     );
   }

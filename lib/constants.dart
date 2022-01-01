@@ -39,12 +39,14 @@ const noEmailEntered = 'Please enter an email.';
 const passwordResetSent = 'Password reset email has been sent.';
 const registrationTitle = 'Create Account';
 const interestsTitle = 'Interests';
-const interestsSubtitle = 'Select your interests from the list below.';
+const interestsSubtitle = 'Please select your interests.';
 const nextBtn = 'Next';
 const noInterests = 'No interests selected';
 const noInterestsPrompt = 'Are you sure you want to continue without picking any interests?';
 const noTxt = 'No';
 const yesTxt = 'Yes';
+const birthdateTitle = 'Birthdate';
+const birthdatePrompt = 'Please provide your birthdate.';
 
 // Interests
 final interestSet = {

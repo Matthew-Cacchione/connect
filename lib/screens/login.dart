@@ -1,3 +1,4 @@
+import 'package:connect/components/buttons.dart';
 import 'package:connect/constants.dart';
 import 'package:connect/functions/firebase_util.dart';
 import 'package:flutter/material.dart';
@@ -117,18 +118,9 @@ class _LoginState extends State<Login> {
         },
         child: Text(
           loginBtn.toUpperCase(),
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: btnTextStyle,
         ),
-        style: ElevatedButton.styleFrom(
-          elevation: 5,
-          padding: const EdgeInsets.all(20),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
+        style: btnStyle,
       ),
     );
   }

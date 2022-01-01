@@ -1,5 +1,5 @@
 import 'package:connect/components/appbar.dart';
-import 'package:connect/components/sign_out_btn.dart';
+import 'package:connect/components/buttons.dart';
 import 'package:connect/constants.dart';
 import 'package:flutter/material.dart';
 

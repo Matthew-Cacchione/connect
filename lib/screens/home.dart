@@ -1,7 +1,7 @@
 import 'package:connect/components/appbar.dart';
 import 'package:flutter/material.dart';
 
-import '../components/sign_out_btn.dart';
+import '../components/buttons.dart';
 import '../constants.dart';
 
 class Home extends StatelessWidget {

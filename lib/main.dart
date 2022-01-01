@@ -1,3 +1,4 @@
+import 'package:connect/screens/account_creation/birthdate.dart';
 import 'package:connect/themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const Login(),
         '/registration': (context) => const Registration(),
         '/verification': (context) => const Verification(),
-        '/interests': (context) => const Interests()
+        '/birthdate': (context) => const Birthdate(),
+        '/interests': (context) => const Interests(),
       },
     );
   }
