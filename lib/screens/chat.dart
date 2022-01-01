@@ -1,6 +1,6 @@
-import 'package:connect/components/appbar.dart';
 import 'package:flutter/material.dart';
 
+import '../components/appbar.dart';
 import '../components/buttons.dart';
 import '../constants.dart';
 

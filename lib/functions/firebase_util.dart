@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
-import '../models/user_template.dart';
+import '../functions/user_service.dart';
+import 'alerts.dart';
 
 // Authentication
 
@@ -13,7 +13,7 @@ Future<void> signIn(String email, String password, GlobalKey<FormState> formKey,
   if (formKey.currentState!.validate()) {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-      if (checkIsEmailVerified()) {
+      if (FirebaseAuth.instance.currentUser!.emailVerified) {
         Navigator.pushReplacementNamed(context, '/');
       } else {
         Navigator.pushNamed(context, '/verification');
@@ -37,7 +37,7 @@ Future<void> signUp(String email, String password, String name, GlobalKey<FormSt
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
       await FirebaseAuth.instance.currentUser!.sendEmailVerification();
-      pushSignUpData(name, context);
+      setInitialData(name, context);
     } on FirebaseAuthException catch (e) {
       var errorMessage = defaultError;
 
@@ -73,54 +73,4 @@ Future<void> resetUserPassword(String email, BuildContext context) async {
     }
     showErrorSnackBar(errorMessage, context);
   }
-}
-
-bool checkIsEmailVerified() {
-  FirebaseAuth.instance.currentUser?.reload();
-  final currentUser = FirebaseAuth.instance.currentUser;
-
-  if (currentUser != null && currentUser.emailVerified) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-// Firestore database
-
-Future<void> pushSignUpData(String name, BuildContext context) async {
-  User? firebaseUser = FirebaseAuth.instance.currentUser;
-
-  UserTemplate userTemplate = UserTemplate(uid: firebaseUser!.uid, email: firebaseUser.email, name: name);
-
-  try {
-    await FirebaseFirestore.instance.collection('users').doc(userTemplate.uid).set(userTemplate.toSignUpMap());
-    Navigator.of(context).pushNamed('/verification');
-  } on Error {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          defaultError,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// Other
-
-void showErrorSnackBar(String message, BuildContext context) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(
-        message,
-        textAlign: TextAlign.center,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
-    ),
-  );
 }

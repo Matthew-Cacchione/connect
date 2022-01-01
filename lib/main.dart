@@ -1,15 +1,15 @@
-import 'package:connect/screens/account_creation/birthdate.dart';
-import 'package:connect/themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
+import 'screens/account_creation/birthdate.dart';
 import 'screens/account_creation/registration.dart';
 import 'screens/account_creation/verification.dart';
 import 'screens/interests.dart';
 import 'screens/login.dart';
 import 'screens/navbar.dart';
+import 'themes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +44,7 @@ String getLandingPage() {
   User? currentUser = FirebaseAuth.instance.currentUser;
 
   if (currentUser == null) {
-    route = '/login';
+    route = '/interests';
   } else if (currentUser.emailVerified) {
     route = '/';
   } else {

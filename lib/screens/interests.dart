@@ -1,6 +1,6 @@
-import 'package:connect/components/buttons.dart';
 import 'package:flutter/material.dart';
 
+import '../components/buttons.dart';
 import '../constants.dart';
 import '../functions/user_service.dart';
 
@@ -155,7 +155,7 @@ class _InterestsState extends State<Interests> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        setInterestCurrentUser(_selectedItems, context);
+                        setInterests(_selectedItems, context);
                         Navigator.of(context).pushReplacementNamed('/');
                       },
                       child: Text(
@@ -167,7 +167,7 @@ class _InterestsState extends State<Interests> {
                 ),
               );
             } else {
-              setInterestCurrentUser(_selectedItems, context);
+              setInterests(_selectedItems, context);
               Navigator.of(context).pushReplacementNamed('/');
             }
           },

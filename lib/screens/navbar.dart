@@ -1,8 +1,9 @@
-import 'package:connect/constants.dart';
-import 'package:connect/screens/chat.dart';
-import 'package:connect/screens/home.dart';
-import 'package:connect/screens/profile.dart';
 import 'package:flutter/material.dart';
+
+import '../constants.dart';
+import '../screens/chat.dart';
+import '../screens/home.dart';
+import '../screens/profile.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);

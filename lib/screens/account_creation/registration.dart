@@ -1,6 +1,6 @@
-import 'package:connect/components/buttons.dart';
 import 'package:flutter/material.dart';
 
+import '../../components/buttons.dart';
 import '../../constants.dart';
 import '../../functions/firebase_util.dart';
 

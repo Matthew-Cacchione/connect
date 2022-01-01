@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../components/appbar.dart';
 import '../../constants.dart';
-import '../../functions/firebase_util.dart';
+import '../../functions/alerts.dart';
 
 class Verification extends StatefulWidget {
   const Verification({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class _VerificationState extends State<Verification> {
         seconds: 3,
       ),
       (timer) {
-        if (checkIsEmailVerified()) {
+        if (FirebaseAuth.instance.currentUser!.emailVerified) {
           timer.cancel();
           Navigator.pushReplacementNamed(context, '/birthdate');
         }
