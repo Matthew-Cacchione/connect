@@ -26,8 +26,9 @@ Future<void> signIn(String email, String password, GlobalKey<FormState> formKey,
       } else if (e.code == 'wrong-password') {
         errorMessage = wrongPassword;
       }
-
       showErrorSnackBar(errorMessage, context);
+    } on Exception catch (e) {
+      showErrorSnackBar(e.toString(), context);
     }
   }
 }
@@ -39,18 +40,16 @@ Future<void> signUp(String email, String password, String name, GlobalKey<FormSt
       await FirebaseAuth.instance.currentUser!.sendEmailVerification();
       setInitialData(name, context);
     } on FirebaseAuthException catch (e) {
-      var errorMessage = defaultError;
+      String errorMessage = defaultError;
 
-      if (e.code == 'weak-password') {
-        errorMessage = passwordStrengthError;
-      } else if (e.code == 'email-already-in-use') {
-        errorMessage = emailInUseError;
-        Navigator.pushReplacementNamed(context, '/login');
+      if (e.code == 'user-not-found') {
+        errorMessage = userNotFound;
+      } else if (e.code == 'wrong-password') {
+        errorMessage = wrongPassword;
       }
-
       showErrorSnackBar(errorMessage, context);
-    } catch (e) {
-      showErrorSnackBar(defaultError, context);
+    } on Exception catch (e) {
+      showErrorSnackBar(e.toString(), context);
     }
   }
 }
@@ -66,11 +65,13 @@ Future<void> resetUserPassword(String email, BuildContext context) async {
   } on FirebaseAuthException catch (e) {
     String errorMessage = defaultError;
 
-    if (e.code == 'invalid-email') {
-      errorMessage = emailNotValid;
-    } else if (e.code == 'user-not-found') {
+    if (e.code == 'user-not-found') {
       errorMessage = userNotFound;
+    } else if (e.code == 'wrong-password') {
+      errorMessage = wrongPassword;
     }
     showErrorSnackBar(errorMessage, context);
+  } on Exception catch (e) {
+    showErrorSnackBar(e.toString(), context);
   }
 }

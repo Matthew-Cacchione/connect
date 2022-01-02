@@ -1,3 +1,4 @@
+import 'package:connect/functions/user_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/appbar.dart';
@@ -68,7 +69,9 @@ class _BirthdateState extends State<Birthdate> {
       padding: const EdgeInsets.symmetric(vertical: 15),
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          setBirthdate(userBirthdate.year, userBirthdate.month, userBirthdate.day, context);
+        },
         child: Text(
           nextBtn.toUpperCase(),
           style: btnTextStyle,

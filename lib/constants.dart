@@ -47,6 +47,7 @@ const noTxt = 'No';
 const yesTxt = 'Yes';
 const birthdateTitle = 'Birthdate';
 const birthdatePrompt = 'Please provide your birthdate.';
+const permissionDenied = 'You don\'t have permission to do that';
 
 // Interests
 final interestSet = {

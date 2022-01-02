@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 import 'constants.dart';
 import 'screens/account_creation/birthdate.dart';
+import 'screens/account_creation/interests.dart';
 import 'screens/account_creation/registration.dart';
 import 'screens/account_creation/verification.dart';
-import 'screens/interests.dart';
 import 'screens/login.dart';
 import 'screens/navbar.dart';
 import 'themes.dart';
@@ -44,7 +44,7 @@ String getLandingPage() {
   User? currentUser = FirebaseAuth.instance.currentUser;
 
   if (currentUser == null) {
-    route = '/interests';
+    route = '/login';
   } else if (currentUser.emailVerified) {
     route = '/';
   } else {

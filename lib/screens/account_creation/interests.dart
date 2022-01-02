@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../components/buttons.dart';
-import '../constants.dart';
-import '../functions/user_service.dart';
+import '../../components/buttons.dart';
+import '../../constants.dart';
+import '../../functions/user_service.dart';
 
 class Interests extends StatefulWidget {
   const Interests({Key? key}) : super(key: key);
