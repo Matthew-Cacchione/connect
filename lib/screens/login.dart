@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../components/buttons.dart';
 import '../constants.dart';
 import '../functions/alerts.dart';
-import '../functions/firebase_util.dart';
+import '../functions/authentication.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -94,7 +94,7 @@ class _LoginState extends State<Login> {
           onTap: () {
             if (emailController.text.isNotEmpty) {
               resetUserPassword(emailController.text.trim(), context);
-              showErrorSnackBar(passwordResetSent, context);
+              //showErrorSnackBar(passwordResetSent, context);
             } else {
               showErrorSnackBar(noEmailEntered, context);
             }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
-import '../functions/firebase_util.dart';
+import '../functions/authentication.dart';
 
 ButtonStyle btnStyle = ElevatedButton.styleFrom(
   elevation: 5,

@@ -24,8 +24,8 @@ const passwordMatchError = 'Passwords must match';
 const userNotFound = 'No user found with that email address.';
 const wrongPassword = 'Wrong password provided.';
 const defaultError = 'Something went wrong.';
-const passwordStrengthError = 'Password entered is too weak.';
-const emailInUseError = 'An account with that email already exists.';
+const weakPassword = 'Password entered is too weak.';
+const emailAlreadyInUse = 'An account with that email already exists.';
 const profileTitle = 'Profile';
 const homeTitle = 'Home';
 const chatTitle = 'Chat';
@@ -48,6 +48,7 @@ const yesTxt = 'Yes';
 const birthdateTitle = 'Birthdate';
 const birthdatePrompt = 'Please provide your birthdate.';
 const permissionDenied = 'You don\'t have permission to do that';
+const userDisabled = 'This user account has been disabled.';
 
 // Interests
 final interestSet = {

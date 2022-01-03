@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../components/buttons.dart';
 import '../../constants.dart';
-import '../../functions/firebase_util.dart';
+import '../../functions/authentication.dart';
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
