@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 // Colors
-const colorPrimary = Color(0xff493843);
-const colorSecondary = Color(0xff61988e);
+const colorPrimary = Color(0xff5d576b);
+const colorSecondary = Color(0xff99e1d9);
 const colorError = Color(0xffcc0000);
 
 // Strings
@@ -49,6 +49,10 @@ const birthdateTitle = 'Birthdate';
 const birthdatePrompt = 'Please provide your birthdate.';
 const permissionDenied = 'You don\'t have permission to do that';
 const userDisabled = 'This user account has been disabled.';
+const selectProfilePrompt = 'Select your profile picture';
+const cameraTxt = 'Camera';
+const galleryTxt = 'Gallery';
+const profilePictureTitle = 'Profile Picture';
 
 // Interests
 final interestSet = {

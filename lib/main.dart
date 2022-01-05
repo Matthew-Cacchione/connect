@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'screens/account_creation/birthdate.dart';
 import 'screens/account_creation/interests.dart';
+import 'screens/account_creation/profile_picture.dart';
 import 'screens/account_creation/registration.dart';
 import 'screens/account_creation/verification.dart';
 import 'screens/login.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/registration': (context) => const Registration(),
         '/verification': (context) => const Verification(),
         '/birthdate': (context) => const Birthdate(),
+        '/profilepic': (context) => const ProfilePicture(),
         '/interests': (context) => const Interests(),
       },
     );

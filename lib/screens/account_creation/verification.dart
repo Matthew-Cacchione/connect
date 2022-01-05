@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:connect/functions/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/appbar.dart';
 import '../../constants.dart';
 import '../../functions/alerts.dart';
+import '../../functions/authentication.dart';
 
 class Verification extends StatefulWidget {
   const Verification({Key? key}) : super(key: key);

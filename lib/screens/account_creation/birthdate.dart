@@ -1,9 +1,9 @@
-import 'package:connect/functions/user_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/appbar.dart';
 import '../../components/buttons.dart';
 import '../../constants.dart';
+import '../../functions/user_service.dart';
 
 class Birthdate extends StatefulWidget {
   const Birthdate({Key? key}) : super(key: key);
