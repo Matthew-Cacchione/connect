@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../components/appbar.dart';
 import '../../components/buttons.dart';
 import '../../constants.dart';
+import '../../functions/alerts.dart';
 import '../../functions/user_service.dart';
 
 class ProfilePicture extends StatefulWidget {
@@ -29,20 +30,26 @@ class _ProfilePictureState extends State<ProfilePicture> {
                 : FileImage(File(_profilePicture!.path)) as ImageProvider,
           ),
           Positioned(
-              bottom: 20,
-              right: 20,
-              child: IconButton(
-                  onPressed: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: ((builder) => selectSource()),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.camera_alt,
-                    color: colorPrimary,
-                    size: 50,
-                  ))),
+            bottom: 0,
+            right: 0,
+            child: RawMaterialButton(
+              elevation: 2,
+              fillColor: colorPrimary,
+              padding: const EdgeInsets.all(15),
+              shape: const CircleBorder(),
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: ((builder) => selectSource()),
+                );
+              },
+              child: const Icon(
+                Icons.camera_alt,
+                color: Colors.white,
+                size: 40,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -56,6 +63,8 @@ class _ProfilePictureState extends State<ProfilePicture> {
         onPressed: () {
           if (_profilePicture != null) {
             setProfilePhoto(_profilePicture!, context);
+          } else {
+            showErrorSnackBar(noPictureSelected, context);
           }
         },
         child: Text(

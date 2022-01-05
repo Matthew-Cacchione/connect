@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 // Colors
-const colorPrimary = Color(0xff5d576b);
-const colorSecondary = Color(0xff99e1d9);
+const colorPrimary = Color(0xff493843);
+const colorSecondary = Color(0xff61988e);
 const colorError = Color(0xffcc0000);
 
 // Strings
@@ -53,6 +53,7 @@ const selectProfilePrompt = 'Select your profile picture';
 const cameraTxt = 'Camera';
 const galleryTxt = 'Gallery';
 const profilePictureTitle = 'Profile Picture';
+const noPictureSelected = 'Please select a profile picture before continuing.';
 
 // Interests
 final interestSet = {
