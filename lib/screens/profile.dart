@@ -1,7 +1,8 @@
-import 'package:connect/components/appbar.dart';
-import 'package:connect/components/sign_out_btn.dart';
-import 'package:connect/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../components/appbar.dart';
+import '../components/buttons.dart';
+import '../constants.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);

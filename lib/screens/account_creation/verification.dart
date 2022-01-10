@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../../components/appbar.dart';
 import '../../constants.dart';
-import '../../functions/firebase_util.dart';
+import '../../functions/alerts.dart';
+import '../../functions/authentication.dart';
 
 class Verification extends StatefulWidget {
   const Verification({Key? key}) : super(key: key);
@@ -15,20 +16,20 @@ class Verification extends StatefulWidget {
 }
 
 class _VerificationState extends State<Verification> {
+  bool isEmailVerified = false;
   Timer? timer;
+  User? currentUser;
 
   @override
   void initState() {
     super.initState();
+    currentUser = FirebaseAuth.instance.currentUser;
     timer = Timer.periodic(
       const Duration(
         seconds: 3,
       ),
       (timer) {
-        if (checkIsEmailVerified()) {
-          timer.cancel();
-          Navigator.pushReplacementNamed(context, '/');
-        }
+        verifyEmail(timer, context);
       },
     );
   }

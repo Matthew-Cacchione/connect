@@ -1,6 +1,9 @@
-import 'package:connect/constants.dart';
-import 'package:connect/functions/firebase_util.dart';
 import 'package:flutter/material.dart';
+
+import '../components/buttons.dart';
+import '../constants.dart';
+import '../functions/alerts.dart';
+import '../functions/authentication.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -91,7 +94,7 @@ class _LoginState extends State<Login> {
           onTap: () {
             if (emailController.text.isNotEmpty) {
               resetUserPassword(emailController.text.trim(), context);
-              showErrorSnackBar(passwordResetSent, context);
+              //showErrorSnackBar(passwordResetSent, context);
             } else {
               showErrorSnackBar(noEmailEntered, context);
             }
@@ -117,18 +120,9 @@ class _LoginState extends State<Login> {
         },
         child: Text(
           loginBtn.toUpperCase(),
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: btnTextStyle,
         ),
-        style: ElevatedButton.styleFrom(
-          elevation: 5,
-          padding: const EdgeInsets.all(20),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
+        style: btnStyle,
       ),
     );
   }

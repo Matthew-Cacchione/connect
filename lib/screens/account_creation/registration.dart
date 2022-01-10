@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../components/buttons.dart';
 import '../../constants.dart';
-import '../../functions/firebase_util.dart';
+import '../../functions/authentication.dart';
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
@@ -136,18 +137,9 @@ class _RegistrationState extends State<Registration> {
         },
         child: Text(
           signUpPrompt.toUpperCase(),
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: btnTextStyle,
         ),
-        style: ElevatedButton.styleFrom(
-          elevation: 5,
-          padding: const EdgeInsets.all(20),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
+        style: btnStyle,
       ),
     );
   }

@@ -1,14 +1,16 @@
-import 'package:connect/themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
+import 'screens/account_creation/birthdate.dart';
+import 'screens/account_creation/interests.dart';
+import 'screens/account_creation/profile_picture.dart';
 import 'screens/account_creation/registration.dart';
 import 'screens/account_creation/verification.dart';
-import 'screens/interests.dart';
 import 'screens/login.dart';
 import 'screens/navbar.dart';
+import 'themes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +33,9 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const Login(),
         '/registration': (context) => const Registration(),
         '/verification': (context) => const Verification(),
-        '/interests': (context) => const Interests()
+        '/birthdate': (context) => const Birthdate(),
+        '/profilepic': (context) => const ProfilePicture(),
+        '/interests': (context) => const Interests(),
       },
     );
   }

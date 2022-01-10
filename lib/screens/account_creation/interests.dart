@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../functions/user_service.dart';
+import '../../components/buttons.dart';
+import '../../constants.dart';
+import '../../functions/user_service.dart';
 
 class Interests extends StatefulWidget {
   const Interests({Key? key}) : super(key: key);
@@ -45,6 +46,7 @@ class _InterestsState extends State<Interests> {
       automaticallyImplyLeading: false,
       pinned: true,
       floating: true,
+      collapsedHeight: 70,
       expandedHeight: 120,
       elevation: 0,
       flexibleSpace: FlexibleSpaceBar(
@@ -153,7 +155,7 @@ class _InterestsState extends State<Interests> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        setInterestCurrentUser(_selectedItems, context);
+                        setInterests(_selectedItems, context);
                         Navigator.of(context).pushReplacementNamed('/');
                       },
                       child: Text(
@@ -165,23 +167,15 @@ class _InterestsState extends State<Interests> {
                 ),
               );
             } else {
-              setInterestCurrentUser(_selectedItems, context);
+              setInterests(_selectedItems, context);
               Navigator.of(context).pushReplacementNamed('/');
             }
           },
           child: Text(
             nextBtn.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: btnTextStyle,
           ),
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(20),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5),
-            ),
-          ),
+          style: btnStyle,
         ),
       ),
     );
