@@ -10,7 +10,7 @@ class Chat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: drawAppBar(chatTitle),
+      appBar: AppBars.drawAppBar(chatTitle),
       body: Center(
         child: SingleChildScrollView(
           child: Container(
@@ -24,7 +24,7 @@ class Chat extends StatelessWidget {
                   height: 200,
                 ),
                 const SizedBox(height: 50),
-                drawSignOutBtn(context),
+                Buttons.drawSignOutBtn(context),
               ],
             ),
           ),

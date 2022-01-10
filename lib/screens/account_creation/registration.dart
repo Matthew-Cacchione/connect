@@ -133,13 +133,13 @@ class _RegistrationState extends State<Registration> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          signUp(emailController.text.trim(), passwordController.text.trim(), nameController.text.trim(), registrationKey, context);
+          Authentication.signUp(emailController.text.trim(), passwordController.text.trim(), nameController.text.trim(), registrationKey, context);
         },
         child: Text(
           signUpPrompt.toUpperCase(),
-          style: btnTextStyle,
+          style: Buttons.getTextStyle(),
         ),
-        style: btnStyle,
+        style: Buttons.getStyle(),
       ),
     );
   }

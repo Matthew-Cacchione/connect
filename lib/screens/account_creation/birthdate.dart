@@ -70,13 +70,13 @@ class _BirthdateState extends State<Birthdate> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          setBirthdate(userBirthdate.year, userBirthdate.month, userBirthdate.day, context);
+          UserService.setBirthdate(userBirthdate.year, userBirthdate.month, userBirthdate.day, context);
         },
         child: Text(
           nextBtn.toUpperCase(),
-          style: btnTextStyle,
+          style: Buttons.getTextStyle(),
         ),
-        style: btnStyle,
+        style: Buttons.getStyle(),
       ),
     );
   }
@@ -84,7 +84,7 @@ class _BirthdateState extends State<Birthdate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: drawAppBar(birthdateTitle),
+      appBar: AppBars.drawAppBar(birthdateTitle),
       body: Container(
         padding: const EdgeInsets.all(15),
         child: Column(

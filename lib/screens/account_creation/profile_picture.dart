@@ -19,7 +19,7 @@ class ProfilePicture extends StatefulWidget {
 class _ProfilePictureState extends State<ProfilePicture> {
   File? _profilePicture;
 
-  Widget drawPicture() {
+  Widget _drawPicture() {
     return Center(
       child: Stack(
         children: <Widget>[
@@ -40,7 +40,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
               onPressed: () {
                 showModalBottomSheet(
                   context: context,
-                  builder: ((builder) => selectSource()),
+                  builder: ((builder) => _drawSourceSelect()),
                 );
               },
               child: const Icon(
@@ -55,28 +55,28 @@ class _ProfilePictureState extends State<ProfilePicture> {
     );
   }
 
-  Widget drawNextBtn() {
+  Widget _drawNextBtn() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15),
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
           if (_profilePicture != null) {
-            setProfilePhoto(_profilePicture!, context);
+            UserService.setProfilePhoto(_profilePicture!, context);
           } else {
-            showErrorSnackBar(noPictureSelected, context);
+            Alerts.showErrorSnackBar(noPictureSelected, context);
           }
         },
         child: Text(
           nextBtn.toUpperCase(),
-          style: btnTextStyle,
+          style: Buttons.getTextStyle(),
         ),
-        style: btnStyle,
+        style: Buttons.getStyle(),
       ),
     );
   }
 
-  Widget selectSource() {
+  Widget _drawSourceSelect() {
     return Container(
       height: 100,
       width: double.infinity,
@@ -96,7 +96,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
             children: <Widget>[
               TextButton.icon(
                 onPressed: () {
-                  selectPhoto(ImageSource.camera);
+                  _selectPhoto(ImageSource.camera);
                 },
                 icon: const Icon(
                   Icons.camera_alt,
@@ -107,7 +107,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
               const SizedBox(width: 15),
               TextButton.icon(
                 onPressed: () {
-                  selectPhoto(ImageSource.gallery);
+                  _selectPhoto(ImageSource.gallery);
                 },
                 icon: const Icon(
                   Icons.image,
@@ -122,7 +122,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
     );
   }
 
-  Future<void> selectPhoto(ImageSource source) async {
+  Future<void> _selectPhoto(ImageSource source) async {
     final selectedPhoto = await ImagePicker().pickImage(source: source);
 
     if (selectedPhoto != null) {
@@ -135,15 +135,15 @@ class _ProfilePictureState extends State<ProfilePicture> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: drawAppBar(profilePictureTitle),
+      appBar: AppBars.drawAppBar(profilePictureTitle),
       body: Container(
         padding: const EdgeInsets.all(15),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            drawPicture(),
+            _drawPicture(),
             Expanded(child: Container()),
-            drawNextBtn(),
+            _drawNextBtn(),
           ],
         ),
       ),

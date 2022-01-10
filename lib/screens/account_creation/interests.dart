@@ -155,7 +155,7 @@ class _InterestsState extends State<Interests> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        setInterests(_selectedItems, context);
+                        UserService.setInterests(_selectedItems, context);
                         Navigator.of(context).pushReplacementNamed('/');
                       },
                       child: Text(
@@ -167,15 +167,15 @@ class _InterestsState extends State<Interests> {
                 ),
               );
             } else {
-              setInterests(_selectedItems, context);
+              UserService.setInterests(_selectedItems, context);
               Navigator.of(context).pushReplacementNamed('/');
             }
           },
           child: Text(
             nextBtn.toUpperCase(),
-            style: btnTextStyle,
+            style: Buttons.getTextStyle(),
           ),
-          style: btnStyle,
+          style: Buttons.getStyle(),
         ),
       ),
     );

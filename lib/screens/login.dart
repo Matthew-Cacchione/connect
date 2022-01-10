@@ -93,10 +93,10 @@ class _LoginState extends State<Login> {
         GestureDetector(
           onTap: () {
             if (emailController.text.isNotEmpty) {
-              resetUserPassword(emailController.text.trim(), context);
+              Authentication.resetUserPassword(emailController.text.trim(), context);
               //showErrorSnackBar(passwordResetSent, context);
             } else {
-              showErrorSnackBar(noEmailEntered, context);
+              Alerts.showErrorSnackBar(noEmailEntered, context);
             }
           },
           child: const Text(
@@ -116,13 +116,13 @@ class _LoginState extends State<Login> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          signIn(emailController.text.trim(), passwordController.text.trim(), _loginKey, context);
+          Authentication.signIn(emailController.text.trim(), passwordController.text.trim(), _loginKey, context);
         },
         child: Text(
           loginBtn.toUpperCase(),
-          style: btnTextStyle,
+          style: Buttons.getTextStyle(),
         ),
-        style: btnStyle,
+        style: Buttons.getStyle(),
       ),
     );
   }
