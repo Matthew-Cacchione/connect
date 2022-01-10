@@ -31,7 +31,7 @@ class _BirthdateState extends State<Birthdate> {
     }
   }
 
-  Widget drawBirthdatePrompt() {
+  Widget _drawBirthdatePrompt() {
     return const Text(
       birthdatePrompt,
       style: TextStyle(
@@ -40,7 +40,7 @@ class _BirthdateState extends State<Birthdate> {
     );
   }
 
-  Widget drawDisplayBirthdate() {
+  Widget _drawDisplayBirthdate() {
     String simpleBirthdate =
         '${userBirthdate.year.toString()} - ${userBirthdate.month.toString().padLeft(2, '0')} - ${userBirthdate.day.toString().padLeft(2, '0')}';
 
@@ -64,7 +64,7 @@ class _BirthdateState extends State<Birthdate> {
     );
   }
 
-  Widget drawNextBtn() {
+  Widget _drawNextBtn() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15),
       width: double.infinity,
@@ -92,11 +92,11 @@ class _BirthdateState extends State<Birthdate> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(child: Container()),
-            drawBirthdatePrompt(),
+            _drawBirthdatePrompt(),
             const SizedBox(height: 5),
-            drawDisplayBirthdate(),
+            _drawDisplayBirthdate(),
             Expanded(child: Container()),
-            drawNextBtn(),
+            _drawNextBtn(),
           ],
         ),
       ),

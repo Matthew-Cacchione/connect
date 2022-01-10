@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../components/appbar.dart';
-import '../components/buttons.dart';
-import '../constants.dart';
+import '../../components/appbar.dart';
+import '../../components/buttons.dart';
+import '../../constants.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);

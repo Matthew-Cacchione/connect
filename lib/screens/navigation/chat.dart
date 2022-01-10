@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../components/appbar.dart';
-import '../components/buttons.dart';
-import '../constants.dart';
+import '../../components/appbar.dart';
+import '../../components/buttons.dart';
+import '../../constants.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
+class Chat extends StatelessWidget {
+  const Chat({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBars.drawAppBar(profileTitle),
+      appBar: AppBars.drawAppBar(chatTitle),
       body: Center(
         child: SingleChildScrollView(
           child: Container(

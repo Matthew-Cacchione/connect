@@ -18,13 +18,7 @@ class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  late bool _passwordVisible;
-
-  @override
-  void initState() {
-    super.initState();
-    _passwordVisible = false;
-  }
+  bool _passwordVisible = false;
 
   Widget drawEmail() {
     return TextFormField(
