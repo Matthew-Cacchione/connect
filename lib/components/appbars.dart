@@ -39,7 +39,9 @@ class AppBars {
             Expanded(child: Container()),
             IconButton(
               icon: const Icon(Icons.settings),
-              onPressed: () {},
+              onPressed: () {
+                //TODO: Redirect user to the settings screen.
+              },
             ),
           ],
         ),

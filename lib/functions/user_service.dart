@@ -9,6 +9,7 @@ import '../constants.dart';
 import 'alerts.dart';
 
 class UserService {
+  //TODO: Change default error messages for production.
   static Future<void> setInterests(List<String> interests, BuildContext context) async {
     final User? currentUser = FirebaseAuth.instance.currentUser;
 
@@ -16,7 +17,7 @@ class UserService {
       if (currentUser != null) {
         await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'interests': interests});
       } else {
-        throw Exception('User was null');
+        throw Exception('User was null.');
       }
     } on FirebaseException catch (e) {
       String _errorMessage;
@@ -28,7 +29,7 @@ class UserService {
           break;
         default:
           {
-            _errorMessage = defaultError;
+            _errorMessage = e.code;
           }
           break;
       }
@@ -59,7 +60,7 @@ class UserService {
           break;
         default:
           {
-            _errorMessage = defaultError;
+            _errorMessage = e.code;
           }
           break;
       }
@@ -78,7 +79,7 @@ class UserService {
         await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'birthdate': userBirthdate});
         Navigator.of(context).pushNamed('/profilepic');
       } else {
-        throw Exception('User was null');
+        throw Exception('User was null.');
       }
     } on FirebaseException catch (e) {
       String _errorMessage;
@@ -90,7 +91,7 @@ class UserService {
           break;
         default:
           {
-            _errorMessage = defaultError;
+            _errorMessage = e.code;
           }
           break;
       }
@@ -112,7 +113,7 @@ class UserService {
         await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'pictureUrl': pictureUrl});
         Navigator.of(context).pushReplacementNamed('/interests');
       } else {
-        throw Exception('User was null');
+        throw Exception('User was null.');
       }
     } on FirebaseException catch (e) {
       String _errorMessage;
@@ -124,7 +125,7 @@ class UserService {
           break;
         default:
           {
-            _errorMessage = e.message.toString();
+            _errorMessage = e.code;
           }
           break;
       }

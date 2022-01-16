@@ -8,11 +8,13 @@ import '../functions/user_service.dart';
 import 'alerts.dart';
 
 class Authentication {
+  //TODO: Change default error messages for production.
   static Future<void> signIn(String email, String password, GlobalKey<FormState> formKey, BuildContext context) async {
     if (formKey.currentState!.validate()) {
       try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-        if (FirebaseAuth.instance.currentUser!.emailVerified) {
+        User? _currentUser = FirebaseAuth.instance.currentUser;
+        if (_currentUser!.emailVerified) {
           Navigator.pushReplacementNamed(context, '/');
         } else {
           Navigator.pushNamed(context, '/verification');
@@ -42,7 +44,7 @@ class Authentication {
             break;
           default:
             {
-              _errorMessage = defaultError;
+              _errorMessage = e.code;
             }
             break;
         }
@@ -80,7 +82,7 @@ class Authentication {
             break;
           default:
             {
-              _errorMessage = defaultError;
+              _errorMessage = e.code;
             }
             break;
         }
@@ -115,7 +117,7 @@ class Authentication {
           break;
         default:
           {
-            _errorMessage = defaultError;
+            _errorMessage = e.code;
           }
           break;
       }
@@ -128,10 +130,14 @@ class Authentication {
   static Future<void> verifyEmail(Timer timer, BuildContext context) async {
     User? currentUser = FirebaseAuth.instance.currentUser;
     try {
-      await currentUser?.reload();
-      if (currentUser!.emailVerified) {
-        timer.cancel();
-        Navigator.of(context).pushReplacementNamed('/birthdate');
+      if (currentUser != null) {
+        await currentUser.reload();
+        if (currentUser.emailVerified) {
+          timer.cancel();
+          Navigator.of(context).pushReplacementNamed('/birthdate');
+        }
+      } else {
+        throw Exception('User was null.');
       }
     } on Exception catch (e) {
       Alerts.showErrorSnackBar(e.toString(), context);
