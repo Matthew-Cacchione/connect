@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../components/appbar.dart';
+import '../../components/appbars.dart';
 import '../../components/buttons.dart';
 import '../../constants.dart';
 import '../../functions/user_service.dart';
@@ -70,7 +70,7 @@ class _BirthdateState extends State<Birthdate> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          UserService.setBirthdate(userBirthdate.year, userBirthdate.month, userBirthdate.day, context);
+          UserService.setBirthdate(userBirthdate, context);
         },
         child: Text(
           nextBtn.toUpperCase(),
@@ -84,7 +84,7 @@ class _BirthdateState extends State<Birthdate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBars.drawAppBar(birthdateTitle),
+      appBar: AppBars.defaultBar(birthdateTitle),
       body: Container(
         padding: const EdgeInsets.all(15),
         child: Column(

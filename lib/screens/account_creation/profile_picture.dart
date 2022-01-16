@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../components/appbar.dart';
+import '../../components/appbars.dart';
 import '../../components/buttons.dart';
 import '../../constants.dart';
 import '../../functions/alerts.dart';
@@ -135,7 +135,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBars.drawAppBar(profilePictureTitle),
+      appBar: AppBars.defaultBar(profilePictureTitle),
       body: Container(
         padding: const EdgeInsets.all(15),
         child: Column(

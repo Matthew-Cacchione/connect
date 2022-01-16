@@ -12,8 +12,8 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
-  int _selectedIndex = 1;
-  static const List<Widget> _widgetOptions = <Widget>[Home(), Chat()];
+  int _selectedIndex = 0;
+  static final List<Widget> _widgetOptions = <Widget>[const Home(), const Chat()];
 
   void _onItemTapped(int index) {
     setState(() {

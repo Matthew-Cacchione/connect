@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 
-import '../../components/appbar.dart';
+import '../../components/appbars.dart';
 import '../../components/buttons.dart';
 import '../../constants.dart';
 
-class Chat extends StatelessWidget {
+class Chat extends StatefulWidget {
   const Chat({Key? key}) : super(key: key);
 
   @override
+  _ChatState createState() => _ChatState();
+}
+
+class _ChatState extends State<Chat> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBars.drawAppBar(chatTitle),
+      appBar: AppBars.defaultBar(chatTitle),
       body: Center(
         child: SingleChildScrollView(
           child: Container(

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/appbar.dart';
+import '../../components/appbars.dart';
 import '../../constants.dart';
 import '../../functions/alerts.dart';
 import '../../functions/authentication.dart';
@@ -73,7 +73,7 @@ class _VerificationState extends State<Verification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBars.drawAppBar(verificationTitle),
+      appBar: AppBars.defaultBar(verificationTitle),
       body: Center(
         child: SingleChildScrollView(
           child: Container(
