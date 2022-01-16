@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../screens/chat.dart';
-import '../screens/home.dart';
-import '../screens/profile.dart';
+import '../../constants.dart';
+import 'chat.dart';
+import 'home.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -13,8 +12,8 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
-  int _selectedIndex = 1;
-  static const List<Widget> _widgetOptions = <Widget>[Profile(), Home(), Chat()];
+  int _selectedIndex = 0;
+  static final List<Widget> _widgetOptions = <Widget>[const Home(), const Chat()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -30,7 +29,6 @@ class _NavBarState extends State<NavBar> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: profileTitle),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: homeTitle),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: chatTitle),
         ],

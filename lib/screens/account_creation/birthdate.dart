@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../components/appbar.dart';
+import '../../components/appbars.dart';
 import '../../components/buttons.dart';
 import '../../constants.dart';
 import '../../functions/user_service.dart';
@@ -31,7 +31,7 @@ class _BirthdateState extends State<Birthdate> {
     }
   }
 
-  Widget drawBirthdatePrompt() {
+  Widget _drawBirthdatePrompt() {
     return const Text(
       birthdatePrompt,
       style: TextStyle(
@@ -40,7 +40,7 @@ class _BirthdateState extends State<Birthdate> {
     );
   }
 
-  Widget drawDisplayBirthdate() {
+  Widget _drawDisplayBirthdate() {
     String simpleBirthdate =
         '${userBirthdate.year.toString()} - ${userBirthdate.month.toString().padLeft(2, '0')} - ${userBirthdate.day.toString().padLeft(2, '0')}';
 
@@ -64,19 +64,19 @@ class _BirthdateState extends State<Birthdate> {
     );
   }
 
-  Widget drawNextBtn() {
+  Widget _drawNextBtn() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15),
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          setBirthdate(userBirthdate.year, userBirthdate.month, userBirthdate.day, context);
+          UserService.setBirthdate(userBirthdate, context);
         },
         child: Text(
           nextBtn.toUpperCase(),
-          style: btnTextStyle,
+          style: Buttons.getTextStyle(),
         ),
-        style: btnStyle,
+        style: Buttons.getStyle(),
       ),
     );
   }
@@ -84,7 +84,7 @@ class _BirthdateState extends State<Birthdate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: drawAppBar(birthdateTitle),
+      appBar: AppBars.defaultBar(birthdateTitle),
       body: Container(
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -92,11 +92,11 @@ class _BirthdateState extends State<Birthdate> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(child: Container()),
-            drawBirthdatePrompt(),
+            _drawBirthdatePrompt(),
             const SizedBox(height: 5),
-            drawDisplayBirthdate(),
+            _drawDisplayBirthdate(),
             Expanded(child: Container()),
-            drawNextBtn(),
+            _drawNextBtn(),
           ],
         ),
       ),

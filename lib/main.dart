@@ -9,7 +9,7 @@ import 'screens/account_creation/profile_picture.dart';
 import 'screens/account_creation/registration.dart';
 import 'screens/account_creation/verification.dart';
 import 'screens/login.dart';
-import 'screens/navbar.dart';
+import 'screens/navigation/navbar.dart';
 import 'themes.dart';
 
 Future<void> main() async {

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/appbar.dart';
+import '../../components/appbars.dart';
 import '../../constants.dart';
 import '../../functions/alerts.dart';
 import '../../functions/authentication.dart';
@@ -29,7 +29,7 @@ class _VerificationState extends State<Verification> {
         seconds: 3,
       ),
       (timer) {
-        verifyEmail(timer, context);
+        Authentication.verifyEmail(timer, context);
       },
     );
   }
@@ -48,14 +48,14 @@ class _VerificationState extends State<Verification> {
           onTap: () async {
             try {
               await FirebaseAuth.instance.currentUser!.sendEmailVerification();
-              showErrorSnackBar(resendVerification, context);
+              Alerts.showErrorSnackBar(resendVerification, context);
             } on FirebaseAuthException catch (e) {
               String errorMessage = defaultError;
 
               if (e.code == 'too-many-requests') {
                 errorMessage = frequentRequestError;
               }
-              showErrorSnackBar(errorMessage, context);
+              Alerts.showErrorSnackBar(errorMessage, context);
             }
           },
           child: const Text(
@@ -73,7 +73,7 @@ class _VerificationState extends State<Verification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: drawAppBar(verificationTitle),
+      appBar: AppBars.defaultBar(verificationTitle),
       body: Center(
         child: SingleChildScrollView(
           child: Container(
