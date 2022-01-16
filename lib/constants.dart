@@ -106,6 +106,5 @@ final activitySet = {
   'Eat',
   'Study',
   'Workout',
-  'In-Person Chat/ Outing',
   'Online Chat',
 };

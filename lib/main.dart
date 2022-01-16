@@ -8,6 +8,7 @@ import 'screens/account_creation/interests.dart';
 import 'screens/account_creation/profile_picture.dart';
 import 'screens/account_creation/registration.dart';
 import 'screens/account_creation/verification.dart';
+import 'screens/activity_selection.dart';
 import 'screens/login.dart';
 import 'screens/navigation/navbar.dart';
 import 'themes.dart';
@@ -29,13 +30,14 @@ class MyApp extends StatelessWidget {
       initialRoute: getLandingPage(),
       theme: lightTheme,
       routes: {
-        '/': (context) => const NavBar(),
+        '/': (context) => const ActivitySelection(),
         '/login': (context) => const Login(),
         '/registration': (context) => const Registration(),
         '/verification': (context) => const Verification(),
         '/birthdate': (context) => const Birthdate(),
         '/profilepic': (context) => const ProfilePicture(),
         '/interests': (context) => const Interests(),
+        '/navbar': (context) => const NavBar(),
       },
     );
   }
