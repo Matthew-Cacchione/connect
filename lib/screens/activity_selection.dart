@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../components/appbars.dart';
 import '../components/buttons.dart';
+import '../functions/user_service.dart';
 
 class ActivitySelection extends StatefulWidget {
   const ActivitySelection({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class ActivitySelection extends StatefulWidget {
 
 class _ActivitySelectionState extends State<ActivitySelection> {
   DateTime _selectedTime = DateTime.now();
+  final _promptController = TextEditingController();
 
   Widget _drawActivities() {
     return Column(
@@ -64,16 +66,18 @@ class _ActivitySelectionState extends State<ActivitySelection> {
   Widget _drawPrompt() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const <Widget>[
-        Text(
+      children: <Widget>[
+        const Text(
           'Let others know what you want to do',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 10),
-        TextField(),
+        const SizedBox(height: 10),
+        TextField(
+          controller: _promptController,
+        ),
       ],
     );
   }
@@ -118,7 +122,7 @@ class _ActivitySelectionState extends State<ActivitySelection> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          Navigator.of(context).pushReplacementNamed('/navbar');
+          UserService.activitySelection('placeholder', _promptController.text.trim(), _selectedTime, context);
         },
         child: Text(
           nextBtn.toUpperCase(),

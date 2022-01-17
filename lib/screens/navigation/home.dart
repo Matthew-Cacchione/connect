@@ -52,14 +52,14 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                       const SizedBox(height: 5),
-                      const Text('Insert prompt here.'),
+                      Text(document.get('promptMessage')),
                     ],
                   ),
                   Expanded(child: Container()),
                   Column(
-                    children: const <Widget>[
-                      CircleAvatar(),
-                      Text('19:06'),
+                    children: <Widget>[
+                      const CircleAvatar(),
+                      Text(document.get('freeUntil')),
                     ],
                   ),
                 ],

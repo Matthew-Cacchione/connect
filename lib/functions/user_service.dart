@@ -135,6 +135,35 @@ class UserService {
     }
   }
 
+  static Future<void> activitySelection(String activity, String prompt, DateTime time, BuildContext context) async {
+    final User? currentUser = FirebaseAuth.instance.currentUser;
+    final String simpleTime = '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+
+    try {
+      if (currentUser != null) {
+        DocumentReference firestoreRef = FirebaseFirestore.instance.collection('users').doc(currentUser.uid);
+        await firestoreRef.update({'selectedActivity': activity});
+        await firestoreRef.update({'freeUntil': simpleTime});
+        await firestoreRef.update({'promptMessage': prompt});
+        Navigator.of(context).pushNamed('/navbar');
+      } else {
+        throw Exception('User was null.');
+      }
+    } on FirebaseException catch (e) {
+      String _errorMessage;
+      switch (e.code) {
+        default:
+          {
+            _errorMessage = e.code;
+          }
+          break;
+      }
+      Alerts.showErrorSnackBar(_errorMessage, context);
+    } on Exception catch (e) {
+      Alerts.showErrorSnackBar(e.toString(), context);
+    }
+  }
+
   static int calculateAge(birthdate) {
     DateTime currentDate = DateTime.now();
     int age = (currentDate.year - birthdate[2]).toInt();
