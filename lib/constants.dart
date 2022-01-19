@@ -54,15 +54,18 @@ const cameraTxt = 'Camera';
 const galleryTxt = 'Gallery';
 const profilePictureTitle = 'Profile Picture';
 const noPictureSelected = 'Please select a profile picture before continuing.';
+const chooseActivity = 'Choose an activity';
+const promptTitle = 'Let others know what you want to do';
+const freeUntilTitle = 'Until when are you free?';
+const activitySelectionTitle = 'Select Activity';
 
 // Interests
-final interestSet = {
+final interestSet = [
   'Anime',
   'Astrology',
   'Beauty',
   'Board Games',
-  'Books',
-  'Card Games',
+  'Books' 'Card Games',
   'Cars & Motorcycle',
   'Concerts',
   'Cooking',
@@ -86,7 +89,7 @@ final interestSet = {
   'Vegan',
   'Video Games',
   'Volunteering',
-};
+];
 
 final interestMap = {
   'Entertainment': ['Anime', 'Books', 'Movies', 'Theatre', 'TV Series'],
@@ -101,10 +104,4 @@ final interestMap = {
 final interestCategories = interestMap.keys.toList();
 
 // Activities
-final activitySet = {
-  'Any',
-  'Eat',
-  'Study',
-  'Workout',
-  'Online Chat',
-};
+final activitySet = ['Any', 'Eat', 'Study', 'Workout', 'Online Chat'];

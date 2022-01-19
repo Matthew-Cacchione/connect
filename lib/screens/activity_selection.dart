@@ -15,6 +15,7 @@ class ActivitySelection extends StatefulWidget {
 
 class _ActivitySelectionState extends State<ActivitySelection> {
   DateTime _selectedTime = DateTime.now();
+  String _selectedActivity = activitySet[0];
   final _promptController = TextEditingController();
 
   Widget _drawActivities() {
@@ -22,7 +23,7 @@ class _ActivitySelectionState extends State<ActivitySelection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Choose an activity',
+          chooseActivity,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18,
@@ -36,25 +37,33 @@ class _ActivitySelectionState extends State<ActivitySelection> {
             itemCount: activitySet.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1),
             itemBuilder: (context, index) {
-              return Column(
-                children: <Widget>[
-                  Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(image: Image.asset('assets/images/default_activity.png').image),
-                      border: Border.all(
-                        color: Colors.black,
-                        style: BorderStyle.solid,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(50),
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _selectedActivity = activitySet.elementAt(index);
+                  });
+                },
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 75,
+                      width: 75,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(image: Image.asset('assets/images/default_activity.png').image),
+                        border: Border.all(
+                          color: _selectedActivity == activitySet.elementAt(index) ? Colors.blue : Colors.black,
+                          style: BorderStyle.solid,
+                          width: 3,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(50),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(activitySet.elementAt(index)),
-                ],
+                    const SizedBox(height: 5),
+                    Text(activitySet.elementAt(index)),
+                  ],
+                ),
               );
             },
           ),
@@ -68,7 +77,7 @@ class _ActivitySelectionState extends State<ActivitySelection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Text(
-          'Let others know what you want to do',
+          promptTitle,
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -89,7 +98,7 @@ class _ActivitySelectionState extends State<ActivitySelection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Until when are you free?',
+          freeUntilTitle,
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -122,7 +131,7 @@ class _ActivitySelectionState extends State<ActivitySelection> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          UserService.activitySelection('placeholder', _promptController.text.trim(), _selectedTime, context);
+          UserService.activitySelection(_selectedActivity, _promptController.text.trim(), _selectedTime, context);
         },
         child: Text(
           nextBtn.toUpperCase(),
@@ -157,21 +166,27 @@ class _ActivitySelectionState extends State<ActivitySelection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBars.defaultBar('Select Activity'),
-      body: Container(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            _drawActivities(),
-            const SizedBox(height: 30),
-            _drawPrompt(),
-            const SizedBox(height: 30),
-            _drawTimeSelection(),
-            Expanded(child: Container()),
-            _drawNextBtn(),
-          ],
-        ),
+      appBar: AppBars.defaultBar(activitySelectionTitle),
+      body: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Container(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  _drawActivities(),
+                  const SizedBox(height: 30),
+                  _drawPrompt(),
+                  const SizedBox(height: 30),
+                  _drawTimeSelection(),
+                  Expanded(child: Container()),
+                  _drawNextBtn(),
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
