@@ -15,7 +15,7 @@ class ActivitySelection extends StatefulWidget {
 
 class _ActivitySelectionState extends State<ActivitySelection> {
   DateTime _selectedTime = DateTime.now();
-  String _selectedActivity = activitySet[0];
+  int _selectedActivity = 0;
   final _promptController = TextEditingController();
 
   Widget _drawActivities() {
@@ -40,7 +40,7 @@ class _ActivitySelectionState extends State<ActivitySelection> {
               return GestureDetector(
                 onTap: () {
                   setState(() {
-                    _selectedActivity = activitySet.elementAt(index);
+                    _selectedActivity = index;
                   });
                 },
                 child: Column(
@@ -49,9 +49,9 @@ class _ActivitySelectionState extends State<ActivitySelection> {
                       height: 75,
                       width: 75,
                       decoration: BoxDecoration(
-                        image: DecorationImage(image: Image.asset('assets/images/default_activity.png').image),
+                        image: DecorationImage(image: Image.asset(activityIcons[index]).image),
                         border: Border.all(
-                          color: _selectedActivity == activitySet.elementAt(index) ? Colors.blue : Colors.black,
+                          color: _selectedActivity == index ? Colors.blue : Colors.black,
                           style: BorderStyle.solid,
                           width: 3,
                         ),
@@ -86,6 +86,7 @@ class _ActivitySelectionState extends State<ActivitySelection> {
         const SizedBox(height: 10),
         TextField(
           controller: _promptController,
+          maxLength: 30,
         ),
       ],
     );

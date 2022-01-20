@@ -105,3 +105,11 @@ final interestCategories = interestMap.keys.toList();
 
 // Activities
 final activitySet = ['Any', 'Eat', 'Study', 'Workout', 'Online Chat'];
+
+final activityIcons = [
+  'assets/images/default_activity.png',
+  'assets/images/default_activity.png',
+  'assets/images/default_activity.png',
+  'assets/images/default_activity.png',
+  'assets/images/default_activity.png',
+];

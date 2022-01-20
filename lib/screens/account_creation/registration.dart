@@ -147,9 +147,6 @@ class _RegistrationState extends State<Registration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(registrationTitle),
-      ),
       body: Center(
         child: SingleChildScrollView(
           child: Container(

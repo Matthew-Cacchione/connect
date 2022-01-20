@@ -11,9 +11,9 @@ class AppBars {
     );
   }
 
-  static PreferredSizeWidget photoBar(Image photo, String title) {
+  static PreferredSizeWidget photoBar(Image photo, String activity, String freeUntil) {
     return PreferredSize(
-      preferredSize: const Size.fromHeight(60),
+      preferredSize: const Size.fromHeight(100),
       child: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -26,10 +26,10 @@ class AppBars {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title),
-                const Text(
-                  '19:30',
-                  style: TextStyle(
+                Text(activity),
+                Text(
+                  freeUntil,
+                  style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w300,
                   ),

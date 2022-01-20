@@ -108,7 +108,6 @@ class UserService {
       if (currentUser != null) {
         Reference profileRef = FirebaseStorage.instance.ref(currentUser.uid + '/profilePicture/');
         await profileRef.putFile(picture);
-
         String pictureUrl = await profileRef.getDownloadURL();
         await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'pictureUrl': pictureUrl});
         Navigator.of(context).pushReplacementNamed('/interests');
@@ -135,16 +134,14 @@ class UserService {
     }
   }
 
-  static Future<void> activitySelection(String activity, String prompt, DateTime time, BuildContext context) async {
+  static Future<void> activitySelection(int activityIndex, String prompt, DateTime time, BuildContext context) async {
     final User? currentUser = FirebaseAuth.instance.currentUser;
     final String simpleTime = '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
 
     try {
       if (currentUser != null) {
         DocumentReference firestoreRef = FirebaseFirestore.instance.collection('users').doc(currentUser.uid);
-        await firestoreRef.update({'selectedActivity': activity});
-        await firestoreRef.update({'freeUntil': simpleTime});
-        await firestoreRef.update({'promptMessage': prompt});
+        await firestoreRef.update({'selectedActivity': activityIndex, 'freeUntil': simpleTime, 'promptMessage': prompt});
         Navigator.of(context).pushNamed('/navbar');
       } else {
         throw Exception('User was null.');
@@ -152,6 +149,11 @@ class UserService {
     } on FirebaseException catch (e) {
       String _errorMessage;
       switch (e.code) {
+        case 'not-found':
+          {
+            _errorMessage = 'No user found.';
+          }
+          break;
         default:
           {
             _errorMessage = e.code;
