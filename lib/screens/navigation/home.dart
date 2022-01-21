@@ -34,6 +34,10 @@ class _HomeState extends State<Home> {
             UserModel user = UserModel.fromDocument(document);
             String userAge = UserService.calculateAge(user.birthdate).toString();
 
+            if (document.id == currentUser!.uid) {
+              return const SizedBox.shrink();
+            }
+
             return Container(
               width: double.infinity,
               padding: const EdgeInsets.all(10),
@@ -79,7 +83,7 @@ class _HomeState extends State<Home> {
 
   PreferredSizeWidget _drawAppBar() {
     return PreferredSize(
-      preferredSize: const Size.fromHeight(65),
+      preferredSize: const Size.fromHeight(60),
       child: StreamBuilder(
         stream: users.doc(currentUser!.uid).snapshots(),
         builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -89,7 +93,7 @@ class _HomeState extends State<Home> {
             );
           } else {
             return AppBars.photoBar(
-                Image.network(snapshot.data!['pictureUrl']), activitySet[snapshot.data!['selectedActivity']], snapshot.data!['freeUntil']);
+                Image.network(snapshot.data!['pictureUrl']), activitySet[snapshot.data!['selectedActivity']], snapshot.data!['freeUntil'], context);
           }
         },
       ),

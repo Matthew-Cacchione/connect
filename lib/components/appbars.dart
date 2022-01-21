@@ -11,9 +11,9 @@ class AppBars {
     );
   }
 
-  static PreferredSizeWidget photoBar(Image photo, String activity, String freeUntil) {
+  static PreferredSizeWidget photoBar(Image photo, String activity, String freeUntil, BuildContext context) {
     return PreferredSize(
-      preferredSize: const Size.fromHeight(100),
+      preferredSize: const Size.fromHeight(60),
       child: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -23,18 +23,21 @@ class AppBars {
               radius: 25,
             ),
             const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(activity),
-                Text(
-                  freeUntil,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w300,
+            GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed('/'),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(activity),
+                  Text(
+                    freeUntil,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Expanded(child: Container()),
             IconButton(
