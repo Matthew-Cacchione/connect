@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
+import 'functions/user_service.dart';
 import 'screens/account_creation/birthdate.dart';
 import 'screens/account_creation/interests.dart';
 import 'screens/account_creation/profile_picture.dart';
@@ -19,8 +20,44 @@ Future<void> main() async {
   runApp(const Main());
 }
 
-class Main extends StatelessWidget {
+class Main extends StatefulWidget {
   const Main({Key? key}) : super(key: key);
+
+  @override
+  _MainState createState() => _MainState();
+}
+
+class _MainState extends State<Main> with WidgetsBindingObserver {
+  final User? currentUser = FirebaseAuth.instance.currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance!.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.resumed:
+        if (currentUser != null) {
+          UserService.setPresence(true, context);
+        }
+        break;
+      default:
+        if (currentUser != null) {
+          UserService.setPresence(false, context);
+        }
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

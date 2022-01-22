@@ -18,9 +18,13 @@ class AppBars {
         automaticallyImplyLeading: false,
         title: Row(
           children: <Widget>[
-            CircleAvatar(
-              backgroundImage: photo.image,
-              radius: 25,
+            GestureDetector(
+              //TODO: Redirect user to their profile screen.
+              //onTap: () => ,
+              child: CircleAvatar(
+                backgroundImage: photo.image,
+                radius: 25,
+              ),
             ),
             const SizedBox(width: 10),
             GestureDetector(

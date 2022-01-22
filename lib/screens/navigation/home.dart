@@ -17,29 +17,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with WidgetsBindingObserver {
   User? currentUser = FirebaseAuth.instance.currentUser;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addObserver(this);
-    UserService.setPresence(true, context);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    WidgetsBinding.instance!.removeObserver(this);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed) {
-      UserService.setPresence(true, context);
-    } else {
-      UserService.setPresence(false, context);
-    }
-  }
+  List<String> clickedUsers = [];
 
   Widget _drawUserTiles() {
     return StreamBuilder(
@@ -61,41 +39,58 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               return const SizedBox.shrink();
             }
 
-            return Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                children: <Widget>[
-                  CircleAvatar(
-                    backgroundImage: Image.network(user.pictureUrl!).image,
-                    radius: 30,
-                  ),
-                  const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text(user.name! + ','),
-                          const SizedBox(width: 5),
-                          Text(userAge),
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                      Text(user.promptMessage!),
-                    ],
-                  ),
-                  Expanded(child: Container()),
-                  Column(
-                    children: <Widget>[
-                      CircleAvatar(
-                        backgroundImage: Image.asset(activityIcons[user.selectedActivity!]).image,
-                        backgroundColor: Colors.white,
-                      ),
-                      Text(user.freeUntil!),
-                    ],
-                  ),
-                ],
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  clickedUsers.add(document.id);
+                });
+                //TODO: Display the user's profile.
+              },
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: <Widget>[
+                    CircleAvatar(
+                      backgroundImage: Image.network(user.pictureUrl!).image,
+                      radius: 30,
+                    ),
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              user.name! + ',',
+                              style: TextStyle(fontWeight: clickedUsers.contains(document.id) ? FontWeight.w300 : FontWeight.bold),
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              userAge,
+                              style: TextStyle(fontWeight: clickedUsers.contains(document.id) ? FontWeight.w300 : FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          user.promptMessage!,
+                          style: TextStyle(fontWeight: clickedUsers.contains(document.id) ? FontWeight.w300 : FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Expanded(child: Container()),
+                    Column(
+                      children: <Widget>[
+                        CircleAvatar(
+                          backgroundImage: Image.asset(activityIcons[user.selectedActivity!]).image,
+                          backgroundColor: Colors.white,
+                        ),
+                        Text(user.freeUntil!),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             );
           },

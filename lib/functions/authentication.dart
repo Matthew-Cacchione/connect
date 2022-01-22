@@ -16,6 +16,7 @@ class Authentication {
         await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
         User? _currentUser = FirebaseAuth.instance.currentUser;
         if (_currentUser!.emailVerified) {
+          UserService.setPresence(true, context);
           Navigator.pushReplacementNamed(context, '/');
         } else {
           Navigator.pushNamed(context, '/verification');
@@ -24,29 +25,19 @@ class Authentication {
         String _errorMessage;
         switch (e.code) {
           case 'invalid-email':
-            {
-              _errorMessage = emailNotValid;
-            }
+            _errorMessage = emailNotValid;
             break;
           case 'user-disabled':
-            {
-              _errorMessage = userDisabled;
-            }
+            _errorMessage = userDisabled;
             break;
           case 'user-not-found':
-            {
-              _errorMessage = userNotFound;
-            }
+            _errorMessage = userNotFound;
             break;
           case 'wrong-password':
-            {
-              _errorMessage = wrongPassword;
-            }
+            _errorMessage = wrongPassword;
             break;
           default:
-            {
-              _errorMessage = e.code;
-            }
+            _errorMessage = e.code;
             break;
         }
         Alerts.showErrorSnackBar(_errorMessage, context);
@@ -66,25 +57,17 @@ class Authentication {
         String _errorMessage;
         switch (e.code) {
           case 'email-already-in-use':
-            {
-              _errorMessage = emailAlreadyInUse;
-              Navigator.of(context).pushNamed('/login');
-            }
+            _errorMessage = emailAlreadyInUse;
+            Navigator.of(context).pushNamed('/login');
             break;
           case 'invalid-email':
-            {
-              _errorMessage = emailNotValid;
-            }
+            _errorMessage = emailNotValid;
             break;
           case 'weak-password':
-            {
-              _errorMessage = weakPassword;
-            }
+            _errorMessage = weakPassword;
             break;
           default:
-            {
-              _errorMessage = e.code;
-            }
+            _errorMessage = e.code;
             break;
         }
         Alerts.showErrorSnackBar(_errorMessage, context);
@@ -109,9 +92,7 @@ class Authentication {
       String _errorMessage;
       switch (e.code) {
         default:
-          {
-            _errorMessage = e.code;
-          }
+          _errorMessage = e.code;
           break;
       }
       Alerts.showErrorSnackBar(_errorMessage, context);
@@ -128,19 +109,13 @@ class Authentication {
       String _errorMessage;
       switch (e.code) {
         case 'auth/invalid-email':
-          {
-            _errorMessage = emailNotValid;
-          }
+          _errorMessage = emailNotValid;
           break;
         case 'auth/user-not-found':
-          {
-            _errorMessage = userNotFound;
-          }
+          _errorMessage = userNotFound;
           break;
         default:
-          {
-            _errorMessage = e.code;
-          }
+          _errorMessage = e.code;
           break;
       }
       Alerts.showErrorSnackBar(_errorMessage, context);

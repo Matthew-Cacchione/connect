@@ -23,14 +23,10 @@ class UserService {
       String _errorMessage;
       switch (e.code) {
         case 'permission-denied':
-          {
-            _errorMessage = permissionDenied;
-          }
+          _errorMessage = permissionDenied;
           break;
         default:
-          {
-            _errorMessage = e.code;
-          }
+          _errorMessage = e.code;
           break;
       }
       Alerts.showErrorSnackBar(_errorMessage, context);
@@ -61,14 +57,10 @@ class UserService {
       String _errorMessage;
       switch (e.code) {
         case 'permission-denied':
-          {
-            _errorMessage = permissionDenied;
-          }
+          _errorMessage = permissionDenied;
           break;
         default:
-          {
-            _errorMessage = e.code;
-          }
+          _errorMessage = e.code;
           break;
       }
       Alerts.showErrorSnackBar(_errorMessage, context);
@@ -92,14 +84,10 @@ class UserService {
       String _errorMessage;
       switch (e.code) {
         case 'permission-denied':
-          {
-            _errorMessage = permissionDenied;
-          }
+          _errorMessage = permissionDenied;
           break;
         default:
-          {
-            _errorMessage = e.code;
-          }
+          _errorMessage = e.code;
           break;
       }
       Alerts.showErrorSnackBar(_errorMessage, context);
@@ -125,14 +113,10 @@ class UserService {
       String _errorMessage;
       switch (e.code) {
         case 'permission-denied':
-          {
-            _errorMessage = permissionDenied;
-          }
+          _errorMessage = permissionDenied;
           break;
         default:
-          {
-            _errorMessage = e.code;
-          }
+          _errorMessage = e.code;
           break;
       }
       Alerts.showErrorSnackBar(_errorMessage, context);
@@ -157,14 +141,10 @@ class UserService {
       String _errorMessage;
       switch (e.code) {
         case 'not-found':
-          {
-            _errorMessage = 'No user found.';
-          }
+          _errorMessage = 'No user found.';
           break;
         default:
-          {
-            _errorMessage = e.code;
-          }
+          _errorMessage = e.code;
           break;
       }
       Alerts.showErrorSnackBar(_errorMessage, context);
@@ -204,9 +184,7 @@ class UserService {
       String _errorMessage;
       switch (e.code) {
         default:
-          {
-            _errorMessage = e.code;
-          }
+          _errorMessage = e.code;
           break;
       }
       Alerts.showErrorSnackBar(_errorMessage, context);
