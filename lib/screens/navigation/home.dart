@@ -14,9 +14,32 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver {
   User? currentUser = FirebaseAuth.instance.currentUser;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addObserver(this);
+    UserService.setPresence(true, context);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance!.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      UserService.setPresence(true, context);
+    } else {
+      UserService.setPresence(false, context);
+    }
+  }
 
   Widget _drawUserTiles() {
     return StreamBuilder(
@@ -34,7 +57,7 @@ class _HomeState extends State<Home> {
             UserModel user = UserModel.fromDocument(document);
             String userAge = UserService.calculateAge(user.birthdate).toString();
 
-            if (document.id == currentUser!.uid) {
+            if (document.id == currentUser!.uid || !user.isOnline) {
               return const SizedBox.shrink();
             }
 

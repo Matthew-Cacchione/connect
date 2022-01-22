@@ -44,7 +44,14 @@ class UserService {
 
     try {
       if (currentUser != null) {
-        final Map<String, dynamic> _userDetails = {'email': currentUser.email, 'name': name};
+        final Map<String, dynamic> _userDetails = {
+          'email': currentUser.email,
+          'name': name,
+          'isOnline': false,
+          'promptMessage': '',
+          'selectedActivity': 0,
+          'freeUntil': '00:00',
+        };
         await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).set(_userDetails);
         Navigator.of(context).pushNamed('/verification');
       } else {
@@ -182,5 +189,29 @@ class UserService {
       }
     }
     return age;
+  }
+
+  static Future<void> setPresence(bool isOnline, BuildContext context) async {
+    final User? currentUser = FirebaseAuth.instance.currentUser;
+
+    try {
+      if (currentUser != null) {
+        await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'isOnline': isOnline});
+      } else {
+        throw Exception('User was null.');
+      }
+    } on FirebaseException catch (e) {
+      String _errorMessage;
+      switch (e.code) {
+        default:
+          {
+            _errorMessage = e.code;
+          }
+          break;
+      }
+      Alerts.showErrorSnackBar(_errorMessage, context);
+    } on Exception catch (e) {
+      Alerts.showErrorSnackBar(e.toString(), context);
+    }
   }
 }

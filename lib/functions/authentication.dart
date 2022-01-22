@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -94,8 +95,29 @@ class Authentication {
   }
 
   static Future<void> signOut(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.pushReplacementNamed(context, '/login');
+    final User? currentUser = FirebaseAuth.instance.currentUser;
+
+    try {
+      if (currentUser != null) {
+        await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'isOnline': false});
+        await FirebaseAuth.instance.signOut();
+        Navigator.pushReplacementNamed(context, '/login');
+      } else {
+        throw Exception('User was null.');
+      }
+    } on FirebaseException catch (e) {
+      String _errorMessage;
+      switch (e.code) {
+        default:
+          {
+            _errorMessage = e.code;
+          }
+          break;
+      }
+      Alerts.showErrorSnackBar(_errorMessage, context);
+    } on Exception catch (e) {
+      Alerts.showErrorSnackBar(e.toString(), context);
+    }
   }
 
   static Future<void> resetUserPassword(String email, BuildContext context) async {

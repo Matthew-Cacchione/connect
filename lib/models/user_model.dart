@@ -9,6 +9,7 @@ class UserModel {
   String? pictureUrl;
   String? promptMessage;
   int? selectedActivity;
+  bool isOnline = false;
 
   UserModel(
     this.birthdate,
@@ -19,6 +20,7 @@ class UserModel {
     this.pictureUrl,
     this.promptMessage,
     this.selectedActivity,
+    this.isOnline,
   );
 
   UserModel.fromDocument(DocumentSnapshot document) {
@@ -30,11 +32,6 @@ class UserModel {
     pictureUrl = document.get('pictureUrl');
     promptMessage = document.get('promptMessage');
     selectedActivity = document.get('selectedActivity');
-  }
-
-  UserModel.thisUser(DocumentSnapshot document) {
-    freeUntil = document.get('freeUntil');
-    pictureUrl = document.get('pictureUrl');
-    selectedActivity = document.get('selectedActivity');
+    isOnline = document.get('isOnline');
   }
 }
