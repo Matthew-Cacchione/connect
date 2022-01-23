@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../constants.dart';
 import 'alerts.dart';
@@ -127,7 +128,7 @@ class UserService {
 
   static Future<void> activitySelection(int activityIndex, String prompt, DateTime time, BuildContext context) async {
     final User? currentUser = FirebaseAuth.instance.currentUser;
-    final String simpleTime = '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+    final String simpleTime = DateFormat.jm().format(time);
 
     try {
       if (currentUser != null) {

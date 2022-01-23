@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,7 @@ class Main extends StatefulWidget {
 
 class _MainState extends State<Main> with WidgetsBindingObserver {
   final User? currentUser = FirebaseAuth.instance.currentUser;
+  Timer? timeoutUser;
 
   @override
   void initState() {
@@ -38,8 +41,8 @@ class _MainState extends State<Main> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    super.dispose();
     WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -48,13 +51,18 @@ class _MainState extends State<Main> with WidgetsBindingObserver {
     switch (state) {
       case AppLifecycleState.resumed:
         if (currentUser != null) {
+          timeoutUser?.cancel();
           UserService.setPresence(true, context);
         }
         break;
-      default:
+
+      case AppLifecycleState.paused:
         if (currentUser != null) {
-          UserService.setPresence(false, context);
+          timeoutUser = Timer(const Duration(seconds: 5), () => UserService.setPresence(false, context));
         }
+        break;
+
+      default:
         break;
     }
   }

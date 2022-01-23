@@ -34,7 +34,7 @@ class AppBars {
                 children: [
                   Text(activity),
                   Text(
-                    freeUntil,
+                    'Free until ' + freeUntil,
                     style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w300,

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../constants.dart';
 import '../components/appbars.dart';
@@ -93,7 +94,7 @@ class _ActivitySelectionState extends State<ActivitySelection> {
   }
 
   Widget _drawTimeSelection() {
-    String simpleTime = '${_selectedTime.hour.toString().padLeft(2, '0')}:${_selectedTime.minute.toString().padLeft(2, '0')}';
+    String _simpleTime = DateFormat.jm().format(_selectedTime);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +117,7 @@ class _ActivitySelectionState extends State<ActivitySelection> {
               borderRadius: BorderRadius.circular(5),
             ),
             child: Text(
-              simpleTime,
+              _simpleTime,
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 20),
             ),
@@ -153,6 +154,7 @@ class _ActivitySelectionState extends State<ActivitySelection> {
           child: CupertinoDatePicker(
             mode: CupertinoDatePickerMode.time,
             initialDateTime: _selectedTime,
+            minimumDate: DateTime.now(),
             onDateTimeChanged: (value) {
               setState(() {
                 _selectedTime = value;

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../components/appbars.dart';
 import '../../constants.dart';
-import '../../functions/user_service.dart';
+import '../../globals.dart' as globals;
 import '../../models/user_model.dart';
 
 class Home extends StatefulWidget {
@@ -17,7 +17,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with WidgetsBindingObserver {
   User? currentUser = FirebaseAuth.instance.currentUser;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-  List<String> clickedUsers = [];
 
   Widget _drawUserTiles() {
     return StreamBuilder(
@@ -28,22 +27,26 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             child: CircularProgressIndicator(),
           );
         }
-        return ListView.builder(
-          itemCount: snapshot.data!.docs.length,
-          itemBuilder: (context, index) {
-            DocumentSnapshot document = snapshot.data!.docs[index];
-            UserModel user = UserModel.fromDocument(document);
-            String userAge = UserService.calculateAge(user.birthdate).toString();
 
-            if (document.id == currentUser!.uid || !user.isOnline) {
-              return const SizedBox.shrink();
-            }
+        List<UserModel> _userModels = [];
+        List<QueryDocumentSnapshot> _userSnapshots = snapshot.data!.docs;
+        for (var i = 0; i < _userSnapshots.length; i++) {
+          if (_userSnapshots[i].id != currentUser!.uid && _userSnapshots[i].get('isOnline') == true) {
+            UserModel userModel = UserModel.fromDocument(_userSnapshots[i]);
+            _userModels.add(userModel);
+          }
+        }
+
+        return ListView.builder(
+          itemCount: _userModels.length,
+          itemBuilder: (context, index) {
+            UserModel user = _userModels[index];
 
             return GestureDetector(
               onTap: () {
-                setState(() {
-                  clickedUsers.add(document.id);
-                });
+                // setState(() {
+                //   globals.clickedUsers.add(document.id);
+                // });
                 //TODO: Display the user's profile.
               },
               child: Container(
@@ -62,20 +65,16 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                         Row(
                           children: <Widget>[
                             Text(
-                              user.name! + ',',
-                              style: TextStyle(fontWeight: clickedUsers.contains(document.id) ? FontWeight.w300 : FontWeight.bold),
+                              user.name! + ' is free until ' + user.freeUntil!,
+                              //style: TextStyle(fontWeight: globals.clickedUsers.contains(document.id) ? FontWeight.w300 : FontWeight.bold),
                             ),
                             const SizedBox(width: 5),
-                            Text(
-                              userAge,
-                              style: TextStyle(fontWeight: clickedUsers.contains(document.id) ? FontWeight.w300 : FontWeight.bold),
-                            ),
                           ],
                         ),
                         const SizedBox(height: 5),
                         Text(
                           user.promptMessage!,
-                          style: TextStyle(fontWeight: clickedUsers.contains(document.id) ? FontWeight.w300 : FontWeight.bold),
+                          //style: TextStyle(fontWeight: globals.clickedUsers.contains(document.id) ? FontWeight.w300 : FontWeight.bold),
                         ),
                       ],
                     ),
@@ -86,7 +85,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                           backgroundImage: Image.asset(activityIcons[user.selectedActivity!]).image,
                           backgroundColor: Colors.white,
                         ),
-                        Text(user.freeUntil!),
                       ],
                     ),
                   ],
