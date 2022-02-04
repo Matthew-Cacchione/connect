@@ -10,18 +10,7 @@ class UserModel {
   String? promptMessage;
   int? selectedActivity;
   bool isOnline = false;
-
-  UserModel(
-    this.birthdate,
-    this.email,
-    this.freeUntil,
-    this.interests,
-    this.name,
-    this.pictureUrl,
-    this.promptMessage,
-    this.selectedActivity,
-    this.isOnline,
-  );
+  int sortPriority = 0;
 
   UserModel.fromDocument(DocumentSnapshot document) {
     birthdate = document.get('birthdate');

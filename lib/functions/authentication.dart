@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 import '../functions/user_service.dart';
-import '../globals.dart' as globals;
 import 'alerts.dart';
 
 class Authentication {
@@ -85,7 +84,6 @@ class Authentication {
       if (currentUser != null) {
         await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'isOnline': false});
         await FirebaseAuth.instance.signOut();
-        globals.clickedUsers = [];
         Navigator.pushReplacementNamed(context, '/login');
       } else {
         throw Exception('User was null.');

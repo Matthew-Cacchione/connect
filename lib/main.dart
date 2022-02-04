@@ -30,7 +30,6 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> with WidgetsBindingObserver {
-  final User? currentUser = FirebaseAuth.instance.currentUser;
   Timer? timeoutUser;
 
   @override
@@ -48,6 +47,7 @@ class _MainState extends State<Main> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
+    final User? currentUser = FirebaseAuth.instance.currentUser;
     switch (state) {
       case AppLifecycleState.resumed:
         if (currentUser != null) {
