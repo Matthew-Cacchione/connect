@@ -47,12 +47,12 @@ class Authentication {
     }
   }
 
-  static Future<void> signUp(String email, String password, String name, GlobalKey<FormState> formKey, BuildContext context) async {
+  static Future<void> signUp(String email, String password, GlobalKey<FormState> formKey, BuildContext context) async {
     if (formKey.currentState!.validate()) {
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
         await FirebaseAuth.instance.currentUser!.sendEmailVerification();
-        UserService.setInitialData(name, context);
+        UserService.setInitialData(context);
       } on FirebaseAuthException catch (e) {
         String _errorMessage;
         switch (e.code) {

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/appbars.dart';
+import '../../components/styles.dart';
 import '../../constants.dart';
 import '../../models/user_model.dart';
 
@@ -29,7 +30,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
         child: Column(
           children: <Widget>[
             Container(
-              height: 300,
+              height: 400,
               decoration: BoxDecoration(
                 image: DecorationImage(fit: BoxFit.fill, image: Image.network(user.pictureUrl!).image),
               ),
@@ -42,10 +43,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 children: [
                   RichText(
                     text: TextSpan(
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                      ),
+                      style: Styles.profileTxt(),
                       children: <TextSpan>[
                         TextSpan(
                           text: '${user.name} ',
@@ -58,10 +56,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   const SizedBox(height: 10),
                   RichText(
                     text: TextSpan(
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                      ),
+                      style: Styles.profileTxt(),
                       children: <TextSpan>[
                         const TextSpan(
                           text: 'Interests: ',
@@ -70,6 +65,20 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                         TextSpan(text: '${user.interests}'),
                       ],
                     ),
+                  ),
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: Text('Back'.toUpperCase()),
+                        style: Styles.profileBtn(),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: Text('Chat'.toUpperCase()),
+                        style: Styles.profileBtn(),
+                      ),
+                    ],
                   ),
                 ],
               ),

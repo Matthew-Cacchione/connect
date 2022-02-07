@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../components/buttons.dart';
+import '../components/styles.dart';
 import '../constants.dart';
 import '../functions/alerts.dart';
 import '../functions/authentication.dart';
@@ -18,21 +18,14 @@ class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  bool _passwordVisible = false;
+  bool _obscurePassword = true;
 
   Widget drawEmail() {
     return TextFormField(
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.all(20),
-        hintText: emailHint,
-        prefixIcon: const Icon(Icons.mail),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-        ),
-      ),
+      decoration: Styles.defaultTxtField(emailHint, const Icon(Icons.mail)),
       validator: (email) {
         if (email!.isEmpty) {
           return emptyError;
@@ -50,24 +43,22 @@ class _LoginState extends State<Login> {
   Widget drawPassword() {
     return TextFormField(
       controller: passwordController,
-      obscureText: !_passwordVisible,
+      obscureText: _obscurePassword,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(15),
         ),
-        contentPadding: const EdgeInsets.all(20),
-        hintText: passwordHint,
+        contentPadding: const EdgeInsets.all(15),
+        labelText: passwordHint,
         prefixIcon: const Icon(Icons.vpn_key),
         suffixIcon: IconButton(
           onPressed: () {
             setState(() {
-              _passwordVisible = !_passwordVisible;
+              _obscurePassword = !_obscurePassword;
             });
           },
-          icon: Icon(
-            _passwordVisible ? Icons.visibility : Icons.visibility_off,
-          ),
+          icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
         ),
       ),
       validator: (password) {
@@ -88,16 +79,13 @@ class _LoginState extends State<Login> {
           onTap: () {
             if (emailController.text.isNotEmpty) {
               Authentication.resetUserPassword(emailController.text.trim(), context);
-              //showErrorSnackBar(passwordResetSent, context);
             } else {
               Alerts.showErrorSnackBar(noEmailEntered, context);
             }
           },
-          child: const Text(
+          child: Text(
             forgotPassword,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+            style: Styles.anchorTxt(),
           ),
         )
       ],
@@ -113,10 +101,10 @@ class _LoginState extends State<Login> {
           Authentication.signIn(emailController.text.trim(), passwordController.text.trim(), _loginKey, context);
         },
         child: Text(
-          loginBtn.toUpperCase(),
-          style: Buttons.getTextStyle(),
+          loginBtn,
+          style: Styles.defaultBtnTxt(),
         ),
-        style: Buttons.getStyle(),
+        style: Styles.defaultBtn(),
       ),
     );
   }
@@ -130,11 +118,9 @@ class _LoginState extends State<Login> {
           onTap: () {
             Navigator.pushNamed(context, '/registration');
           },
-          child: const Text(
+          child: Text(
             signUpPrompt,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+            style: Styles.anchorTxt(),
           ),
         )
       ],
@@ -147,7 +133,7 @@ class _LoginState extends State<Login> {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Form(
               key: _loginKey,
               child: Column(

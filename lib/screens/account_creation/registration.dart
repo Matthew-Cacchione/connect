@@ -1,6 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/buttons.dart';
+import '../../components/styles.dart';
 import '../../constants.dart';
 import '../../functions/authentication.dart';
 
@@ -19,46 +20,15 @@ class _RegistrationState extends State<Registration> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  Widget drawName() {
-    return TextFormField(
-      controller: nameController,
-      keyboardType: TextInputType.name,
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-        ),
-        contentPadding: const EdgeInsets.all(20),
-        hintText: nameHint,
-        prefixIcon: const Icon(Icons.person),
-      ),
-      validator: (name) {
-        if (name!.isEmpty) {
-          return emptyError;
-        }
-
-        if (name.length < 3) {
-          return nameNotValid;
-        }
-
-        return null;
-      },
-    );
-  }
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   Widget drawEmail() {
     return TextFormField(
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-        ),
-        contentPadding: const EdgeInsets.all(20),
-        hintText: emailHint,
-        prefixIcon: const Icon(Icons.mail),
-      ),
+      decoration: Styles.defaultTxtField(emailHint, const Icon(Icons.email)),
       validator: (email) {
         if (email!.isEmpty) {
           return emptyError;
@@ -76,15 +46,23 @@ class _RegistrationState extends State<Registration> {
   Widget drawPassword() {
     return TextFormField(
       controller: passwordController,
-      obscureText: true,
-      textInputAction: TextInputAction.next,
+      obscureText: _obscurePassword,
+      textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(15),
         ),
-        contentPadding: const EdgeInsets.all(20),
-        hintText: passwordHint,
+        contentPadding: const EdgeInsets.all(15),
+        labelText: passwordHint,
         prefixIcon: const Icon(Icons.vpn_key),
+        suffixIcon: IconButton(
+          icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
+          onPressed: () {
+            setState(() {
+              _obscurePassword = !_obscurePassword;
+            });
+          },
+        ),
       ),
       validator: (password) {
         if (password!.isEmpty) {
@@ -103,15 +81,23 @@ class _RegistrationState extends State<Registration> {
   Widget drawConfirmPassword() {
     return TextFormField(
       controller: confirmPasswordController,
-      obscureText: true,
+      obscureText: _obscureConfirmPassword,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(15),
         ),
-        contentPadding: const EdgeInsets.all(20),
-        hintText: confirmPasswordHint,
+        contentPadding: const EdgeInsets.all(15),
+        labelText: confirmPasswordHint,
         prefixIcon: const Icon(Icons.vpn_key),
+        suffixIcon: IconButton(
+          icon: Icon(_obscureConfirmPassword ? Icons.visibility_off : Icons.visibility),
+          onPressed: () {
+            setState(() {
+              _obscureConfirmPassword = !_obscureConfirmPassword;
+            });
+          },
+        ),
       ),
       validator: (password) {
         if (password!.isEmpty) {
@@ -133,13 +119,58 @@ class _RegistrationState extends State<Registration> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          Authentication.signUp(emailController.text.trim(), passwordController.text.trim(), nameController.text.trim(), registrationKey, context);
+          Authentication.signUp(emailController.text.trim(), passwordController.text.trim(), registrationKey, context);
         },
         child: Text(
-          signUpPrompt.toUpperCase(),
-          style: Buttons.getTextStyle(),
+          signUpPrompt,
+          style: Styles.defaultBtnTxt(),
         ),
-        style: Buttons.getStyle(),
+        style: Styles.defaultBtn(),
+      ),
+    );
+  }
+
+  Widget drawLogin() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        const Text(haveAccountPrompt),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/login');
+          },
+          child: Text(
+            loginBtn,
+            style: Styles.anchorTxt(),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget drawSignUpAgreement() {
+    return RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        children: [
+          const TextSpan(text: 'By signing up, you agree to the ', style: TextStyle(color: Colors.black)),
+          TextSpan(
+              text: 'Terms of Service ',
+              style: Styles.anchorTxt(),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  //TODO: Redirect user to the terms of service.
+                }),
+          const TextSpan(text: 'and ', style: TextStyle(color: Colors.black)),
+          TextSpan(
+              text: 'Privacy Policy',
+              style: Styles.anchorTxt(),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  //TODO: Redirect user to the privacy policy.
+                }),
+          const TextSpan(text: ', including cookie use.', style: TextStyle(color: Colors.black)),
+        ],
       ),
     );
   }
@@ -148,37 +179,40 @@ class _RegistrationState extends State<Registration> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(15),
-            child: Form(
-              key: registrationKey,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                    ),
-                    height: 150,
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(15, 100, 15, 15),
+                child: Form(
+                  key: registrationKey,
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                        ),
+                        height: 150,
+                      ),
+                      const SizedBox(height: 50),
+                      drawEmail(),
+                      const SizedBox(height: 20),
+                      drawPassword(),
+                      const SizedBox(height: 20),
+                      drawConfirmPassword(),
+                      const SizedBox(height: 20),
+                      drawSignUpBtn(),
+                      drawLogin(),
+                      const SizedBox(height: 50),
+                      Expanded(child: Container()),
+                      drawSignUpAgreement(),
+                    ],
                   ),
-                  const SizedBox(height: 50),
-                  drawName(),
-                  const SizedBox(height: 20),
-                  drawEmail(),
-                  const SizedBox(height: 20),
-                  drawPassword(),
-                  const SizedBox(height: 20),
-                  drawConfirmPassword(),
-                  const SizedBox(height: 20),
-                  drawSignUpBtn(),
-                  const Text(
-                    signUpAgreement,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

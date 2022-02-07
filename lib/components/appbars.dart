@@ -19,8 +19,9 @@ class AppBars {
         title: Row(
           children: <Widget>[
             GestureDetector(
-              //TODO: Redirect user to their profile screen.
-              //onTap: () => ,
+              onTap: () {
+                //TODO: Redirect user to their profile screen.
+              },
               child: CircleAvatar(
                 backgroundImage: photo.image,
                 radius: 25,

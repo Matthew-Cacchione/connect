@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../constants.dart';
 import '../components/appbars.dart';
-import '../components/buttons.dart';
+import '../components/styles.dart';
 import '../functions/user_service.dart';
 
 class ActivitySelection extends StatefulWidget {
@@ -137,9 +137,9 @@ class _ActivitySelectionState extends State<ActivitySelection> {
         },
         child: Text(
           nextBtn.toUpperCase(),
-          style: Buttons.getTextStyle(),
+          style: Styles.defaultBtnTxt(),
         ),
-        style: Buttons.getStyle(),
+        style: Styles.defaultBtn(),
       ),
     );
   }

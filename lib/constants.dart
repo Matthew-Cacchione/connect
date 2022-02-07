@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 // Colors
-const colorPrimary = Color(0xff493843);
-const colorSecondary = Color(0xff61988e);
+const colorPrimary = Color(0xff0067db);
+const colorSecondary = Color(0xff86cd82);
 const colorError = Color(0xffcc0000);
 
 // Strings
@@ -58,6 +58,7 @@ const chooseActivity = 'Choose an activity';
 const promptTitle = 'Let others know what you want to do';
 const freeUntilTitle = 'Until when are you free?';
 const activitySelectionTitle = 'Select Activity';
+const haveAccountPrompt = 'Already have an account? ';
 
 // Interests
 final interestSet = [

@@ -36,14 +36,13 @@ class UserService {
     }
   }
 
-  static Future<void> setInitialData(String name, BuildContext context) async {
+  static Future<void> setInitialData(BuildContext context) async {
     final User? currentUser = FirebaseAuth.instance.currentUser;
 
     try {
       if (currentUser != null) {
         final Map<String, dynamic> _userDetails = {
           'email': currentUser.email,
-          'name': name,
           'isOnline': false,
           'promptMessage': '',
           'selectedActivity': 0,

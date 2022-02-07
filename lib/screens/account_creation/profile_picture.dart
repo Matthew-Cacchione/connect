@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../components/appbars.dart';
-import '../../components/buttons.dart';
+import '../../components/styles.dart';
 import '../../constants.dart';
 import '../../functions/alerts.dart';
 import '../../functions/user_service.dart';
@@ -69,9 +69,9 @@ class _ProfilePictureState extends State<ProfilePicture> {
         },
         child: Text(
           nextBtn.toUpperCase(),
-          style: Buttons.getTextStyle(),
+          style: Styles.defaultBtnTxt(),
         ),
-        style: Buttons.getStyle(),
+        style: Styles.defaultBtn(),
       ),
     );
   }

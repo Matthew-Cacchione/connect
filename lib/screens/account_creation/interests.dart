@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../components/buttons.dart';
+import '../../components/styles.dart';
 import '../../constants.dart';
 import '../../functions/user_service.dart';
 
@@ -173,9 +173,9 @@ class _InterestsState extends State<Interests> {
           },
           child: Text(
             nextBtn.toUpperCase(),
-            style: Buttons.getTextStyle(),
+            style: Styles.defaultBtnTxt(),
           ),
-          style: Buttons.getStyle(),
+          style: Styles.defaultBtn(),
         ),
       ),
     );
