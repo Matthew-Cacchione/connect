@@ -8,6 +8,7 @@ import 'constants.dart';
 import 'functions/user_service.dart';
 import 'screens/account_creation/birthdate.dart';
 import 'screens/account_creation/interests.dart';
+import 'screens/account_creation/profile_creation.dart';
 import 'screens/account_creation/profile_picture.dart';
 import 'screens/account_creation/registration.dart';
 import 'screens/account_creation/verification.dart';
@@ -81,6 +82,7 @@ class _MainState extends State<Main> with WidgetsBindingObserver {
         '/verification': (context) => const Verification(),
         '/birthdate': (context) => const Birthdate(),
         '/profilepic': (context) => const ProfilePicture(),
+        '/createprofile': (context) => const ProfileCreation(),
         '/interests': (context) => const Interests(),
         '/navbar': (context) => const NavBar(),
       },
@@ -93,7 +95,7 @@ String getLandingPage() {
   User? currentUser = FirebaseAuth.instance.currentUser;
 
   if (currentUser == null) {
-    route = '/login';
+    route = '/createprofile';
   } else if (currentUser.emailVerified) {
     route = '/';
   } else {

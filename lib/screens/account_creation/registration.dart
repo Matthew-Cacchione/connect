@@ -15,7 +15,6 @@ class Registration extends StatefulWidget {
 class _RegistrationState extends State<Registration> {
   final registrationKey = GlobalKey<FormState>();
 
-  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -30,13 +29,9 @@ class _RegistrationState extends State<Registration> {
       textInputAction: TextInputAction.next,
       decoration: Styles.defaultTxtField(emailHint, const Icon(Icons.email)),
       validator: (email) {
-        if (email!.isEmpty) {
-          return emptyError;
-        }
+        if (email!.isEmpty) return emptyError;
 
-        if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]+\$').hasMatch(email)) {
-          return emailNotValid;
-        }
+        if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]+\$').hasMatch(email)) return emailNotValid;
 
         return null;
       },
@@ -65,13 +60,9 @@ class _RegistrationState extends State<Registration> {
         ),
       ),
       validator: (password) {
-        if (password!.isEmpty) {
-          return emptyError;
-        }
+        if (password!.isEmpty) return emptyError;
 
-        if (password.length < 8) {
-          return passwordNotValid;
-        }
+        if (password.length < 8) return passwordNotValid;
 
         return null;
       },
@@ -100,13 +91,9 @@ class _RegistrationState extends State<Registration> {
         ),
       ),
       validator: (password) {
-        if (password!.isEmpty) {
-          return emptyError;
-        }
+        if (password!.isEmpty) return emptyError;
 
-        if (password != passwordController.text.trim()) {
-          return passwordMatchError;
-        }
+        if (password != passwordController.text.trim()) return passwordMatchError;
 
         return null;
       },
