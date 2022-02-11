@@ -69,6 +69,57 @@ class UserService {
     }
   }
 
+  static Future<void> setCreationData(String name, DateTime birthdate, File picture, GlobalKey<FormState> formKey, BuildContext context) async {
+    if (formKey.currentState!.validate()) {
+      try {
+        User? _currentUser = FirebaseAuth.instance.currentUser;
+        if (_currentUser != null) {
+          await UserService.setName(name, context);
+          await UserService.setBirthdate(birthdate, context);
+          await UserService.setProfilePhoto(picture, context);
+          Navigator.of(context).pushReplacementNamed('/');
+        } else {
+          throw Exception('User was null.');
+        }
+      } on FirebaseException catch (e) {
+        String _errorMessage;
+        switch (e.code) {
+          default:
+            _errorMessage = e.code;
+            break;
+        }
+        Alerts.showErrorSnackBar(_errorMessage, context);
+      } on Exception catch (e) {
+        Alerts.showErrorSnackBar(e.toString(), context);
+      }
+    }
+  }
+
+  static Future<void> setName(String name, BuildContext context) async {
+    final User? currentUser = FirebaseAuth.instance.currentUser;
+
+    try {
+      if (currentUser != null) {
+        await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'name': name});
+      } else {
+        throw Exception('User was null.');
+      }
+    } on FirebaseException catch (e) {
+      String _errorMessage;
+      switch (e.code) {
+        case 'permission-denied':
+          _errorMessage = permissionDenied;
+          break;
+        default:
+          _errorMessage = e.code;
+          break;
+      }
+      Alerts.showErrorSnackBar(_errorMessage, context);
+    } on Exception catch (e) {
+      Alerts.showErrorSnackBar(e.toString(), context);
+    }
+  }
+
   static Future<void> setBirthdate(DateTime birthdate, BuildContext context) async {
     final User? currentUser = FirebaseAuth.instance.currentUser;
     final userBirthdate = [birthdate.day, birthdate.month, birthdate.year];
@@ -76,7 +127,6 @@ class UserService {
     try {
       if (currentUser != null) {
         await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'birthdate': userBirthdate});
-        Navigator.of(context).pushNamed('/profilepic');
       } else {
         throw Exception('User was null.');
       }
@@ -105,7 +155,6 @@ class UserService {
         await profileRef.putFile(picture);
         String pictureUrl = await profileRef.getDownloadURL();
         await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'pictureUrl': pictureUrl});
-        Navigator.of(context).pushReplacementNamed('/interests');
       } else {
         throw Exception('User was null.');
       }

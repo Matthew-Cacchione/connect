@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import '../../components/appbars.dart';
 import '../../components/styles.dart';
 import '../../constants.dart';
+import '../../functions/user_service.dart';
 
 class ProfileCreation extends StatefulWidget {
   const ProfileCreation({Key? key}) : super(key: key);
@@ -15,24 +18,35 @@ class ProfileCreation extends StatefulWidget {
 }
 
 class _ProfileCreationState extends State<ProfileCreation> {
+  DateTime _selectedDate = DateTime.now();
   File? _profilePicture;
-  final profileCreationKey = GlobalKey<FormState>();
 
-  final nameController = TextEditingController();
+  final _profileCreationKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
 
   Widget _drawName() {
-    return TextFormField(
-      controller: nameController,
-      keyboardType: TextInputType.text,
-      textInputAction: TextInputAction.next,
-      decoration: Styles.defaultTxtField('', const Icon(Icons.person)),
-      validator: (name) {
-        if (name!.isEmpty) return emptyError;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Enter your first name',
+          style: Styles.defaultBtnTxt(),
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: _nameController,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.next,
+          decoration: Styles.defaultTxtField('', const Icon(Icons.person)),
+          validator: (name) {
+            if (name!.isEmpty) return emptyError;
 
-        if (name.length < 3) return nameNotValid;
+            if (name.length < 3) return nameNotValid;
 
-        return null;
-      },
+            return null;
+          },
+        ),
+      ],
     );
   }
 
@@ -128,31 +142,100 @@ class _ProfileCreationState extends State<ProfileCreation> {
     }
   }
 
+  Widget _drawDateSelection() {
+    String _simpleDate = DateFormat.yMMMd().format(_selectedDate);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Enter your birthdate',
+          style: Styles.defaultBtnTxt(),
+        ),
+        const SizedBox(height: 10),
+        GestureDetector(
+          onTap: () => _showDatePicker(),
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              border: Border.all(color: colorPrimary),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Text(
+              _simpleDate,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 20),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showDatePicker() {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext builder) {
+        return Container(
+          height: MediaQuery.of(context).copyWith().size.height * 0.25,
+          color: Colors.white,
+          child: CupertinoDatePicker(
+            mode: CupertinoDatePickerMode.date,
+            initialDateTime: _selectedDate,
+            maximumDate: DateTime.now(),
+            onDateTimeChanged: (value) {
+              setState(() {
+                _selectedDate = value;
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _drawNextBtn() {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          UserService.setCreationData(_nameController.text.trim(), _selectedDate, _profilePicture!, _profileCreationKey, context);
+        },
+        child: Text(
+          nextBtn.toUpperCase(),
+          style: Styles.defaultBtnTxt(),
+        ),
+        style: Styles.defaultBtn(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBars.defaultBar('Profile Creation'),
       body: Container(
         padding: const EdgeInsets.all(15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Enter your first name',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            _drawName(),
-            const SizedBox(height: 40),
-            const Text(
-              'Choose your profile picture',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            _drawProfilePicture(),
-            const SizedBox(height: 40),
-            const Text('Enter your birthdate', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          ],
+        child: Form(
+          key: _profileCreationKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _drawName(),
+              const SizedBox(height: 80),
+              Text(
+                'Choose your profile picture',
+                style: Styles.defaultBtnTxt(),
+              ),
+              const SizedBox(height: 20),
+              _drawProfilePicture(),
+              const SizedBox(height: 80),
+              _drawDateSelection(),
+              Expanded(child: Container()),
+              _drawNextBtn(),
+            ],
+          ),
         ),
       ),
     );

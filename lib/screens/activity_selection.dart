@@ -16,8 +16,8 @@ class ActivitySelection extends StatefulWidget {
 
 class _ActivitySelectionState extends State<ActivitySelection> {
   DateTime _selectedTime = DateTime.now();
-  int _selectedActivity = 0;
   final _promptController = TextEditingController();
+  int _selectedActivity = 0;
 
   Widget _drawActivities() {
     return Column(
