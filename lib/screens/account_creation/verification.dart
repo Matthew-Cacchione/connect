@@ -26,7 +26,7 @@ class _VerificationState extends State<Verification> {
     currentUser = FirebaseAuth.instance.currentUser;
     timer = Timer.periodic(
       const Duration(
-        seconds: 3,
+        seconds: 10000,
       ),
       (timer) {
         Authentication.verifyEmail(timer, context);

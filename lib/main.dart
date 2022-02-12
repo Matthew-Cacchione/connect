@@ -95,7 +95,7 @@ String getLandingPage() {
   User? currentUser = FirebaseAuth.instance.currentUser;
 
   if (currentUser == null) {
-    route = '/createprofile';
+    route = '/verification';
   } else if (currentUser.emailVerified) {
     route = '/';
   } else {

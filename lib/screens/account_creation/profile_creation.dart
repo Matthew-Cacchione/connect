@@ -97,7 +97,7 @@ class _ProfileCreationState extends State<ProfileCreation> {
       child: Column(
         children: <Widget>[
           const Text(
-            selectProfilePrompt,
+            selectPicturePrompt,
             style: TextStyle(fontSize: 22),
           ),
           const SizedBox(height: 20),
