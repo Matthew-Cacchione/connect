@@ -54,7 +54,8 @@ const signUpPrompt = "Sign Up";
 const userDisabled = "This user account has been disabled.";
 const userNotFound = "No user found with that email address.";
 const verificationMessage =
-    "A verification email has been sent. Click on the link provided to complete your registration.\n\nIf you don't see it you may need to check your spam folder.\n\nStill didn't receive an email?";
+    "A verification email has been sent. Click on the link provided to complete your registration.\n\nIf you don't see it you may need to check your spam folder.";
+const verificationNotSentTitle = "Still didn't receive an email?";
 const verificationNotSent = "Resend email";
 const verificationTitle = "Please verify your email";
 const weakPassword = "Password entered is too weak.";

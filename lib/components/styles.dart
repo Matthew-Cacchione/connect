@@ -37,6 +37,20 @@ class Styles {
     );
   }
 
+  static TextStyle dialogTitle() {
+    return const TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+  static TextStyle dialogTxt() {
+    return TextStyle(
+      color: Colors.grey[800],
+      fontWeight: FontWeight.bold,
+    );
+  }
+
   static TextStyle profileTxt() {
     return const TextStyle(
       color: Colors.black,

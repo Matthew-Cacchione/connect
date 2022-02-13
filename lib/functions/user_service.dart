@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../components/styles.dart';
 import '../constants.dart';
 import 'alerts.dart';
 
@@ -49,7 +50,59 @@ class UserService {
           'freeUntil': '00:00',
         };
         await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).set(_userDetails);
-        Navigator.of(context).pushNamed('/verification');
+        showDialog(
+            context: context,
+            builder: (_) {
+              return Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: const BorderSide(),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        verificationTitle,
+                        style: Styles.dialogTitle(),
+                      ),
+                      const SizedBox(height: 30),
+                      Text(
+                        verificationMessage,
+                        textAlign: TextAlign.center,
+                        style: Styles.dialogTxt(),
+                      ),
+                      const SizedBox(height: 30),
+                      Text(
+                        verificationNotSentTitle,
+                        textAlign: TextAlign.center,
+                        style: Styles.dialogTxt(),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          try {
+                            await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+                            Alerts.showErrorSnackBar(resendVerification, context);
+                          } on FirebaseAuthException catch (e) {
+                            String errorMessage = defaultError;
+
+                            if (e.code == 'too-many-requests') {
+                              errorMessage = frequentRequestError;
+                            }
+                            Alerts.showErrorSnackBar(errorMessage, context);
+                          }
+                        },
+                        child: Text(
+                          verificationNotSent,
+                          style: Styles.anchorTxt(),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            });
       } else {
         throw Exception('User was null.');
       }
