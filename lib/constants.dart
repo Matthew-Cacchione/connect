@@ -10,19 +10,21 @@ const activitySelectionTitle = "Select Activity";
 const appName = "Connect";
 const birthdatePrompt = "Please provide your birthdate.";
 const birthdateTitle = "Birthdate";
-const cameraTxt = "Camera";
+const cameraText = "Camera";
 const chatTitle = "Chat";
 const chooseActivity = "Choose an activity";
 const confirmPasswordHint = "Confirm Password";
 const defaultError = "Something went wrong.";
+const doneBtn = "Done";
 const emailAlreadyInUse = "An account with that email already exists.";
 const emailHint = "University Email";
 const emailNotValid = "Please enter a valid email";
 const emptyError = "Required";
 const forgotPassword = "Forgot password?";
 const freeUntilTitle = "Until when are you free?";
+const freeUntilText = "Free until ";
 const frequentRequestError = "You are doing that too much.";
-const galleryTxt = "Gallery";
+const galleryText = "Gallery";
 const haveAccountPrompt = "Already have an account? ";
 const homeTitle = "Home";
 const interestsSubtitle = "Please select your interests.";
@@ -36,7 +38,7 @@ const noEmailEntered = "Please enter an email.";
 const noInterests = "No interests selected";
 const noInterestsPrompt = "Are you sure you want to continue without picking any interests?";
 const noPictureSelected = "Please select a profile picture before continuing.";
-const noTxt = "No";
+const noText = "No";
 const passwordHint = "Password";
 const passwordMatchError = "Passwords must match";
 const passwordNotValid = "Minimum 8 characters";
@@ -47,7 +49,7 @@ const profileTitle = "Profile";
 const promptTitle = "Let others know what you want to do";
 const registrationTitle = "Create Account";
 const resendVerification = "Another email has been sent, please check your spam folder.";
-const selectPicturePrompt = "Select your profile picture";
+const selectPicturePrompt = "Choose or take your profile picture";
 const signOutBtn = "Sign Out";
 const signUpAgreement = "By signing up, you agree to the Terms of Service and Privacy Policy, including cookie use.";
 const signUpPrompt = "Sign Up";
@@ -60,7 +62,7 @@ const verificationNotSent = "Resend email";
 const verificationTitle = "Please verify your email";
 const weakPassword = "Password entered is too weak.";
 const wrongPassword = "Wrong password provided.";
-const yesTxt = "Yes";
+const yesText = "Yes";
 
 // Interests
 final interestSet = [
@@ -68,7 +70,8 @@ final interestSet = [
   'Astrology',
   'Beauty',
   'Board Games',
-  'Books' 'Card Games',
+  'Books',
+  'Card Games',
   'Cars & Motorcycle',
   'Concerts',
   'Cooking',

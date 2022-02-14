@@ -30,14 +30,14 @@ class _ProfileCreationState extends State<ProfileCreation> {
       children: [
         Text(
           'Enter your first name',
-          style: Styles.defaultBtnTxt(),
+          style: Styles.defaultBtnText(),
         ),
         const SizedBox(height: 10),
         TextFormField(
           controller: _nameController,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
-          decoration: Styles.defaultTxtField('', const Icon(Icons.person)),
+          decoration: Styles.defaultTextField('', const Icon(Icons.person)),
           validator: (name) {
             if (name!.isEmpty) return emptyError;
 
@@ -112,7 +112,7 @@ class _ProfileCreationState extends State<ProfileCreation> {
                   Icons.camera_alt,
                   color: Colors.black,
                 ),
-                label: const Text(cameraTxt),
+                label: const Text(cameraText, style: TextStyle(color: Colors.black)),
               ),
               const SizedBox(width: 15),
               TextButton.icon(
@@ -123,7 +123,7 @@ class _ProfileCreationState extends State<ProfileCreation> {
                   Icons.image,
                   color: Colors.black,
                 ),
-                label: const Text(galleryTxt),
+                label: const Text(galleryText, style: TextStyle(color: Colors.black)),
               ),
             ],
           ),
@@ -150,7 +150,7 @@ class _ProfileCreationState extends State<ProfileCreation> {
       children: [
         Text(
           'Enter your birthdate',
-          style: Styles.defaultBtnTxt(),
+          style: Styles.defaultBtnText(),
         ),
         const SizedBox(height: 10),
         GestureDetector(
@@ -204,7 +204,7 @@ class _ProfileCreationState extends State<ProfileCreation> {
         },
         child: Text(
           nextBtn.toUpperCase(),
-          style: Styles.defaultBtnTxt(),
+          style: Styles.defaultBtnText(),
         ),
         style: Styles.defaultBtn(),
       ),
@@ -226,7 +226,7 @@ class _ProfileCreationState extends State<ProfileCreation> {
               const SizedBox(height: 80),
               Text(
                 'Choose your profile picture',
-                style: Styles.defaultBtnTxt(),
+                style: Styles.defaultBtnText(),
               ),
               const SizedBox(height: 20),
               _drawProfilePicture(),

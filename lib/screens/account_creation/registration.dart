@@ -27,7 +27,7 @@ class _RegistrationState extends State<Registration> {
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      decoration: Styles.defaultTxtField(emailHint, const Icon(Icons.email)),
+      decoration: Styles.defaultTextField(emailHint, const Icon(Icons.email)),
       validator: (email) {
         if (email!.isEmpty) return emptyError;
 
@@ -110,7 +110,7 @@ class _RegistrationState extends State<Registration> {
         },
         child: Text(
           signUpPrompt,
-          style: Styles.defaultBtnTxt(),
+          style: Styles.defaultBtnText(),
         ),
         style: Styles.defaultBtn(),
       ),
@@ -128,7 +128,7 @@ class _RegistrationState extends State<Registration> {
           },
           child: Text(
             loginBtn,
-            style: Styles.anchorTxt(),
+            style: Styles.anchorText(),
           ),
         )
       ],
@@ -143,7 +143,7 @@ class _RegistrationState extends State<Registration> {
           const TextSpan(text: 'By signing up, you agree to the ', style: TextStyle(color: Colors.black)),
           TextSpan(
               text: 'Terms of Service ',
-              style: Styles.anchorTxt(),
+              style: Styles.anchorText(),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   //TODO: Redirect user to the terms of service.
@@ -151,7 +151,7 @@ class _RegistrationState extends State<Registration> {
           const TextSpan(text: 'and ', style: TextStyle(color: Colors.black)),
           TextSpan(
               text: 'Privacy Policy',
-              style: Styles.anchorTxt(),
+              style: Styles.anchorText(),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   //TODO: Redirect user to the privacy policy.

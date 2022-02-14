@@ -12,7 +12,7 @@ class Buttons {
       },
       child: Text(
         signOutBtn.toUpperCase(),
-        style: Styles.defaultBtnTxt(),
+        style: Styles.defaultBtnText(),
       ),
       style: Styles.defaultBtn(),
     );

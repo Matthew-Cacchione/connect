@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class AppBars {
   static PreferredSizeWidget defaultBar(String title) {
     return PreferredSize(
@@ -35,7 +37,7 @@ class AppBars {
                 children: [
                   Text(activity),
                   Text(
-                    'Free until ' + freeUntil,
+                    freeUntilText + freeUntil,
                     style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w300,

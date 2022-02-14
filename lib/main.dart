@@ -6,10 +6,8 @@ import 'package:flutter/material.dart';
 
 import 'constants.dart';
 import 'functions/user_service.dart';
-import 'screens/account_creation/birthdate.dart';
 import 'screens/account_creation/interests.dart';
 import 'screens/account_creation/profile_creation.dart';
-import 'screens/account_creation/profile_picture.dart';
 import 'screens/account_creation/registration.dart';
 import 'screens/activity_selection.dart';
 import 'screens/login.dart';
@@ -78,8 +76,6 @@ class _MainState extends State<Main> with WidgetsBindingObserver {
         '/': (context) => const ActivitySelection(),
         '/login': (context) => const Login(),
         '/registration': (context) => const Registration(),
-        '/birthdate': (context) => const Birthdate(),
-        '/profilepic': (context) => const ProfilePicture(),
         '/createprofile': (context) => const ProfileCreation(),
         '/interests': (context) => const Interests(),
         '/navbar': (context) => const NavBar(),
@@ -93,7 +89,7 @@ String getLandingPage() {
   User? currentUser = FirebaseAuth.instance.currentUser;
 
   if (currentUser == null) {
-    route = '/login';
+    route = '/interests';
   } else if (currentUser.emailVerified) {
     route = '/';
   } else {

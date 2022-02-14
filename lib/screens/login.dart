@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      decoration: Styles.defaultTxtField(emailHint, const Icon(Icons.mail)),
+      decoration: Styles.defaultTextField(emailHint, const Icon(Icons.mail)),
       validator: (email) {
         if (email!.isEmpty) {
           return emptyError;
@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
           },
           child: Text(
             forgotPassword,
-            style: Styles.anchorTxt(),
+            style: Styles.anchorText(),
           ),
         )
       ],
@@ -102,7 +102,7 @@ class _LoginState extends State<Login> {
         },
         child: Text(
           loginBtn,
-          style: Styles.defaultBtnTxt(),
+          style: Styles.defaultBtnText(),
         ),
         style: Styles.defaultBtn(),
       ),
@@ -120,7 +120,7 @@ class _LoginState extends State<Login> {
           },
           child: Text(
             signUpPrompt,
-            style: Styles.anchorTxt(),
+            style: Styles.anchorText(),
           ),
         )
       ],

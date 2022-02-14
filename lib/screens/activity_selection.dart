@@ -127,7 +127,7 @@ class _ActivitySelectionState extends State<ActivitySelection> {
     );
   }
 
-  Widget _drawNextBtn() {
+  Widget _drawDoneBtn() {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15),
       width: double.infinity,
@@ -136,8 +136,8 @@ class _ActivitySelectionState extends State<ActivitySelection> {
           UserService.activitySelection(_selectedActivity, _promptController.text.trim(), _selectedTime, context);
         },
         child: Text(
-          nextBtn.toUpperCase(),
-          style: Styles.defaultBtnTxt(),
+          doneBtn,
+          style: Styles.defaultBtnText(),
         ),
         style: Styles.defaultBtn(),
       ),
@@ -184,7 +184,7 @@ class _ActivitySelectionState extends State<ActivitySelection> {
                   const SizedBox(height: 30),
                   _drawTimeSelection(),
                   Expanded(child: Container()),
-                  _drawNextBtn(),
+                  _drawDoneBtn(),
                 ],
               ),
             ),

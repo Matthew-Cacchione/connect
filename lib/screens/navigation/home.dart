@@ -32,7 +32,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             Container(
               height: 400,
               decoration: BoxDecoration(
-                image: DecorationImage(fit: BoxFit.fill, image: Image.network(user.pictureUrl!).image),
+                image: DecorationImage(fit: BoxFit.fill, image: Image.network(user.pictureUrl).image),
               ),
             ),
             const SizedBox(height: 15),
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 children: [
                   RichText(
                     text: TextSpan(
-                      style: Styles.profileTxt(),
+                      style: Styles.profileText(),
                       children: <TextSpan>[
                         TextSpan(
                           text: '${user.name} ',
@@ -56,7 +56,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   const SizedBox(height: 10),
                   RichText(
                     text: TextSpan(
-                      style: Styles.profileTxt(),
+                      style: Styles.profileText(),
                       children: <TextSpan>[
                         const TextSpan(
                           text: 'Interests: ',
@@ -108,7 +108,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
           if (otherUser.selectedActivity == currentUserModel.selectedActivity || otherUser.selectedActivity == 5) sortPriority -= 10;
 
-          commonInterests!.removeWhere((interest) => !otherUser.interests!.contains(interest));
+          commonInterests.removeWhere((interest) => !otherUser.interests.contains(interest));
           sortPriority -= commonInterests.length;
 
           otherUser.sortPriority = sortPriority;
@@ -149,7 +149,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 child: Row(
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundImage: Image.network(user.pictureUrl!).image,
+                      backgroundImage: Image.network(user.pictureUrl).image,
                       radius: 30,
                     ),
                     const SizedBox(width: 10),
@@ -159,14 +159,14 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                         Row(
                           children: <Widget>[
                             Text(
-                              user.name! + ' is free until ' + user.freeUntil!,
+                              user.name + ' is free until ' + user.freeUntil,
                             ),
                             const SizedBox(width: 5),
                           ],
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          user.promptMessage!,
+                          user.promptMessage,
                         ),
                       ],
                     ),
@@ -174,7 +174,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     Column(
                       children: <Widget>[
                         CircleAvatar(
-                          backgroundImage: Image.asset(activityIcons[user.selectedActivity!]).image,
+                          backgroundImage: Image.asset(activityIcons[user.selectedActivity]).image,
                           backgroundColor: Colors.white,
                         ),
                       ],
