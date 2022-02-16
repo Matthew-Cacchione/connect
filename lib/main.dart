@@ -89,7 +89,7 @@ String getLandingPage() {
   User? currentUser = FirebaseAuth.instance.currentUser;
 
   if (currentUser == null) {
-    route = '/interests';
+    route = '/login';
   } else if (currentUser.emailVerified) {
     route = '/';
   } else {

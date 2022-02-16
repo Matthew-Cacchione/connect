@@ -99,10 +99,10 @@ class UserService {
       if (currentUser != null) {
         final Map<String, dynamic> _userDetails = {
           'email': currentUser.email,
+          'freeUntil': '00:00',
           'isOnline': false,
           'promptMessage': '',
           'selectedActivity': 0,
-          'freeUntil': '00:00',
         };
         await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).set(_userDetails);
         showDialog(
