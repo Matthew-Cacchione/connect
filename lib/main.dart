@@ -1,13 +1,15 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
-import 'screens/account_creation/birthdate.dart';
+import 'functions/user_service.dart';
 import 'screens/account_creation/interests.dart';
-import 'screens/account_creation/profile_picture.dart';
+import 'screens/account_creation/profile_creation.dart';
 import 'screens/account_creation/registration.dart';
-import 'screens/account_creation/verification.dart';
+import 'screens/activity_selection.dart';
 import 'screens/login.dart';
 import 'screens/navigation/navbar.dart';
 import 'themes.dart';
@@ -15,11 +17,53 @@ import 'themes.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(const Main());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Main extends StatefulWidget {
+  const Main({Key? key}) : super(key: key);
+
+  @override
+  _MainState createState() => _MainState();
+}
+
+class _MainState extends State<Main> with WidgetsBindingObserver {
+  Timer? timeoutUser;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    final User? currentUser = FirebaseAuth.instance.currentUser;
+    switch (state) {
+      case AppLifecycleState.resumed:
+        if (currentUser != null) {
+          timeoutUser?.cancel();
+          UserService.setPresence(true, context);
+        }
+        break;
+
+      case AppLifecycleState.paused:
+        if (currentUser != null) {
+          timeoutUser = Timer(const Duration(seconds: 5), () => UserService.setPresence(false, context));
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +73,12 @@ class MyApp extends StatelessWidget {
       initialRoute: getLandingPage(),
       theme: lightTheme,
       routes: {
-        '/': (context) => const NavBar(),
+        '/': (context) => const ActivitySelection(),
         '/login': (context) => const Login(),
         '/registration': (context) => const Registration(),
-        '/verification': (context) => const Verification(),
-        '/birthdate': (context) => const Birthdate(),
-        '/profilepic': (context) => const ProfilePicture(),
+        '/createprofile': (context) => const ProfileCreation(),
         '/interests': (context) => const Interests(),
+        '/navbar': (context) => const NavBar(),
       },
     );
   }

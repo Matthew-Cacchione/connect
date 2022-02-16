@@ -1,62 +1,75 @@
 import 'package:flutter/material.dart';
 
 // Colors
-const colorPrimary = Color(0xff493843);
-const colorSecondary = Color(0xff61988e);
+const colorPrimary = Color(0xff0067db);
+const colorSecondary = Color(0xff86cd82);
 const colorError = Color(0xffcc0000);
 
 // Strings
-const appName = 'Connect';
-const emailHint = 'University Email';
-const emptyError = 'Required';
-const emailNotValid = 'Please enter a valid email';
-const passwordHint = 'Password';
-const forgotPassword = 'Forgot password?';
-const loginBtn = 'Login';
-const noAccountPrompt = 'Don\'t have an account? ';
-const signUpPrompt = 'Sign Up';
-const nameHint = 'First Name';
-const confirmPasswordHint = 'Confirm Password';
-const signOutBtn = 'Sign Out';
-const passwordNotValid = 'Minimum 8 characters';
-const nameNotValid = 'Minimum 3 characters';
-const passwordMatchError = 'Passwords must match';
-const userNotFound = 'No user found with that email address.';
-const wrongPassword = 'Wrong password provided.';
-const defaultError = 'Something went wrong.';
-const weakPassword = 'Password entered is too weak.';
-const emailAlreadyInUse = 'An account with that email already exists.';
-const profileTitle = 'Profile';
-const homeTitle = 'Home';
-const chatTitle = 'Chat';
-const verificationTitle = 'Verification';
-const verificationMessage = 'A verification email has been sent. Click on the link provided to complete your registration.';
-const verificationNotSent = 'Didn\'t receive an email?';
-const frequentRequestError = 'You are doing that too much.';
-const resendVerification = 'Another email has been sent, please check your spam folder.';
-const signUpAgreement = 'By signing up, you agree to the Terms of Service and Privacy Policy, including cookie use.';
-const noEmailEntered = 'Please enter an email.';
-const passwordResetSent = 'Password reset email has been sent.';
-const registrationTitle = 'Create Account';
-const interestsTitle = 'Interests';
-const interestsSubtitle = 'Please select your interests.';
-const nextBtn = 'Next';
-const noInterests = 'No interests selected';
-const noInterestsPrompt = 'Are you sure you want to continue without picking any interests?';
-const noTxt = 'No';
-const yesTxt = 'Yes';
-const birthdateTitle = 'Birthdate';
-const birthdatePrompt = 'Please provide your birthdate.';
-const permissionDenied = 'You don\'t have permission to do that';
-const userDisabled = 'This user account has been disabled.';
-const selectProfilePrompt = 'Select your profile picture';
-const cameraTxt = 'Camera';
-const galleryTxt = 'Gallery';
-const profilePictureTitle = 'Profile Picture';
-const noPictureSelected = 'Please select a profile picture before continuing.';
+const activitySelectionTitle = "Select Activity";
+const appName = "Connect";
+const andText = "and ";
+const birthdatePrompt = "Please provide your birthdate.";
+const birthdateTitle = "Birthdate";
+const cameraText = "Camera";
+const chatTitle = "Chat";
+const chooseActivity = "Choose an activity";
+const confirmPasswordHint = "Confirm Password";
+const cookieUse = ", including cookie use.";
+const defaultError = "Something went wrong.";
+const doneBtn = "Done";
+const emailAlreadyInUse = "An account with that email already exists.";
+const emailHint = "University Email";
+const emailNotValid = "Please enter a valid email";
+const emptyError = "Required";
+const forgotPassword = "Forgot password?";
+const freeUntilTitle = "Until when are you free?";
+const freeUntilText = "Free until ";
+const frequentRequestError = "You are doing that too much.";
+const galleryText = "Gallery";
+const haveAccountPrompt = "Already have an account? ";
+const homeTitle = "Home";
+const interestsSubtitle = "Please select your interests.";
+const interestsTitle = "Interests";
+const loginBtn = "Login";
+const nameHint = "First Name";
+const nameNotValid = "Minimum 3 characters";
+const nextBtn = "Next";
+const noAccountPrompt = "Don't have an account? ";
+const noEmailEntered = "Please enter an email.";
+const noInterests = "No interests selected";
+const noInterestsPrompt = "Are you sure you want to continue without picking any interests?";
+const noPictureSelected = "Please select a profile picture before continuing.";
+const noText = "No";
+const passwordHint = "Password";
+const passwordMatchError = "Passwords must match";
+const passwordNotValid = "Minimum 8 characters";
+const passwordResetSent = "Password reset email has been sent.";
+const permissionDenied = "You don't have permission to do that";
+const privacyPolicy = "Privacy Policy";
+const profilePictureTitle = "Profile Picture";
+const profileTitle = "Profile";
+const promptTitle = "Let others know what you want to do";
+const registrationTitle = "Create Account";
+const resendVerification = "Another email has been sent, please check your spam folder.";
+const selectPicturePrompt = "Choose or take your profile picture";
+const signOutBtn = "Sign Out";
+const signUpAgreement = "By signing up, you agree to the ";
+const signUpPrompt = "Sign Up";
+const termsOfService = "Terms of Service ";
+const userDisabled = "This user account has been disabled.";
+const userNotFound = "No user found with that email address.";
+const verificationMessage =
+    "A verification email has been sent. Click on the link provided to complete your registration.\n\nIf you don't see it you may need to check your spam folder.";
+const verificationNotSentTitle = "Still didn't receive an email?";
+const verificationNotSent = "Resend email";
+const verificationTitle = "Please verify your email";
+const weakPassword = "Password entered is too weak.";
+const wrongPassword = "Wrong password provided.";
+const yesText = "Yes";
 
 // Interests
-final interestSet = {
+final interestSet = [
   'Anime',
   'Astrology',
   'Beauty',
@@ -86,7 +99,7 @@ final interestSet = {
   'Vegan',
   'Video Games',
   'Volunteering',
-};
+];
 
 final interestMap = {
   'Entertainment': ['Anime', 'Books', 'Movies', 'Theatre', 'TV Series'],
@@ -101,11 +114,13 @@ final interestMap = {
 final interestCategories = interestMap.keys.toList();
 
 // Activities
-final activitySet = {
-  'Any',
-  'Eat',
-  'Study',
-  'Workout',
-  'In-Person Chat/ Outing',
-  'Online Chat',
-};
+final activitySet = ['Coffee', 'Eat', 'Study', 'Exercise', 'Other', 'Any'];
+
+final activityIcons = [
+  'assets/images/default_activity.png',
+  'assets/images/default_activity.png',
+  'assets/images/default_activity.png',
+  'assets/images/default_activity.png',
+  'assets/images/default_activity.png',
+  'assets/images/default_activity.png',
+];

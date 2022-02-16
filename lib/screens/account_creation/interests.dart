@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../components/buttons.dart';
+import '../../components/styles.dart';
 import '../../constants.dart';
 import '../../functions/user_service.dart';
 
@@ -14,18 +14,18 @@ class Interests extends StatefulWidget {
 class _InterestsState extends State<Interests> {
   final List<String> _selectedItems = [];
 
-  ChoiceChip createChoiceChip(String choiceLabel, int categoryIndex) {
+  ChoiceChip _createChoiceChip(String choiceLabel, int categoryIndex) {
     return ChoiceChip(
-      selectedColor: colorSecondary,
-      labelStyle: const TextStyle(
-        color: Colors.black,
+      selectedColor: colorPrimary,
+      labelStyle: TextStyle(
+        color: _selectedItems.contains(choiceLabel) ? Colors.white : Colors.black,
         fontSize: 16,
       ),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       label: Text(choiceLabel),
       selected: _selectedItems.contains(choiceLabel),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(15),
       ),
       onSelected: (selected) {
         setState(
@@ -41,13 +41,12 @@ class _InterestsState extends State<Interests> {
     );
   }
 
-  Widget drawInterestsAppBar() {
+  Widget _drawInterestsAppBar() {
     return SliverAppBar(
       automaticallyImplyLeading: false,
       pinned: true,
-      floating: true,
       collapsedHeight: 70,
-      expandedHeight: 120,
+      expandedHeight: 70,
       elevation: 0,
       flexibleSpace: FlexibleSpaceBar(
         title: Column(
@@ -77,20 +76,16 @@ class _InterestsState extends State<Interests> {
           ],
         ),
         titlePadding: const EdgeInsetsDirectional.only(
-          start: 20,
-          bottom: 5,
-        ),
-        background: Image.asset(
-          'assets/images/interests_background.jpg',
-          fit: BoxFit.fill,
+          start: 15,
+          bottom: 2,
         ),
       ),
     );
   }
 
-  Widget drawInterestChips() {
+  Widget _drawInterestChips() {
     return SliverPadding(
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
             (BuildContext context, int categoryIndex) => Container(
@@ -100,20 +95,18 @@ class _InterestsState extends State<Interests> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        interestCategories.elementAt(categoryIndex).toUpperCase(),
+                        interestCategories.elementAt(categoryIndex),
                         style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Divider(
-                        thickness: 3,
-                      ),
+                      const SizedBox(height: 10),
                       Wrap(
                         spacing: 8,
                         runSpacing: 8,
                         children: interestMap[interestCategories.elementAt(categoryIndex)]!
-                            .map((category) => createChoiceChip(category, categoryIndex))
+                            .map((category) => _createChoiceChip(category, categoryIndex))
                             .toList(),
                       )
                     ],
@@ -124,10 +117,10 @@ class _InterestsState extends State<Interests> {
     );
   }
 
-  Widget drawNextBtn() {
+  Widget _drawNextBtn() {
     return SliverToBoxAdapter(
       child: Container(
-        margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+        margin: const EdgeInsets.all(15),
         child: ElevatedButton(
           onPressed: () {
             if (_selectedItems.isEmpty) {
@@ -149,7 +142,7 @@ class _InterestsState extends State<Interests> {
                         Navigator.pop(context);
                       },
                       child: Text(
-                        noTxt.toUpperCase(),
+                        noText.toUpperCase(),
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -159,7 +152,7 @@ class _InterestsState extends State<Interests> {
                         Navigator.of(context).pushReplacementNamed('/');
                       },
                       child: Text(
-                        yesTxt.toUpperCase(),
+                        yesText.toUpperCase(),
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -173,9 +166,9 @@ class _InterestsState extends State<Interests> {
           },
           child: Text(
             nextBtn.toUpperCase(),
-            style: Buttons.getTextStyle(),
+            style: Styles.defaultBtnText(),
           ),
-          style: Buttons.getStyle(),
+          style: Styles.defaultBtn(),
         ),
       ),
     );
@@ -186,9 +179,9 @@ class _InterestsState extends State<Interests> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          drawInterestsAppBar(),
-          drawInterestChips(),
-          drawNextBtn(),
+          _drawInterestsAppBar(),
+          _drawInterestChips(),
+          _drawNextBtn(),
         ],
       ),
     );

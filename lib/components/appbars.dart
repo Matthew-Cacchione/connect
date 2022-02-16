@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class AppBars {
   static PreferredSizeWidget defaultBar(String title) {
     return PreferredSize(
@@ -11,30 +13,38 @@ class AppBars {
     );
   }
 
-  static PreferredSizeWidget photoBar(Image photo, String title) {
+  static PreferredSizeWidget photoBar(Image photo, String activity, String freeUntil, BuildContext context) {
     return PreferredSize(
       preferredSize: const Size.fromHeight(60),
       child: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
           children: <Widget>[
-            CircleAvatar(
-              backgroundImage: photo.image,
-              radius: 25,
+            GestureDetector(
+              onTap: () {
+                //TODO: Redirect user to their profile screen.
+              },
+              child: CircleAvatar(
+                backgroundImage: photo.image,
+                radius: 25,
+              ),
             ),
             const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title),
-                const Text(
-                  '19:30',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w300,
+            GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed('/'),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(activity),
+                  Text(
+                    freeUntilText + freeUntil,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Expanded(child: Container()),
             IconButton(
