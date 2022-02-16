@@ -140,23 +140,23 @@ class _RegistrationState extends State<Registration> {
       textAlign: TextAlign.center,
       text: TextSpan(
         children: [
-          const TextSpan(text: 'By signing up, you agree to the ', style: TextStyle(color: Colors.black)),
+          const TextSpan(text: signUpAgreement, style: TextStyle(color: Colors.black)),
           TextSpan(
-              text: 'Terms of Service ',
+              text: termsOfService,
               style: Styles.anchorText(),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   //TODO: Redirect user to the terms of service.
                 }),
-          const TextSpan(text: 'and ', style: TextStyle(color: Colors.black)),
+          const TextSpan(text: andText, style: TextStyle(color: Colors.black)),
           TextSpan(
-              text: 'Privacy Policy',
+              text: privacyPolicy,
               style: Styles.anchorText(),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   //TODO: Redirect user to the privacy policy.
                 }),
-          const TextSpan(text: ', including cookie use.', style: TextStyle(color: Colors.black)),
+          const TextSpan(text: cookieUse, style: TextStyle(color: Colors.black)),
         ],
       ),
     );

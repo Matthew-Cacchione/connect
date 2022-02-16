@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with WidgetsBindingObserver {
+class _HomeState extends State<Home> {
   User? currentUser = FirebaseAuth.instance.currentUser;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
@@ -137,7 +137,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
             return GestureDetector(
               onTap: () {
-                //TODO: Display the user's profile.
                 displayProfileDialog(user);
               },
               child: Container(
