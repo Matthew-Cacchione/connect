@@ -5,9 +5,7 @@ import 'constants.dart';
 ThemeData lightTheme = ThemeData(
   colorScheme: const ColorScheme(
     primary: colorPrimary,
-    primaryVariant: colorPrimary,
     secondary: colorSecondary,
-    secondaryVariant: colorSecondary,
     surface: Colors.white,
     background: Colors.white,
     error: colorError,
