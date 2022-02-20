@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 
 import '../components/styles.dart';
 import '../constants.dart';
+import '../models/user_model.dart';
 import 'alerts.dart';
 
 class UserService {
@@ -74,7 +75,7 @@ class UserService {
           await UserService.setName(name, context);
           await UserService.setBirthdate(birthdate, context);
           await UserService.setProfilePhoto(picture, context);
-          Navigator.of(context).pushReplacementNamed('/');
+          Navigator.of(context).pushReplacementNamed('/interests');
         } else {
           throw Exception('User was null.');
         }
@@ -97,67 +98,14 @@ class UserService {
 
     try {
       if (currentUser != null) {
-        final Map<String, dynamic> _userDetails = {
-          'email': currentUser.email,
-          'freeUntil': '00:00',
-          'isOnline': false,
-          'promptMessage': '',
-          'selectedActivity': 0,
-        };
-        await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).set(_userDetails);
-        showDialog(
-            context: context,
-            builder: (_) {
-              return Dialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: const BorderSide(),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(
-                        verificationTitle,
-                        style: Styles.dialogTitle(),
-                      ),
-                      const SizedBox(height: 30),
-                      Text(
-                        verificationMessage,
-                        textAlign: TextAlign.center,
-                        style: Styles.dialogText(),
-                      ),
-                      const SizedBox(height: 30),
-                      Text(
-                        verificationNotSentTitle,
-                        textAlign: TextAlign.center,
-                        style: Styles.dialogText(),
-                      ),
-                      GestureDetector(
-                        onTap: () async {
-                          try {
-                            await FirebaseAuth.instance.currentUser!.sendEmailVerification();
-                            Alerts.showErrorSnackBar(resendVerification, context);
-                          } on FirebaseAuthException catch (e) {
-                            String errorMessage = defaultError;
-
-                            if (e.code == 'too-many-requests') {
-                              errorMessage = frequentRequestError;
-                            }
-                            Alerts.showErrorSnackBar(errorMessage, context);
-                          }
-                        },
-                        child: Text(
-                          verificationNotSent,
-                          style: Styles.anchorText(),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            });
+        final thisUser = UserModel(
+          email: currentUser.email,
+          interests: [],
+          isOnline: false,
+          isSetup: false,
+          uid: currentUser.uid,
+        );
+        await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).set(thisUser.asMap());
       } else {
         throw Exception('User was null.');
       }
@@ -182,7 +130,7 @@ class UserService {
 
     try {
       if (currentUser != null) {
-        await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'interests': interests});
+        await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'interests': interests, 'isSetup': true});
       } else {
         throw Exception('User was null.');
       }
@@ -207,7 +155,7 @@ class UserService {
 
     try {
       if (currentUser != null) {
-        await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'name': name});
+        await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'firstName': name});
       } else {
         throw Exception('User was null.');
       }
@@ -257,7 +205,7 @@ class UserService {
         Reference profileRef = FirebaseStorage.instance.ref(currentUser.uid + '/profilePicture/');
         await profileRef.putFile(picture);
         String pictureUrl = await profileRef.getDownloadURL();
-        await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'pictureUrl': pictureUrl});
+        await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).update({'imageUrl': pictureUrl});
       } else {
         throw Exception('User was null.');
       }
@@ -267,6 +215,89 @@ class UserService {
         case 'permission-denied':
           _errorMessage = permissionDenied;
           break;
+        default:
+          _errorMessage = e.code;
+          break;
+      }
+      Alerts.showErrorSnackBar(_errorMessage, context);
+    } on Exception catch (e) {
+      Alerts.showErrorSnackBar(e.toString(), context);
+    }
+  }
+
+  static Future<void> verifyEmail(BuildContext context) async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    try {
+      if (currentUser != null) {
+        await currentUser.sendEmailVerification();
+        showDialog(
+            context: context,
+            builder: (_) {
+              return Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: const BorderSide(),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        verificationTitle,
+                        style: Styles.dialogTitle(),
+                      ),
+                      const SizedBox(height: 30),
+                      Text(
+                        verificationMessage,
+                        textAlign: TextAlign.center,
+                        style: Styles.dialogText(),
+                      ),
+                      const SizedBox(height: 30),
+                      Text(
+                        verificationNotSentTitle,
+                        textAlign: TextAlign.center,
+                        style: Styles.dialogText(),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          try {
+                            await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+                            Alerts.showErrorSnackBar(resendVerification, context);
+                          } on FirebaseAuthException catch (e) {
+                            String _errorMessage = defaultError;
+                            switch (e.code) {
+                              case 'too-many-requests':
+                                _errorMessage = frequentRequestError;
+                                break;
+
+                              default:
+                                _errorMessage = e.code;
+                                break;
+                            }
+                            Alerts.showErrorSnackBar(_errorMessage, context);
+                          }
+                        },
+                        child: Text(
+                          verificationNotSent,
+                          style: Styles.anchorText(),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            });
+      } else {
+        throw Exception('User was null.');
+      }
+    } on FirebaseException catch (e) {
+      String _errorMessage;
+      switch (e.code) {
+        case 'too-many-requests':
+          _errorMessage = frequentRequestError;
+          break;
+
         default:
           _errorMessage = e.code;
           break;

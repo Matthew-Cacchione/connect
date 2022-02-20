@@ -90,10 +90,8 @@ String getLandingPage() {
 
   if (currentUser == null) {
     route = '/login';
-  } else if (currentUser.emailVerified) {
-    route = '/';
   } else {
-    route = '/verification';
+    route = '/login';
   }
   return route;
 }

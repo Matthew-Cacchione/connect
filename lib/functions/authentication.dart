@@ -37,12 +37,18 @@ class Authentication {
     if (formKey.currentState!.validate()) {
       try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-        User? _currentUser = FirebaseAuth.instance.currentUser;
-        if (_currentUser!.emailVerified) {
-          UserService.setPresence(true, context);
-          Navigator.pushReplacementNamed(context, '/');
+        User? currentUser = FirebaseAuth.instance.currentUser;
+        final DocumentSnapshot<Map<String, dynamic>> userSnapshot = await FirebaseFirestore.instance.collection('users').doc(currentUser!.uid).get();
+
+        if (currentUser.emailVerified) {
+          if (userSnapshot.data()!['isSetup']) {
+            UserService.setPresence(true, context);
+            Navigator.of(context).pushReplacementNamed('/');
+          } else {
+            Navigator.of(context).pushReplacementNamed('/createprofile');
+          }
         } else {
-          Navigator.pushNamed(context, '/verification');
+          UserService.verifyEmail(context);
         }
       } on FirebaseAuthException catch (e) {
         String _errorMessage;
@@ -98,7 +104,7 @@ class Authentication {
     if (formKey.currentState!.validate()) {
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-        await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+        UserService.verifyEmail(context);
         UserService.setInitialData(context);
       } on FirebaseAuthException catch (e) {
         String _errorMessage;

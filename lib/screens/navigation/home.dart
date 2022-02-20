@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+// import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 import '../../components/appbars.dart';
 import '../../components/styles.dart';
 import '../../constants.dart';
 import '../../models/user_model.dart';
+import 'chat.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -32,7 +35,7 @@ class _HomeState extends State<Home> {
             Container(
               height: 400,
               decoration: BoxDecoration(
-                image: DecorationImage(fit: BoxFit.fill, image: Image.network(user.pictureUrl).image),
+                image: DecorationImage(fit: BoxFit.fill, image: Image.network(user.imageUrl!).image),
               ),
             ),
             const SizedBox(height: 15),
@@ -46,7 +49,7 @@ class _HomeState extends State<Home> {
                       style: Styles.profileText(),
                       children: <TextSpan>[
                         TextSpan(
-                          text: '${user.name} ',
+                          text: '${user.firstName} ',
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         TextSpan(text: 'is free until ${user.freeUntil}'),
@@ -89,6 +92,13 @@ class _HomeState extends State<Home> {
     );
   }
 
+  void openChat(UserModel user, BuildContext context) async {
+    // final otherUser = types.User(id: user.uid!, firstName: user.firstName);
+    // final chatRoom = await FirebaseChatCore.instance.createRoom(otherUser);
+
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Chat()));
+  }
+
   Widget _drawUserTiles() {
     return StreamBuilder(
       stream: users.snapshots(),
@@ -128,7 +138,7 @@ class _HomeState extends State<Home> {
           _setSortPriority(_userModels[index]);
         }
 
-        _userModels.sort((firstUser, secondUser) => firstUser.sortPriority.compareTo(secondUser.sortPriority));
+        _userModels.sort((firstUser, secondUser) => firstUser.sortPriority!.compareTo(secondUser.sortPriority!));
 
         return ListView.builder(
           itemCount: _userModels.length,
@@ -140,7 +150,7 @@ class _HomeState extends State<Home> {
                 displayProfileDialog(user);
               },
               child: Container(
-                decoration: user == _userModels.firstWhere((user) => user.sortPriority > -10)
+                decoration: user == _userModels.firstWhere((user) => user.sortPriority! > -10)
                     ? const BoxDecoration(border: Border(top: BorderSide(width: 2, color: Colors.black54)))
                     : const BoxDecoration(),
                 width: double.infinity,
@@ -148,7 +158,7 @@ class _HomeState extends State<Home> {
                 child: Row(
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundImage: Image.network(user.pictureUrl).image,
+                      backgroundImage: Image.network(user.imageUrl!).image,
                       radius: 30,
                     ),
                     const SizedBox(width: 10),
@@ -158,14 +168,14 @@ class _HomeState extends State<Home> {
                         Row(
                           children: <Widget>[
                             Text(
-                              user.name + ' is free until ' + user.freeUntil,
+                              user.firstName! + ' is free until ' + user.freeUntil!,
                             ),
                             const SizedBox(width: 5),
                           ],
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          user.promptMessage,
+                          user.promptMessage!,
                         ),
                       ],
                     ),
@@ -173,7 +183,7 @@ class _HomeState extends State<Home> {
                     Column(
                       children: <Widget>[
                         CircleAvatar(
-                          backgroundImage: Image.asset(activityIcons[user.selectedActivity]).image,
+                          backgroundImage: Image.asset(activityIcons[user.selectedActivity!]).image,
                           backgroundColor: Colors.white,
                         ),
                       ],
@@ -200,7 +210,7 @@ class _HomeState extends State<Home> {
             );
           } else {
             return AppBars.photoBar(
-                Image.network(snapshot.data!['pictureUrl']), activitySet[snapshot.data!['selectedActivity']], snapshot.data!['freeUntil'], context);
+                Image.network(snapshot.data!['imageUrl']), activitySet[snapshot.data!['selectedActivity']], snapshot.data!['freeUntil'], context);
           }
         },
       ),
