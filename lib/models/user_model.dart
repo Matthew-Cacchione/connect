@@ -37,6 +37,7 @@ class UserModel {
     isOnline = document.get('isOnline');
     promptMessage = document.get('promptMessage');
     selectedActivity = document.get('selectedActivity');
+    uid = document.get('uid');
   }
 
   Map<String, dynamic> asMap() {

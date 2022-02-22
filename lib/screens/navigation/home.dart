@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-// import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 import '../../components/appbars.dart';
 import '../../components/styles.dart';
 import '../../constants.dart';
 import '../../models/user_model.dart';
-import 'chat.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -77,7 +76,9 @@ class _HomeState extends State<Home> {
                         style: Styles.profileBtn(),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          openChat(user, context);
+                        },
                         child: Text('Chat'.toUpperCase()),
                         style: Styles.profileBtn(),
                       ),
@@ -93,10 +94,27 @@ class _HomeState extends State<Home> {
   }
 
   void openChat(UserModel user, BuildContext context) async {
-    // final otherUser = types.User(id: user.uid!, firstName: user.firstName);
-    // final chatRoom = await FirebaseChatCore.instance.createRoom(otherUser);
+    final otherUser = types.User(id: user.uid!, firstName: user.firstName);
+    await FirebaseChatCore.instance.createRoom(otherUser);
+  }
 
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Chat()));
+  PreferredSizeWidget _drawAppBar() {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(60),
+      child: StreamBuilder(
+        stream: users.doc(currentUser!.uid).snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return AppBars.photoBar(
+                Image.network(snapshot.data!['imageUrl']), activitySet[snapshot.data!['selectedActivity']], snapshot.data!['freeUntil'], context);
+          }
+        },
+      ),
+    );
   }
 
   Widget _drawUserTiles() {
@@ -183,8 +201,8 @@ class _HomeState extends State<Home> {
                     Column(
                       children: <Widget>[
                         CircleAvatar(
-                          backgroundImage: Image.asset(activityIcons[user.selectedActivity!]).image,
                           backgroundColor: Colors.white,
+                          backgroundImage: Image.asset(activityIcons[user.selectedActivity!]).image,
                         ),
                       ],
                     ),
@@ -195,25 +213,6 @@ class _HomeState extends State<Home> {
           },
         );
       },
-    );
-  }
-
-  PreferredSizeWidget _drawAppBar() {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(60),
-      child: StreamBuilder(
-        stream: users.doc(currentUser!.uid).snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return AppBars.photoBar(
-                Image.network(snapshot.data!['imageUrl']), activitySet[snapshot.data!['selectedActivity']], snapshot.data!['freeUntil'], context);
-          }
-        },
-      ),
     );
   }
 

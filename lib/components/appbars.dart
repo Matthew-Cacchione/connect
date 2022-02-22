@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import '../functions/authentication.dart';
 
 class AppBars {
   static PreferredSizeWidget defaultBar(String title) {
@@ -51,6 +52,7 @@ class AppBars {
               icon: const Icon(Icons.settings),
               onPressed: () {
                 //TODO: Redirect user to the settings screen.
+                Authentication.signOut(context);
               },
             ),
           ],

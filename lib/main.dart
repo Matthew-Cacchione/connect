@@ -91,7 +91,7 @@ String getLandingPage() {
   if (currentUser == null) {
     route = '/login';
   } else {
-    route = '/login';
+    route = '/';
   }
   return route;
 }
